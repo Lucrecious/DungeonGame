@@ -10,10 +10,11 @@ void GameObject::setController(Controller* controller) {
 }
 
 void GameObject::setPosition(Vector vector) {
-
+	// TODO: implement
 }
 
 void GameObject::setPosition(int x, int y) {
+	// TODO: implement
 }
 
 Vector GameObject::getPosition() {

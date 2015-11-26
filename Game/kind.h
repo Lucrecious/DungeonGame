@@ -1,3 +1,6 @@
+#ifndef KIND_H
+#define KIND_H
+
 enum Kind {
 	PlayerKind,
 	EnemyKind,
@@ -9,3 +12,5 @@ enum Kind {
 	DoorKind
 };
 
+
+#endif
