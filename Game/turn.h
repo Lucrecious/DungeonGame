@@ -10,7 +10,7 @@ class Turn {
 public:
 	const TurnKind kind;
 
-	Turn(TurnKind);
+	Turn(TurnKind, Vector);
 
 	// Target vector for the potion, attack and move
 	Vector target;
