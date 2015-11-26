@@ -6,6 +6,7 @@ class Controller;
 class GameObject {
 public:
 	const Kind kind;
+	const bool ghost;
 
 	GameObject(Kind);
 	void setPosition(Vector);
