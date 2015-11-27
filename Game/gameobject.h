@@ -4,8 +4,8 @@
 
 #include "vector.h"
 #include "kind.h"
+#include "controller.h"
 
-class Controller;
 class Game;
 
 class GameObject {
