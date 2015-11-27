@@ -3,8 +3,7 @@
 
 
 #include "vector.h"
-
-enum TurnKind { Move, Attack, Drink };
+#include "turnkind.h"
 
 class Turn {
 public:

@@ -2,8 +2,8 @@
 #include <math.h>
 
 LivingEntity::LivingEntity(Kind kind)
-	: GameObject(kind), atkStat(0), defStat(0), maxHP(0),
-	  currentHP(0), effect(0) {
+	: GameObject(kind), effect(0),  atkStat(0), defStat(0),
+	  maxHP(0), currentHP(0) {
 }
 
 int LivingEntity::getAtkStat() {
