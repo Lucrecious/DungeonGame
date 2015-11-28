@@ -9,5 +9,6 @@ int main() {
 	playerInput->runTests();
 	potionEffects->runTests();
 	delete playerInput;
+	delete potionEffects;
 }
 
