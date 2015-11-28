@@ -7,6 +7,7 @@ enum Kind {
 	ShadeKind,
 	EnemyKind,
 	StaticKind,
+	PotionKind,
 	StairKind,
 	VerticalWallKind,
 	HorizontalWallKind,
