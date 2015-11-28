@@ -5,6 +5,17 @@
 #include <sstream>
 using namespace std;
 
+void PlayerInputTests::runTests() {
+	testInput("a no", "attack x:0 y:-1");
+	testInput("u nw", "drink x:-1 y:-1");
+	testInput("se", "move x:1 y:1");
+	testInput("ne", "move x:1 y:-1");
+	testInput("we", "move x:-1 y:0");
+	testInput("ea", "move x:1 y:0");
+	testInput("sw", "move x:-1 y:1");
+	testInput("so", "move x:0 y:1");
+}
+
 void PlayerInputTests::testInput(string input, string expected) {
 	istringstream in(input);
 	Controller cont(in);
@@ -38,18 +49,3 @@ void PlayerInputTests::testInput(string input, string expected) {
 	}
 
 }
-
-
-void PlayerInputTests::runTests() {
-	testInput("a no", "attack x:0 y:-1");
-	testInput("u nw", "drink x:-1 y:-1");
-	testInput("se", "move x:1 y:1");
-	testInput("ne", "move x:1 y:-1");
-	testInput("we", "move x:-1 y:0");
-	testInput("ea", "move x:1 y:0");
-	testInput("sw", "move x:-1 y:1");
-	testInput("so", "move x:0 y:1");
-}
-
-
-
