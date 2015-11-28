@@ -10,10 +10,11 @@ class Game;
 
 class GameObject {
 public:
-	const Kind kind;
+	const Kind topKind;
+	const Kind subKind;
 	const bool ghost;
 
-	GameObject(Kind);
+	GameObject(Kind, Kind);
 	void setPosition(Vector);
 	void setPosition(int, int);
 	Vector getPosition() const;

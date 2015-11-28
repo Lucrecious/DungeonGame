@@ -1,4 +1,4 @@
-#include "../Game/controller.h"
+#include "../game/controller.h"
 #include "testingharness.h"
 #include <iostream>
 #include <string>

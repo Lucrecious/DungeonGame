@@ -1,6 +1,6 @@
 #include "gameobject.h"
 
-GameObject::GameObject(Kind _kind) : kind(_kind), ghost(false) {
+GameObject::GameObject(Kind top, Kind sub) : topKind(top), subKind(sub), ghost(false) {
 	this->position.x = 0;
 	this->position.y = 0;
 }

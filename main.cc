@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Game/livingentity.h"
+#include "game/livingentity.h"
 #include "tests/testingharness.h"
 
 
