@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -g -Wall -MMD
-OBJECTS = main.o Game/gameobject.o Game/livingentity.o Game/turn.o Game/player.o Game/controller.o
+OBJECTS = main.o Game/gameobject.o Game/livingentity.o Game/turn.o Game/player.o Game/controller.o tests/playerInputTests.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = ChamberCrawler3000
 

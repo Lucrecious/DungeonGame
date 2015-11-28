@@ -1,7 +1,11 @@
 #include <iostream>
 #include "Game/livingentity.h"
+#include "tests/testingharness.h"
+
 
 int main() {
-	std::cout << "Hello World" << std::endl;
+	TestingHarness* playerInput = new PlayerInputTests();
+	playerInput->runTests();
+	delete playerInput;
 }
 
