@@ -19,7 +19,7 @@ int LivingEntity::getDefStat() const {
 }
 
 int LivingEntity::getMaxHP() const {
-	// TODO: make sure nothing affects this?
+	// TODO: I don't think anything affects this...
 	return this->maxHP;
 }
 
