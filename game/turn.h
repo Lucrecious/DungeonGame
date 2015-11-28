@@ -2,7 +2,7 @@
 #define TURN_H
 
 
-#include "vector.h"
+#include "../utils/vector.h"
 #include "turnkind.h"
 
 struct Turn {

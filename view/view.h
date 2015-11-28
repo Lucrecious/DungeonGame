@@ -1,8 +1,8 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "../game/kind.h"
-#include "../game/vector.h"
+#include "../globals/kind.h"
+#include "../utils/vector.h"
 
 class View {
 public:

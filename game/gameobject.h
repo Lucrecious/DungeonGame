@@ -2,8 +2,8 @@
 #define GAMEOBJECT_H
 
 
-#include "vector.h"
-#include "kind.h"
+#include "../utils/vector.h"
+#include "../globals/kind.h"
 #include "controller.h"
 
 class Game;
