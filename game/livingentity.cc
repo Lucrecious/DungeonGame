@@ -2,7 +2,7 @@
 #include <math.h>
 
 LivingEntity::LivingEntity(Kind kind)
-	: GameObject(kind, LivingKind), effect(0),  atkStat(0), defStat(0),
+	: GameObject(LivingKind, kind), effect(0),  atkStat(0), defStat(0),
 	  maxHP(0), currentHP(0) {
 }
 

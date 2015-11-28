@@ -4,6 +4,7 @@
 enum Kind {
 	LivingKind,
 	PlayerKind,
+	ShadeKind,
 	EnemyKind,
 	StaticKind,
 	StairKind,

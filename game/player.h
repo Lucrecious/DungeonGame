@@ -4,6 +4,7 @@
 #include "livingentity.h"
 
 class Player : public LivingEntity {
+public:
 	Player(Kind);
 	Turn getTurn();
 };

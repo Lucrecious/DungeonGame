@@ -5,7 +5,7 @@
 
 class StaticEntity : public GameObject {
 public:
-	virtual StaticEntity(Kind) = 0;
+	StaticEntity(Kind kind) : GameObject(StaticKind, kind) {}
 };
 
 

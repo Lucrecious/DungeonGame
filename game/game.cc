@@ -1,5 +1,6 @@
 #include "game.h"
 #include <vector>
+#include "characters/shade.h"
 using namespace std;
 
 Game::Game() : controller(0) {
@@ -36,7 +37,26 @@ LivingEntity* Game::getLivingAt(int i) const {
 }
 
 GameObject* Game::addObject(Kind kind) {
-	return 0;
+	GameObject* gobj;
+
+	switch (kind) {
+		case ShadeKind:
+			gobj =  new Shade();
+			break;
+		default:
+			break;
+	}
+
+	if (gobj) {
+		if (gobj->topKind == LivingKind) {
+			this->livings->push_back(static_cast<LivingEntity*>(gobj));
+		}
+		else {
+			this->statics->push_back(static_cast<StaticEntity*>(gobj));
+		}
+	}
+
+	return gobj;
 }
 
 void Game::update() {
