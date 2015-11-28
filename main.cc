@@ -1,9 +1,11 @@
 #include <iostream>
-#include "game/livingentity.h"
 #include "tests/testingharness.h"
+#include "game/controller.h"
+#include <iostream>
 
 
 int main() {
+	// Start tests
 	TestingHarness* playerInput = new PlayerInputTests();
 	TestingHarness* potionEffects = new PotionEffectTests();
 	TestingHarness* stacks = new StackTests();
@@ -13,5 +15,10 @@ int main() {
 	delete playerInput;
 	delete potionEffects;
 	delete stacks;
+	// End tests
+	
+	Controller cont(std::cin);
+	cont.play();
+
 }
 

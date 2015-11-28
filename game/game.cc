@@ -1,9 +1,11 @@
 #include "game.h"
 #include <vector>
 #include "characters/shade.h"
+#include <iostream>
+// TODO: delete iostream
 using namespace std;
 
-Game::Game() : controller(0) {
+Game::Game() : controller(0), currentLevel(0) {
 	this->statics = new vector<StaticEntity*>();
 	this->livings = new vector<LivingEntity*>();
 }
@@ -44,6 +46,7 @@ GameObject* Game::addObject(Kind kind) {
 		case HWallKind:
 		case FloorKind:
 			gobj = new StaticEntity(kind);
+			break;
 
 		case ShadeKind:
 			gobj =  new Shade();
@@ -66,6 +69,23 @@ GameObject* Game::addObject(Kind kind) {
 
 void Game::update() {
 	// TODO: Basically the entire fucking thing
+	if (this->currentLevel == 0) {
+		this->currentLevel = new Level(this);
+		this->init();
+	}
+}
+
+void Game::init() {
+	Vector v;
+	for (int i = 0; i < LEVELSIZE; i++) {
+		v.y = i;
+		for (int j = 0; j < LEVELSIZE; j++) {
+			v.x = j;
+			this->controller->notify(v,
+					this->currentLevel->tiles[i][j]->peek()->subKind);
+			cout << this->currentLevel->tiles[i][j]->peek()->subKind << endl;
+		}
+	}
 }
 
 void Game::setController(Controller* controller) {

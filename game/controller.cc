@@ -46,6 +46,33 @@ Turn Controller::getInput() const {
 
 }
 
+void Controller::notify(Vector v, Kind k) const {
+	this->view->notify(v, k);
+}
+
+void Controller::play() {
+	string command;
+
+	this->game = new Game();
+	this->game->setController(this);
+
+	this->view = new TextView(4, 4);
+
+	while (true) {
+		this->in >> command;
+		
+		if (command == "quit") {
+			break;
+		}
+
+		this->game->update();
+		this->view->display();
+	}
+
+	delete this->game;
+	delete this->view;
+}
+
 
 
 

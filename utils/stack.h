@@ -28,6 +28,10 @@ public:
 		return value;
 	}
 
+	T peek() {
+		return this->top->value;
+	}
+
 	void push(T value) {
 		Node<T>* node = new Node<T>();
 		node->below = this->top;

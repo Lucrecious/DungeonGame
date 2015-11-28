@@ -7,7 +7,7 @@ Level::Level(Game* game) {
 
 	for (int i = 0; i < LEVELSIZE; i++) {
 		for (int j = 0; j < LEVELSIZE; j++) {
-			Stack* stack = new Stack();
+			Stack<GameObject*>* stack = new Stack<GameObject*>();
 
 			this->tiles[i][j] = stack;
 			GameObject* gobj;

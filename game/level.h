@@ -3,12 +3,16 @@
 
 #include "../utils/stack.h"
 
+class Game;
+class GameObject;
+
 const int LEVELSIZE = 4;
 class Level {
 public:
-	Level();
+	Level(Game*);
 	~Level();
-	Stack* tiles[LEVELSIZE][LEVELSIZE];
+	Stack<GameObject*>* tiles[LEVELSIZE][LEVELSIZE];
+	Game* game;
 };
 
 #endif
