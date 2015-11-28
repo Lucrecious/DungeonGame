@@ -2,6 +2,7 @@
 #define KIND_H
 
 enum Kind {
+	NoneKind,
 	LivingKind,
 	PlayerKind,
 	ShadeKind,

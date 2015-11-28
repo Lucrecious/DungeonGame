@@ -2,18 +2,20 @@
 #include <math.h>
 
 LivingEntity::LivingEntity(Kind kind)
-	: GameObject(LivingKind, kind), effect(0),  atkStat(0), defStat(0),
+	: GameObject(LivingKind, kind), effect(0),
+	  numKnownPotions(0), atkStat(0), defStat(0),
 	  maxHP(0), currentHP(0) {
+		  for (int i = 0; i < MAXKNOWNPOTS; i++) {
+			  this->knownPotions[i] = NoneKind;
+		  }
 }
 
 int LivingEntity::getAtkStat() const {
-	// TODO: effects need to affect this
-	return this->atkStat;
+	return this->atkStat + this->effect->getAtkNet();
 }
 
 int LivingEntity::getDefStat() const {
-	//TODO: effects need to affect this
-	return this->defStat;
+	return this->defStat + this->effect->getDefNet();
 }
 
 int LivingEntity::getMaxHP() const {
@@ -48,8 +50,21 @@ void LivingEntity::receiveAttack(LivingEntity* entity, int dam) {
 }
 
 void LivingEntity::drink(Potion* potion) {
-	// TODO: do something with the potion...
-	// TODO: add an effect decorator
+	//TODO: we need a different implementation for health pots
+	if (true) {
+		this->effect = potion->getEffect(this->effect);
+		this->addNewKnownPotion(potion->subKind);
+	}
+}
+
+void LivingEntity::addNewKnownPotion(Kind kind) {
+	for (int i = 0; i < this->numKnownPotions; i++) {
+		if (kind == this->knownPotions[i]) {
+			return;
+		}
+	}
+
+	this->knownPotions[this->numKnownPotions++] = kind;
 }
 
 void LivingEntity::move(Vector movement) {

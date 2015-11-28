@@ -4,9 +4,11 @@
 
 #include "gameobject.h"
 #include "turn.h"
+#include "statics/effect.h"
+#include "statics/potion.h"
 
-class Potion;
-class Effect;
+
+const int MAXKNOWNPOTS = 6;
 
 class LivingEntity : public GameObject {
 public:
@@ -42,8 +44,8 @@ protected:
 	Effect* effect;
 
 private:
-	// TODO: need a better add structure for this
-	Kind knownPotions;
+	Kind knownPotions[MAXKNOWNPOTS];
+	int numKnownPotions;
 	void addNewKnownPotion(Kind);
 	
 	const int atkStat;
