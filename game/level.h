@@ -3,8 +3,12 @@
 
 #include "../utils/stack.h"
 
+const int LEVELSIZE = 4;
 class Level {
-	Stack* tiles[4][4];
+public:
+	Level();
+	~Level();
+	Stack* tiles[LEVELSIZE][LEVELSIZE];
 };
 
 #endif

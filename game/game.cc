@@ -40,6 +40,11 @@ GameObject* Game::addObject(Kind kind) {
 	GameObject* gobj;
 
 	switch (kind) {
+		case VWallKind:
+		case HWallKind:
+		case FloorKind:
+			gobj = new StaticEntity(kind);
+
 		case ShadeKind:
 			gobj =  new Shade();
 			break;

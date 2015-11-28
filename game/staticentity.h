@@ -5,7 +5,11 @@
 
 class StaticEntity : public GameObject {
 public:
-	StaticEntity(Kind kind) : GameObject(StaticKind, kind) {}
+	StaticEntity(Kind kind) : GameObject(StaticKind, kind) {
+		if (kind == FloorKind) {
+			this->ghost = true;
+		}
+	}
 };
 
 

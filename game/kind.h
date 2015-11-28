@@ -10,9 +10,9 @@ enum Kind {
 	StaticKind,
 	PotionKind,
 	StairKind,
-	VerticalWallKind,
-	HorizontalWallKind,
-	FloorTileKind,
+	VWallKind,
+	HWallKind,
+	FloorKind,
 	PassageKind,
 	DoorKind
 };

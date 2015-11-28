@@ -12,7 +12,7 @@ class GameObject {
 public:
 	const Kind topKind;
 	const Kind subKind;
-	const bool ghost;
+	bool ghost;
 
 	GameObject(Kind, Kind);
 	void setPosition(Vector);
