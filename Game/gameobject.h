@@ -16,7 +16,7 @@ public:
 	GameObject(Kind);
 	void setPosition(Vector);
 	void setPosition(int, int);
-	Vector getPosition();
+	Vector getPosition() const;
 	void setController(Controller*);
 	void setGame(Game*);
 

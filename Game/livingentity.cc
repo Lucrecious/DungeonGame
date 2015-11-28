@@ -6,17 +6,17 @@ LivingEntity::LivingEntity(Kind kind)
 	  maxHP(0), currentHP(0) {
 }
 
-int LivingEntity::getAtkStat() {
+int LivingEntity::getAtkStat() const {
 	// TODO: effects need to affect this
 	return this->atkStat;
 }
 
-int LivingEntity::getDefStat() {
+int LivingEntity::getDefStat() const {
 	//TODO: effects need to affect this
 	return this->defStat;
 }
 
-int LivingEntity::getMaxHP() {
+int LivingEntity::getMaxHP() const {
 	// TODO: make sure nothing affects this?
 	return this->maxHP;
 }
@@ -32,11 +32,11 @@ void LivingEntity::setHP(int hp) {
 	}
 }
 
-int LivingEntity::getHP() {
+int LivingEntity::getHP() const{
 	return this->currentHP;
 }
 
-int LivingEntity::getAttackDamage(LivingEntity* entity) {
+int LivingEntity::getAttackDamage(LivingEntity* entity) const{
 	int damage = ceil((100 / (100 + entity->getDefStat()))) *
 		this->getAtkStat();
 

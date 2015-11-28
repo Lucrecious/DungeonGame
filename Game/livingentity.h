@@ -11,11 +11,11 @@ class Effect;
 class LivingEntity : public GameObject {
 public:
 	LivingEntity(Kind);
-	int getAtkStat();
-	int getDefStat();
-	int getMaxHP();
+	int getAtkStat() const;
+	int getDefStat() const;
+	int getMaxHP() const;
 	virtual void setHP(int); // virtual for vampire, no hp cap
-	int getHP();
+	int getHP() const;
 
 	virtual Turn getTurn() = 0;
 
@@ -25,7 +25,7 @@ public:
 
 	// get the attack damage this entity will give
 	//   to the given living entity
-	virtual int getAttackDamage(LivingEntity*);
+	virtual int getAttackDamage(LivingEntity*) const;
 
 	// receive an attack from the given living entity
 	//   with the damage given

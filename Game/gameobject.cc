@@ -17,6 +17,6 @@ void GameObject::setPosition(int x, int y) {
 	// TODO: implement
 }
 
-Vector GameObject::getPosition() {
+Vector GameObject::getPosition() const{
 	return this->position;
 }
