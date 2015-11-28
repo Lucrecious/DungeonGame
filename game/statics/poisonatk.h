@@ -3,7 +3,8 @@
 
 #include "neteffect.h"
 
-class PoisonAtk : NetEffect {
+class PoisonAtk : public NetEffect {
+public:
 	const int poisonAtk;
 	PoisonAtk(Effect*);
 	int getAtkNet();

@@ -16,5 +16,15 @@ private:
 };
 
 
+class PotionEffectTests : public TestingHarness {
+public:
+	void runTests();
+private:
+	// a - boost attack
+	// d - boost defence
+	// t - poison attack
+	// e - poison defence
+	void testPotionEffects(std::string, int, int);
+};
 
 #endif

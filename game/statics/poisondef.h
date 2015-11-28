@@ -4,6 +4,7 @@
 #include "neteffect.h"
 
 class PoisonDef : public NetEffect {
+public:
 	const int poisonDef;
 	PoisonDef(Effect*);
 	int getAtkNet();

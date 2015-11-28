@@ -4,6 +4,7 @@
 #include "neteffect.h"
 
 class BoostAtk : public NetEffect {
+public:
 	const int atkBoost;
 	BoostAtk(Effect* effect);
 	int getAtkNet();
