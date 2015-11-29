@@ -1,4 +1,5 @@
 #include "controller.h"
+#include "../globals/global.h"
 using namespace std;
 
 Controller::Controller(istream& input) : in(input) { } 
@@ -56,7 +57,7 @@ void Controller::play() {
 	this->game = new Game();
 	this->game->setController(this);
 
-	this->view = new TextView(4, 4);
+	this->view = new TextView(Global::levelWidth, Global::levelHeight);
 
 	while (true) {
 		this->in >> command;

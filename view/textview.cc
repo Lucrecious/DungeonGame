@@ -1,5 +1,6 @@
 #include "textview.h"
 #include <iostream>
+#include "../globals/global.h"
 using namespace std;
 
 TextView::TextView(int w, int h) : width(w), height(h) {
@@ -37,11 +38,15 @@ void TextView::notify(Vector v, Kind k) {
 char TextView::getCharFromKind(Kind kind) {
 	switch(kind) {
 		case FloorKind:
-			return '.';
+			return Global::FloorSymbol;
 		case VWallKind:
-			return '|';
+			return Global::VWallSymbol;
 		case HWallKind:
-			return '-';
+			return Global::HWallSymbol;
+		case PassageKind:
+			return Global::PassageSymbol;
+		case DoorKind:
+			return Global::DoorSymbol;
 		default:
 			return '?';
 	}
