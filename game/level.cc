@@ -19,26 +19,27 @@ Level::~Level() {
 	}
 }
 
+// This is to load the items and such into the level.
 void Level::load(istream& in) {
 	string line;
 	
-	// We only need to get 30 lines from the stream
-	//   so a for is suitable
+	// We only need to get 25 lines from the stream
+	//   so a "for" is suitable
 	for (int i = 0; i < Global::levelHeight; i++) {
 		getline(in, line);
 		
-		// If the file for some reason runs out early
-		//   at rather stop silently than get a segmentation
-		//   fault
+		// If the file for some reason runs out early, before we hit the
+		//   end, it's better to die silently than at a segmentation fault
 		if (in.eof()) {
 			cerr << "Level is too short" << endl;
 			break;
 		}
 		
-		// We only need 74 columns from the line, the
-		//   rest is too wide. Also need to make sure
+		// We need 79 columns from the line, the
+		//   rest is too wide. Also, we need to make sure
 		//   we don't get a segmentation fault if the
-		//   sting is too short.
+		//   sting is too short. This "for" stops when either the line is too short
+		//   or the line too long.
 		for (int j = 0;
 				i < Global::levelWidth && j < (int)line.size();
 				j++) {
@@ -50,6 +51,8 @@ void Level::load(istream& in) {
 	}
 }
 
+// This is strictly to only load empty floors, hence the different name from load.
+//   these two functions do the exact the same, but on completely different streams.
 void Level::init(istream& in) {
 	this->load(in);
 }
