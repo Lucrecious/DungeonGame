@@ -20,14 +20,14 @@ Level::~Level() {
 }
 
 // This is to load the items and such into the level.
-void Level::load(istream& in) {
+void Level::load(istream& in, bool empty) {
 	string line;
 	
 	// We only need to get 25 lines from the stream
 	//   so a "for" is suitable
 	for (int i = 0; i < Global::levelHeight; i++) {
 		getline(in, line);
-		
+
 		// If the file for some reason runs out early, before we hit the
 		//   end, it's better to die silently than at a segmentation fault
 		if (in.eof()) {
@@ -45,19 +45,24 @@ void Level::load(istream& in) {
 				j++) {
 			// We run the given function on this position and
 			//   character.
-			this->charToObject(i, j, line[j]);
+			this->charToObject(i, j, line[j], empty);
 
 		}
 	}
 }
 
+
+void Level::load(istream& in) {
+	this->load(in, false);
+}
+
 // This is strictly to only load empty floors, hence the different name from load.
 //   these two functions do the exact the same, but on completely different streams.
 void Level::init(istream& in) {
-	this->load(in);
+	this->load(in, true);
 }
 
-void Level::charToObject(int i, int j, char c) {
+void Level::charToObject(int i, int j, char c, bool empty) {
 	if (c == ' ') {
 		return;
 	}
@@ -71,29 +76,44 @@ void Level::charToObject(int i, int j, char c) {
 		stack = this->tiles[i][j];
 	}
 	
-	GameObject* gobj;
-	switch(c){
-		case Global::VWallSymbol:
-			gobj = game->addObject(VWallKind);
-			break;
-		case Global::HWallSymbol:
-			gobj = game->addObject(HWallKind);
-			break;
-		case Global::FloorSymbol:
-			gobj = game->addObject(FloorKind);
-			break;
-		case Global::PassageSymbol:
-			gobj = game->addObject(PassageKind);
-			break;
-		case Global::DoorSymbol:
-			gobj = game->addObject(DoorKind);
-			break;
-		default:
-			gobj = NULL;
-			
+	GameObject* gobj = NULL;
+
+	if (!empty) {
+		switch(c) {
+			case Global::VWallSymbol:
+			case Global::HWallSymbol:
+			case Global::FloorSymbol:
+			case Global::PassageSymbol:
+			case Global::DoorSymbol:
+				break;
+			default:
+				gobj = this->game->addObject(DoorKind);
+		}
+	}
+	else {
+		switch(c) {
+			case Global::VWallSymbol:
+				gobj = this->game->addObject(VWallKind);
+				break;
+			case Global::HWallSymbol:
+				gobj = this->game->addObject(HWallKind);
+				break;
+			case Global::FloorSymbol:
+				gobj = this->game->addObject(FloorKind);
+				break;
+			case Global::PassageSymbol:
+				gobj = this->game->addObject(PassageKind);
+				break;
+			case Global::DoorSymbol:
+				gobj = this->game->addObject(DoorKind);
+				break;
+			default:
+				gobj = NULL;
+		}
 	}
 
 	if (gobj) {
+		gobj->setPosition(i, j);
 		stack->push(gobj);
 	}
 }

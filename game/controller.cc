@@ -1,5 +1,7 @@
 #include "controller.h"
 #include "../globals/global.h"
+#include <fstream>
+#include <string>
 using namespace std;
 
 Controller::Controller(istream& input) : in(input) { } 
@@ -59,11 +61,19 @@ void Controller::play() {
 
 	this->view = new TextView(Global::levelWidth, Global::levelHeight);
 
+	string save = "cc3kfloor.txt";
+	ifstream load(save.c_str());
+
+
 	while (true) {
 		this->in >> command;
 		
 		if (command == "quit") {
 			break;
+		}
+		
+		if (command == "nextlevel") {
+			this->game->buildLevel(load);
 		}
 
 		this->game->update();
@@ -72,6 +82,7 @@ void Controller::play() {
 
 	delete this->game;
 	delete this->view;
+	load.close();
 }
 
 

@@ -22,7 +22,9 @@ public:
 	Stack<GameObject*>* tiles[Global::levelHeight][Global::levelWidth];
 	Game* game;
 private:
-	void charToObject(int, int, char);
+	// true for empty level, false otherwise
+	void load(std::istream&, bool);
+	void charToObject(int, int, char, bool);
 };
 
 #endif

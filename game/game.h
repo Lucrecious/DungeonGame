@@ -4,6 +4,8 @@
 #include "level.h"
 #include "../globals/kind.h"
 #include <vector>
+#include <string>
+#include <iostream>
 
 class Controller;
 class LivingEntity;
@@ -12,6 +14,7 @@ class GameObject;
 
 class Game {
 public:
+	const static int levelAmt = 5;
 	Game();
 	~Game();
 	int getStaticAmount() const;
@@ -20,13 +23,16 @@ public:
 	LivingEntity* getLivingAt(int) const;
 	GameObject* addObject(Kind);
 	void update();
-	void init();
+	void buildLevel(std::istream&);
 	void setController(Controller*);
 private:
+	void clearNonPlayerObjects();
+	void notifyWholeLevel();
 	Controller* controller;
 	std::vector<StaticEntity*>* statics;
 	std::vector<LivingEntity*>* livings;
-	Level* currentLevel;
+	int levelNumber;
+	Level* level;
 };
 
 
