@@ -1,8 +1,8 @@
 #include "testingharness.h"
 #include "../game/statics/boostatk.h"
 #include "../game/statics/boostdef.h"
-#include "../game/statics/poisonatk.h"
-#include "../game/statics/poisondef.h"
+#include "../game/statics/woundatk.h"
+#include "../game/statics/wounddef.h"
 #include "../game/statics/noeffect.h"
 #include "../game/statics/effect.h"
 #include <iostream>
@@ -41,10 +41,10 @@ void PotionEffectTests::testPotionEffects(string com, int netAtk, int netDef) {
 				effect = new BoostDef(effect);
 				break;
 			case 't':
-				effect = new PoisonAtk(effect);
+				effect = new WoundAtk(effect);
 				break;
 			case 'e':
-				effect = new PoisonDef(effect);
+				effect = new WoundDef(effect);
 				break;
 			default:
 				break;

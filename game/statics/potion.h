@@ -7,7 +7,7 @@ class Effect;
 
 class Potion : public StaticEntity {
 public:
-	Potion(Kind);
+	Potion(Kind k) : StaticEntity(k) { };
 	virtual Effect* getEffect(Effect*) const = 0;
 };
 

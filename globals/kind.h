@@ -9,12 +9,18 @@ enum Kind {
 	EnemyKind = 4,
 	StaticKind = 5,
 	PotionKind = 6,
-	StairKind = 7,
-	VWallKind = 8,
-	HWallKind = 9,
-	FloorKind = 10,
-	PassageKind = 11,
-	DoorKind = 12
+	RHPotionKind = 7,
+	BAPotionKind = 8,
+	BDPotionKind = 9,
+	PHPotionKind = 10,
+	WAPotionKind = 11,
+	WDPotionKind = 12,
+	StairKind = 13,
+	VWallKind = 14,
+	HWallKind = 15,
+	FloorKind = 16,
+	PassageKind = 17,
+	DoorKind = 18
 };
 
 

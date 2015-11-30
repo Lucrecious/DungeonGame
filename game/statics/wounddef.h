@@ -1,12 +1,12 @@
-#ifndef POISONDEF_H
-#define POISONDEF_H
+#ifndef WOUNDDEF_H
+#define WOUNDDEF_H
 
 #include "neteffect.h"
 
-class PoisonDef : public NetEffect {
+class WoundDef : public NetEffect {
 public:
 	const int poisonDef;
-	PoisonDef(Effect*);
+	WoundDef(Effect*);
 	int getAtkNet();
 	int getDefNet();
 };
