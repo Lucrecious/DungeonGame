@@ -12,6 +12,7 @@ class LivingEntity;
 class StaticEntity;
 class GameObject;
 class Player;
+struct Turn;
 
 class Game {
 public:
@@ -28,6 +29,7 @@ public:
 	void setController(Controller*);
 	void setPlayer(Kind);
 private:
+	bool doTurn(Turn, GameObject*);
 	void clearNonPlayerObjects();
 	void notifyWholeLevel();
 	Controller* controller;

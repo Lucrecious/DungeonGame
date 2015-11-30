@@ -75,7 +75,8 @@ void LivingEntity::move(Vector movement) {
 }
 
 
-
+void LivingEntity::turnSucceeded(Turn, bool) {
+}
 
 
 

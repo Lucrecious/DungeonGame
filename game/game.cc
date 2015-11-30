@@ -62,6 +62,7 @@ GameObject* Game::addObject(Kind kind) {
 	}
 
 	if (gobj) {
+		gobj->setController(this->controller);
 		if (gobj->topKind == LivingKind) {
 			this->livings->push_back(static_cast<LivingEntity*>(gobj));
 		}
@@ -74,6 +75,43 @@ GameObject* Game::addObject(Kind kind) {
 }
 
 void Game::update() {
+	for (int i = 0; i < (int)this->livings->size(); i++) {
+		LivingEntity* gobj = this->livings->at(i);
+		Turn turn = gobj->getTurn();
+		if (this->doTurn(turn, gobj)) {
+			gobj->turnSucceeded(turn, true);
+		}
+		else {
+			gobj->turnSucceeded(turn, false);
+		}
+	}
+}
+
+bool Game::doTurn(Turn turn, GameObject* gobj) {
+	switch (turn.kind) {
+		case Move:
+			{
+			Vector target = turn.target;
+			Vector pos = gobj->getPosition();
+
+			if (!this->level->isFree(pos + target)) {
+				return false;
+			}
+			cout << "Player position " << pos.x << " " << pos.y << " -- in game.cc" << endl;
+			this->level->move(pos, pos + target);
+			this->controller->notify(
+					pos,
+					this->level->tiles[pos.y][pos.x]->peek()->subKind);
+			this->controller->notify(
+					pos + target,
+					gobj->subKind);
+			break;
+			}
+		default:
+			return false;
+	}
+
+	return true;
 }
 
 void Game::clearNonPlayerObjects() {

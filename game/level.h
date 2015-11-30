@@ -27,6 +27,7 @@ public:
 	
 	void move(Vector, Vector);
 	void place(GameObject*, Vector);
+	bool isFree(Vector);
 
 private:
 	// true for empty level, false otherwise

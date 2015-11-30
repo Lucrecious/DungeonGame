@@ -65,6 +65,22 @@ void Level::init(istream& in) {
 	this->load(in, true);
 }
 
+bool Level::isFree(Vector v) {
+	Stack<GameObject*>* stack = this->tiles[v.y][v.x];
+	if (!stack) {
+		return true;
+	}
+
+	GameObject* gobj = stack->peek();
+	cout << "is ghost " << gobj->ghost << " -- in level.cc" << endl;
+	cout << "kind " << gobj->subKind << " -- in level.cc" << endl;
+	if (gobj->ghost) {
+		return true;
+	}
+
+	return false;
+}
+
 void Level::charToObject(int i, int j, char c, bool empty) {
 	if (c == ' ') {
 		return;

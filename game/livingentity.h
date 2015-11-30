@@ -40,6 +40,8 @@ public:
 	// move us by the given vector
 	virtual void move(Vector);
 
+	virtual void turnSucceeded(Turn, bool);
+
 protected:
 	Effect* effect;
 
