@@ -5,7 +5,7 @@
 
 class Player : public LivingEntity {
 public:
-	Player(Kind);
+	Player(Kind, int, int, int);
 	Turn getTurn();
 };
 

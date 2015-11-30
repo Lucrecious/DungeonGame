@@ -1,10 +1,11 @@
 #include "livingentity.h"
 #include <math.h>
 
-LivingEntity::LivingEntity(Kind kind)
+LivingEntity::LivingEntity(Kind kind,
+		int atk = 0, int def = 0, int hp = 0)
 	: GameObject(LivingKind, kind), effect(0),
-	  numKnownPotions(0), atkStat(0), defStat(0),
-	  maxHP(0), currentHP(0) {
+	  numKnownPotions(0), atkStat(atk), defStat(def),
+	  maxHP(hp), currentHP(hp) {
 		  for (int i = 0; i < MAXKNOWNPOTS; i++) {
 			  this->knownPotions[i] = NoneKind;
 		  }
