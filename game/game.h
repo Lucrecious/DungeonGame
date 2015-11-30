@@ -11,6 +11,7 @@ class Controller;
 class LivingEntity;
 class StaticEntity;
 class GameObject;
+class Player;
 
 class Game {
 public:
@@ -25,6 +26,7 @@ public:
 	void update();
 	void buildLevel(std::istream&);
 	void setController(Controller*);
+	void setPlayer(Kind);
 private:
 	void clearNonPlayerObjects();
 	void notifyWholeLevel();
@@ -33,6 +35,7 @@ private:
 	std::vector<LivingEntity*>* livings;
 	int levelNumber;
 	Level* level;
+	Player* player;
 };
 
 

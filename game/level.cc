@@ -9,6 +9,9 @@ Level::Level(Game* g) : game(g) {
 			this->tiles[i][j] = NULL;
 		}
 	}
+
+	this->spawn.x = 0;
+	this->spawn.y = 0;
 }
 
 Level::~Level() {
@@ -86,6 +89,11 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 			case Global::PassageSymbol:
 			case Global::DoorSymbol:
 				break;
+			case Global::PlayerSymbol:
+				cout << "make player spawn -- in level.c" << endl;
+				this->spawn.x = j;
+				this->spawn.y = i;
+				break;
 			default:
 				gobj = this->game->addObject(DoorKind);
 		}
@@ -109,6 +117,7 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 				break;
 			default:
 				gobj = NULL;
+				break;
 		}
 	}
 
@@ -117,5 +126,48 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 		stack->push(gobj);
 	}
 }
+
+Vector Level::getPlayerSpawn() {
+	return this->spawn;
+}
+
+void Level::move(Vector from, Vector to) {
+	Stack<GameObject*>* stack = this->tiles[from.y][from.x];
+	if (stack) {
+		GameObject* gobj = stack->pop();
+		Stack<GameObject*>* toStack = this->tiles[to.y][to.x];
+		if (!toStack) {
+			toStack = new Stack<GameObject*>();
+			this->tiles[to.y][to.x] = toStack;
+		}
+
+		toStack->push(gobj);
+		gobj->setPosition(to);
+	}
+}
+
+// Assumes the given GameObject is not already on the level...
+//   this is only meant to be used on the player, it's a very
+//   risky function, later I might add a level field to the
+//   game objects just to guard this function, it could
+//   screw us if you use it accidently somewhere wrong
+void Level::place(GameObject* gobj, Vector pos) {
+	Stack<GameObject*>* toStack = this->tiles[pos.y][pos.x];
+	if (!toStack) {
+		toStack = new Stack<GameObject*>();
+		this->tiles[pos.y][pos.x] = toStack;
+	}
+
+	toStack->push(gobj);
+	gobj->setPosition(pos);
+	cout << pos.x << " " << pos.y << endl;
+}
+
+
+
+
+
+
+
 
 

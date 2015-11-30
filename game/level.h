@@ -3,6 +3,7 @@
 
 #include "../utils/stack.h"
 #include "../globals/global.h"
+#include "../utils/vector.h"
 #include <fstream>
 
 class Game;
@@ -21,9 +22,16 @@ public:
 
 	Stack<GameObject*>* tiles[Global::levelHeight][Global::levelWidth];
 	Game* game;
+
+	Vector getPlayerSpawn();
+	
+	void move(Vector, Vector);
+	void place(GameObject*, Vector);
+
 private:
 	// true for empty level, false otherwise
 	void load(std::istream&, bool);
+	Vector spawn;
 	void charToObject(int, int, char, bool);
 };
 

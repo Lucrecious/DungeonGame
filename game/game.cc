@@ -5,7 +5,8 @@
 #include <iostream>
 using namespace std;
 
-Game::Game() : controller(0), levelNumber(0), level(0) {
+Game::Game() : controller(0), levelNumber(0), level(0),
+			   player(0){
 	this->statics = new vector<StaticEntity*>();
 	this->livings = new vector<LivingEntity*>();
 }
@@ -80,13 +81,8 @@ void Game::clearNonPlayerObjects() {
 		delete this->statics->at(i);
 	}
 
-	LivingEntity* player = 0;
 	for (int i = 0; i < (int)this->livings->size(); i++) {
-		if (this->livings->at(i) &&
-			this->livings->at(i)->topKind == PlayerKind) {
-			player = this->livings->at(i);
-		}
-		else {
+		if (this->livings->at(i) != this->player) {
 			delete this->livings->at(i);
 		}
 	}
@@ -96,8 +92,8 @@ void Game::clearNonPlayerObjects() {
 
 	this->statics = new vector<StaticEntity*>();
 	this->livings = new vector<LivingEntity*>();
-	if (player) {
-		this->livings->push_back(player);
+	if (this->player) {
+		this->livings->push_back(this->player);
 	}
 
 }
@@ -130,6 +126,10 @@ void Game::buildLevel(istream& in) {
 
 	this->level->load(in);
 
+	this->level->place(
+			this->player,
+			this->level->getPlayerSpawn());
+
 	this->notifyWholeLevel();
 }
 
@@ -137,12 +137,9 @@ void Game::setController(Controller* controller) {
 	this->controller = controller;
 }
 
-
-
-
-
-
-
-
+void Game::setPlayer(Kind kind) {
+	GameObject* player = this->addObject(kind);
+	this->player = static_cast<Player*>(player);
+}
 
 

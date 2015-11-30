@@ -18,7 +18,7 @@ void PlayerInputTests::runTests() {
 
 void PlayerInputTests::testInput(string input, string expected) {
 	istringstream in(input);
-	Controller cont(in);
+	Controller cont(in, "");
 	Turn turn = cont.getInput();
 	ostringstream out;
 	switch (turn.kind) {

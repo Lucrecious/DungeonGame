@@ -47,6 +47,10 @@ char TextView::getCharFromKind(Kind kind) {
 			return Global::PassageSymbol;
 		case DoorKind:
 			return Global::DoorSymbol;
+		case ShadeKind:
+		case PlayerKind:
+			cout << "Printing player" << endl;
+			return Global::PlayerSymbol;
 		default:
 			return '?';
 	}
