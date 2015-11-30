@@ -2,10 +2,9 @@
 #include <iostream>
 using namespace std;
 
-Player::Player(Kind kind, int atk = 0, int def = 0, int hp = 1)
-	: LivingEntity(kind, atk, def, hp) { }
+Player::Player(Kind subKind, int atk = 0, int def = 0, int hp = 1)
+	: LivingEntity(PlayerKind, subKind, atk, def, hp) { }
 
 Turn Player::getTurn() {
-	cout << this->controller << endl;
 	return this->controller->getInput();
 }

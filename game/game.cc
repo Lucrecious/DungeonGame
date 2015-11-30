@@ -63,7 +63,7 @@ GameObject* Game::addObject(Kind kind) {
 
 	if (gobj) {
 		gobj->setController(this->controller);
-		if (gobj->topKind == LivingKind) {
+		if (gobj->topKind == LivingKind || gobj->topKind == PlayerKind) {
 			this->livings->push_back(static_cast<LivingEntity*>(gobj));
 		}
 		else {
@@ -94,10 +94,9 @@ bool Game::doTurn(Turn turn, GameObject* gobj) {
 			Vector target = turn.target;
 			Vector pos = gobj->getPosition();
 
-			if (!this->level->isFree(pos + target)) {
+			if (!this->level->isFree(pos + target, gobj)) {
 				return false;
 			}
-			cout << "Player position " << pos.x << " " << pos.y << " -- in game.cc" << endl;
 			this->level->move(pos, pos + target);
 			this->controller->notify(
 					pos,

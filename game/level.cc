@@ -65,16 +65,16 @@ void Level::init(istream& in) {
 	this->load(in, true);
 }
 
-bool Level::isFree(Vector v) {
+bool Level::isFree(Vector v, GameObject* incoming) {
 	Stack<GameObject*>* stack = this->tiles[v.y][v.x];
 	if (!stack) {
-		return true;
+		return false;
 	}
 
 	GameObject* gobj = stack->peek();
-	cout << "is ghost " << gobj->ghost << " -- in level.cc" << endl;
-	cout << "kind " << gobj->subKind << " -- in level.cc" << endl;
-	if (gobj->ghost) {
+	if (gobj->ghost ||
+	    (gobj->subKind == DoorKind &&
+		 incoming->topKind == PlayerKind)) {
 		return true;
 	}
 

@@ -1,9 +1,9 @@
 #include "livingentity.h"
 #include <math.h>
 
-LivingEntity::LivingEntity(Kind kind,
+LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		int atk = 0, int def = 0, int hp = 0)
-	: GameObject(LivingKind, kind), effect(0),
+	: GameObject(topKind, subKind), effect(0),
 	  numKnownPotions(0), atkStat(atk), defStat(def),
 	  maxHP(hp), currentHP(hp) {
 		  for (int i = 0; i < MAXKNOWNPOTS; i++) {

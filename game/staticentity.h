@@ -6,7 +6,7 @@
 class StaticEntity : public GameObject {
 public:
 	StaticEntity(Kind kind) : GameObject(StaticKind, kind) {
-		if (kind == FloorKind) {
+		if (kind == FloorKind || kind == PassageKind) {
 			GameObject::ghost = true;
 		}
 	}
