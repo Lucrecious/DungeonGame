@@ -140,19 +140,19 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 				gobj = this->game->addObject(RHPotionKind);
 				break;
 			case Global::BAPotionSymbol:
-				gobj = this->game->addObject(DoorKind);//this->game->addObject(BAPotionKind);
+				gobj = this->game->addObject(BAPotionKind);
 				break;
 			case Global::BDPotionSymbol:
-				gobj = this->game->addObject(DoorKind);//this->game->addObject(BDPotionKind);
+				gobj = this->game->addObject(BDPotionKind);
 				break;
 			case Global::PHPotionSymbol:
-				gobj = this->game->addObject(DoorKind);//this->game->addObject(PHPotionKind);
+				gobj = this->game->addObject(PHPotionKind);
 				break;
 			case Global::WAPotionSymbol:
-				gobj = this->game->addObject(DoorKind);//this->game->addObject(WAPotionKind);
+				gobj = this->game->addObject(WAPotionKind);
 				break;
 			case Global::WDPotionSymbol:
-				gobj = this->game->addObject(DoorKind);//this->game->addObject(WDPotionKind);
+				gobj = this->game->addObject(WDPotionKind);
 				break;
 
 			// Player!

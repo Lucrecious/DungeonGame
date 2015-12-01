@@ -28,6 +28,8 @@ public:
 	void buildLevel(std::istream&);
 	void setController(Controller*);
 	void setPlayer(Kind);
+
+	void passInformationText() const;
 private:
 	bool doTurn(Turn, LivingEntity*);
 	void clearNonPlayerObjects();

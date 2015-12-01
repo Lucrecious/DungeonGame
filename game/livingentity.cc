@@ -1,5 +1,6 @@
 #include "livingentity.h"
 #include <math.h>
+#include "statics/noeffect.h"
 
 LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		int atk = 0, int def = 0, int hp = 0)
@@ -9,6 +10,8 @@ LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		  for (int i = 0; i < MAXKNOWNPOTS; i++) {
 			  this->knownPotions[i] = NoneKind;
 		  }
+
+		  this->effect = new NoEffect();
 }
 
 int LivingEntity::getAtkStat() const {
@@ -51,10 +54,23 @@ void LivingEntity::receiveAttack(LivingEntity* entity, int dam) {
 }
 
 void LivingEntity::drink(Potion* potion) {
-	//TODO: we need a different implementation for health pots
-	if (true) {
-		this->effect = potion->getEffect(this->effect);
-		this->addNewKnownPotion(potion->subKind);
+	switch(potion->potionKind) {
+		case BAPotionKind:
+		case BDPotionKind:
+		case WAPotionKind:
+		case WDPotionKind:
+			this->effect = potion->getEffect(this->effect);
+			this->addNewKnownPotion(potion->potionKind);
+			break;
+		
+		case RHPotionKind:
+			this->setHP(this->getHP() + 10);
+			break;
+		case PHPotionKind:
+			this->setHP(this->getHP() - 10);
+			break;
+		default:
+			break;
 	}
 }
 
@@ -75,12 +91,7 @@ void LivingEntity::move(Vector movement) {
 	this->setPosition(newPosition);
 }
 
-
 void LivingEntity::turnSucceeded(Turn, bool) {
 }
-
-
-
-
 
 

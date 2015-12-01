@@ -1,5 +1,7 @@
 #include "textview.h"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 #include "../globals/global.h"
 using namespace std;
 
@@ -20,7 +22,6 @@ TextView::~TextView() {
 	delete[] this->floor;
 }
 
-
 void TextView::display() const {
 	for (int i = 0; i < this->height; i++) {
 		for (int j = 0; j < this->width; j++) {
@@ -28,6 +29,27 @@ void TextView::display() const {
 		}
 		cout << endl;
 	}
+	cout << this->informationText.str() << endl;
+	cout << this->flavorText.str() << endl;
+}
+
+void TextView::setInformationText(
+		int atk, int def, int hp, int hpmax, Kind race, int level) {
+	this->informationText.clear();
+	this->informationText.str(string());
+
+	this->informationText << "Atk: " << atk << setw(10);
+	this->informationText << "Def: " << def << setw(10);
+	this->informationText << "HP: " << hp << "/" << hpmax
+						  << setw(10);
+	this->informationText << level << endl;
+	this->informationText << "Race : " << "BOOM";;
+}
+
+void TextView::setFlavorText(string text) {
+	this->flavorText.clear();
+	this->flavorText.str(string());
+	this->flavorText << text;
 }
 
 void TextView::notify(Vector v, Kind k) {

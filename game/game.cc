@@ -106,6 +106,17 @@ void Game::update() {
 			gobj->turnSucceeded(turn, false);
 		}
 	}
+	this->passInformationText();
+}
+
+void Game::passInformationText() const{
+	this->controller->passInformationText(
+			this->player->getAtkStat(),
+			this->player->getDefStat(),
+			this->player->getHP(),
+			this->player->getMaxHP(),
+			this->player->subKind,
+			this->levelNumber);
 }
 
 bool Game::doTurn(Turn turn, LivingEntity* gobj) {
@@ -136,7 +147,10 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj) {
 					this->controller->notify(
 							target + pos,
 							this->level->getKindAt(target+pos));
+					break;
 				}
+
+				return false;
 			}
 		default:
 			return false;

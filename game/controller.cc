@@ -5,7 +5,15 @@
 using namespace std;
 
 Controller::Controller(istream& input, string _save)
-	: game(0), view(0), in(input), save(_save) { } 
+	 : game(0), view(0), in(input), save(_save) { } 
+
+
+void Controller::passInformationText(
+		int atk, int def, int hp, int maxhp, Kind race, int level) const {
+	cout << this->view << " -- controller.cc" << endl;
+	this->view->setInformationText(
+			atk, def, hp, maxhp, race, level);
+}
 
 Vector Controller::getDirection(string sdir) const {
 	char first_dir = sdir[0];
@@ -101,7 +109,7 @@ void Controller::main() {
 
 				// Inits the first level
 				this->nextLevel();
-
+				this->game->passInformationText();
 				prompt = inGamePrompt;
 				this->view->display();
 			}
