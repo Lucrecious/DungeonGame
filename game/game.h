@@ -28,6 +28,7 @@ public:
 	void buildLevel(std::istream&);
 	void setController(Controller*);
 	void setPlayer(Kind);
+	Player* getPlayer() const;
 
 	void passInformationText() const;
 private:

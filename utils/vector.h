@@ -11,6 +11,14 @@ struct Vector {
 
 		return sum;
 	}
+
+	Vector operator-(Vector v) {
+		Vector diff;
+		diff.x = x - v.x;
+		diff.y = y - v.y;
+
+		return diff;
+	}
 };
 
 

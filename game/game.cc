@@ -225,4 +225,8 @@ void Game::setPlayer(Kind kind) {
 	this->player = static_cast<Player*>(player);
 }
 
+Player* Game::getPlayer() const {
+	return this->player;
+}
+
 
