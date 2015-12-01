@@ -21,3 +21,5 @@ void GameObject::setPosition(int x, int y) {
 Vector GameObject::getPosition() const{
 	return this->position;
 }
+
+GameObject::~GameObject() { }

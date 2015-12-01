@@ -15,6 +15,8 @@ public:
 	bool ghost;
 
 	GameObject(Kind, Kind);
+	virtual ~GameObject() = 0;
+
 	void setPosition(Vector);
 	void setPosition(int, int);
 	Vector getPosition() const;

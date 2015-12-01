@@ -1,6 +1,6 @@
 #include "level.h"
-#include "staticentity.h"
 #include <iostream>
+#include "gameobject.h"
 using namespace std;
 
 Level::Level(Game* g) : game(g) {
@@ -20,6 +20,18 @@ Level::~Level() {
 			delete this->tiles[i][j];
 		}
 	}
+}
+
+Stack<GameObject*>* Level::getStackAt(Vector target) const {
+	return this->tiles[target.y][target.x];
+}
+
+Kind Level::getKindAt(Vector target) const {
+	Stack<GameObject*>* stack = this->getStackAt(target);
+	if (stack) {
+		return stack->peek()->subKind;
+	}
+	return NoneKind;
 }
 
 // This is to load the items and such into the level.
@@ -65,7 +77,7 @@ void Level::init(istream& in) {
 	this->load(in, true);
 }
 
-bool Level::isFree(Vector v, GameObject* incoming) {
+bool Level::isFree(Vector v, GameObject* incoming) const {
 	Stack<GameObject*>* stack = this->tiles[v.y][v.x];
 	if (!stack) {
 		return false;
@@ -80,6 +92,23 @@ bool Level::isFree(Vector v, GameObject* incoming) {
 
 	return false;
 }
+
+GameObject* Level::get(Vector target) const {
+	Stack<GameObject*>* stack = this->tiles[target.y][target.x];
+	if (stack) {
+		return stack->peek();
+	}
+
+	return 0;
+}
+
+void Level::remove(Vector target) {
+	Stack<GameObject*>* stack = this->tiles[target.y][target.x];
+	if (stack) {
+		stack->pop();
+	}
+}
+
 
 void Level::charToObject(int i, int j, char c, bool empty) {
 	if (c == ' ') {
@@ -105,13 +134,36 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 			case Global::PassageSymbol:
 			case Global::DoorSymbol:
 				break;
+
+			// Potions!
+			case Global::RHPotionSymbol:
+				gobj = this->game->addObject(RHPotionKind);
+				break;
+			case Global::BAPotionSymbol:
+				gobj = this->game->addObject(DoorKind);//this->game->addObject(BAPotionKind);
+				break;
+			case Global::BDPotionSymbol:
+				gobj = this->game->addObject(DoorKind);//this->game->addObject(BDPotionKind);
+				break;
+			case Global::PHPotionSymbol:
+				gobj = this->game->addObject(DoorKind);//this->game->addObject(PHPotionKind);
+				break;
+			case Global::WAPotionSymbol:
+				gobj = this->game->addObject(DoorKind);//this->game->addObject(WAPotionKind);
+				break;
+			case Global::WDPotionSymbol:
+				gobj = this->game->addObject(DoorKind);//this->game->addObject(WDPotionKind);
+				break;
+
+			// Player!
 			case Global::PlayerSymbol:
-				cout << "make player spawn -- in level.c" << endl;
 				this->spawn.x = j;
 				this->spawn.y = i;
 				break;
+
 			default:
 				gobj = this->game->addObject(DoorKind);
+				break;
 		}
 	}
 	else {
@@ -176,7 +228,6 @@ void Level::place(GameObject* gobj, Vector pos) {
 
 	toStack->push(gobj);
 	gobj->setPosition(pos);
-	cout << pos.x << " " << pos.y << endl;
 }
 
 

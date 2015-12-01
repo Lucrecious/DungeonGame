@@ -1,6 +1,7 @@
 #include "game.h"
 #include <vector>
 #include "characters/shade.h"
+#include "statics/potion.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -12,17 +13,27 @@ Game::Game() : controller(0), levelNumber(0), level(0),
 }
 
 Game::~Game() {
-	for (unsigned int i = 0; i < this->statics->size(); i++) {
-		delete this->statics->at(i);
+	delete this->level;
+
+	if (this->statics) {
+		for (unsigned int i = 0; i < this->statics->size(); i++) {
+			delete this->statics->at(i);
+			(*this->statics)[i] = 0;
+		}
 	}
+
+	this->statics->clear();
 	delete this->statics;
+	this->statics = 0;
 
-	for (unsigned int i = 0; i < this->livings->size(); i++) {
-		delete this->livings->at(i);
+	if (this->livings) {
+		for (unsigned int i = 0; i < this->livings->size(); i++) {
+			delete this->livings->at(i);
+		}
 	}
+	this->livings->clear();
 	delete this->livings;
-
-	delete level;
+	this->livings = 0;
 
 }
 
@@ -43,7 +54,7 @@ LivingEntity* Game::getLivingAt(int i) const {
 }
 
 GameObject* Game::addObject(Kind kind) {
-	GameObject* gobj;
+	GameObject* gobj = 0;
 
 	switch (kind) {
 		case VWallKind:
@@ -54,9 +65,19 @@ GameObject* Game::addObject(Kind kind) {
 			gobj = new StaticEntity(kind);
 			break;
 
+		case RHPotionKind:
+		case BAPotionKind:
+		case BDPotionKind:
+		case PHPotionKind:
+		case WAPotionKind:
+		case WDPotionKind:
+			gobj = new Potion(kind);
+			break;
+
 		case ShadeKind:
 			gobj =  new Shade();
 			break;
+
 		default:
 			break;
 	}
@@ -87,24 +108,35 @@ void Game::update() {
 	}
 }
 
-bool Game::doTurn(Turn turn, GameObject* gobj) {
+bool Game::doTurn(Turn turn, LivingEntity* gobj) {
+	Vector target = turn.target;
+	Vector pos = gobj->getPosition();
+	GameObject* tgobj = this->level->get(target + pos);				
+
 	switch (turn.kind) {
 		case Move:
 			{
-			Vector target = turn.target;
-			Vector pos = gobj->getPosition();
-
 			if (!this->level->isFree(pos + target, gobj)) {
 				return false;
 			}
 			this->level->move(pos, pos + target);
 			this->controller->notify(
 					pos,
-					this->level->tiles[pos.y][pos.x]->peek()->subKind);
+					this->level->getKindAt(pos));
 			this->controller->notify(
 					pos + target,
 					gobj->subKind);
 			break;
+			}
+		case Drink:
+			{
+				if (tgobj && tgobj->subKind == PotionKind) {
+					gobj->drink(static_cast<Potion*>(tgobj));
+					this->level->remove(target + pos);
+					this->controller->notify(
+							target + pos,
+							this->level->getKindAt(target+pos));
+				}
 			}
 		default:
 			return false;
@@ -141,9 +173,9 @@ void Game::notifyWholeLevel() {
 		v.y = i;
 		for (int j = 0; j < Global::levelWidth; j++) {
 			v.x = j;
-			if (this->level->tiles[i][j]) {
+			if (this->level->getKindAt(v) != NoneKind) {
 				this->controller->notify(v,
-					this->level->tiles[i][j]->peek()->subKind);
+					this->level->getKindAt(v));
 			}
 		}
 	}

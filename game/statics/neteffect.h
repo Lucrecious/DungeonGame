@@ -6,7 +6,7 @@
 class NetEffect : public Effect {
 public:
 	NetEffect(Effect*);
-	~NetEffect();
+	virtual ~NetEffect();
 	int getAtkNet();
 	int getDefNet();
 private:

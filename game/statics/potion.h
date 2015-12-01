@@ -2,13 +2,14 @@
 #define POTION_H
 
 #include "../staticentity.h"
-
-class Effect;
+#include "effect.h"
+#include <iostream>
 
 class Potion : public StaticEntity {
 public:
-	Potion(Kind k) : StaticEntity(k) { };
-	virtual Effect* getEffect(Effect*) const = 0;
+	const Kind potionKind;
+	Potion(Kind);
+	Effect* getEffect(Effect*) const;
 };
 
 #endif

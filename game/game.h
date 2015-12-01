@@ -29,7 +29,7 @@ public:
 	void setController(Controller*);
 	void setPlayer(Kind);
 private:
-	bool doTurn(Turn, GameObject*);
+	bool doTurn(Turn, LivingEntity*);
 	void clearNonPlayerObjects();
 	void notifyWholeLevel();
 	Controller* controller;

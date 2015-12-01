@@ -12,6 +12,14 @@ public:
 	const static char DoorSymbol = '+';
 	const static char PassageSymbol = '#';
 
+	const static char RHPotionSymbol = '0';
+	const static char BAPotionSymbol = '1';
+	const static char BDPotionSymbol = '2';
+	const static char PHPotionSymbol = '3';
+	const static char WAPotionSymbol = '4';
+	const static char WDPotionSymbol = '5';
+	const static char PotionSymbol = 'P';
+
 	const static char PlayerSymbol = '@';
 };
 

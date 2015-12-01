@@ -6,6 +6,7 @@
 
 class View {
 public:
+	virtual ~View() { };
 	virtual void display() const = 0;
 	virtual void notify(Vector, Kind) = 0;
 };

@@ -17,7 +17,6 @@ TextView::~TextView() {
 	for (int i = 0; i < this->height; i++) {
 		delete[] this->floor[i];
 	}
-
 	delete[] this->floor;
 }
 
@@ -47,9 +46,12 @@ char TextView::getCharFromKind(Kind kind) {
 			return Global::PassageSymbol;
 		case DoorKind:
 			return Global::DoorSymbol;
+		
+		case PotionKind:
+			return Global::PotionSymbol;
+
 		case ShadeKind:
 		case PlayerKind:
-			cout << "Printing player" << endl;
 			return Global::PlayerSymbol;
 		default:
 			return '?';

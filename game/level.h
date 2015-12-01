@@ -3,6 +3,7 @@
 
 #include "../utils/stack.h"
 #include "../globals/global.h"
+#include "../globals/kind.h"
 #include "../utils/vector.h"
 #include <fstream>
 
@@ -20,20 +21,24 @@ public:
 	// Loads the items onto an empty level
 	void load(std::istream&);
 
-	Stack<GameObject*>* tiles[Global::levelHeight][Global::levelWidth];
 	Game* game;
 
 	Vector getPlayerSpawn();
 	
 	void move(Vector, Vector);
 	void place(GameObject*, Vector);
-	bool isFree(Vector, GameObject*);
+	bool isFree(Vector, GameObject*) const;
+	GameObject* get(Vector) const;
+	void remove(Vector);
+	Kind getKindAt(Vector) const;
 
 private:
+	Stack<GameObject*>* tiles[Global::levelHeight][Global::levelWidth];
 	// true for empty level, false otherwise
 	void load(std::istream&, bool);
 	Vector spawn;
 	void charToObject(int, int, char, bool);
+	Stack<GameObject*>* getStackAt(Vector) const;
 };
 
 #endif

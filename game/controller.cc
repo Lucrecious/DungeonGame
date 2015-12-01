@@ -5,7 +5,7 @@
 using namespace std;
 
 Controller::Controller(istream& input, string _save)
-	: in(input), save(_save) { } 
+	: game(0), view(0), in(input), save(_save) { } 
 
 Vector Controller::getDirection(string sdir) const {
 	char first_dir = sdir[0];
@@ -70,12 +70,10 @@ void Controller::main() {
 		this->in >> this->commandBuffer;
 		
 		if (this->commandBuffer == "q") {
-			this->kill();
 			break;
 		}
 
 		if (this->commandBuffer == "r") {
-			this->kill();
 			begun = false;
 			prompt = preGamePrompt;
 			continue;
@@ -84,10 +82,10 @@ void Controller::main() {
 
 		if (!begun) {
 			if (this->commandBuffer == "s") {
+				this->kill();
 				begun = true;
 				Kind kind = this->getRaceFromString(this->commandBuffer);
-				bool randomized =
-					this->save == ""; 
+				bool randomized = this->save == ""; 
 
 				this->game = new Game(/*randomized*/);
 				this->game->setController(this);
@@ -119,6 +117,8 @@ void Controller::main() {
 		this->game->update();
 		this->view->display();
 	}
+
+	this->kill();
 }
 
 void Controller::nextLevel() {
@@ -134,12 +134,17 @@ void Controller::nextLevel() {
 
 void Controller::kill() {
 	delete this->game;
-	delete this->view;
+	this->game = NULL;
 
+	delete this->view;
+	this->view = NULL;
+
+	
 	if (loader.is_open()) {
 		loader.close();
 	}
 	loader.clear();
+	
 }
 
 Kind Controller::getRaceFromString(string s) {
