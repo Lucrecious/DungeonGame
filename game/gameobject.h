@@ -23,6 +23,8 @@ public:
 	void setController(Controller*);
 	void setGame(Game*);
 
+	static bool less_than(const GameObject* gobj1, const GameObject* gobj2);
+
 protected:
 	Controller* controller;
 	Game* game;
@@ -31,6 +33,7 @@ private:
 	Vector position;
 };
 
-
+struct gameobject_less_than {
+};
 
 #endif

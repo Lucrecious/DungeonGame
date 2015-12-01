@@ -5,6 +5,7 @@
 #include "statics/potion.h"
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 Game::Game() : controller(0), levelNumber(0), level(0),
@@ -103,6 +104,11 @@ GameObject* Game::addObject(Kind kind) {
 }
 
 void Game::update() {
+
+	sort(this->livings->begin(),
+		 this->livings->end(),
+		 GameObject::less_than);
+
 	for (int i = 0; i < (int)this->livings->size(); i++) {
 		LivingEntity* gobj = this->livings->at(i);
 		Turn turn = gobj->getTurn();
