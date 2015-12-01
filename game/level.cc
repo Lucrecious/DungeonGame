@@ -155,6 +155,10 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 				gobj = this->game->addObject(WDPotionKind);
 				break;
 
+			case Global::HumanSymbol:
+				gobj = this->game->addObject(HumanKind);
+				break;
+
 			// Player!
 			case Global::PlayerSymbol:
 				this->spawn.x = j;

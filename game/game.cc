@@ -1,6 +1,7 @@
 #include "game.h"
 #include <vector>
 #include "characters/shade.h"
+#include "characters/human.h"
 #include "statics/potion.h"
 #include <fstream>
 #include <iostream>
@@ -72,6 +73,10 @@ GameObject* Game::addObject(Kind kind) {
 		case WAPotionKind:
 		case WDPotionKind:
 			gobj = new Potion(kind);
+			break;
+
+		case HumanKind:
+			gobj = new Human();
 			break;
 
 		case ShadeKind:

@@ -72,6 +72,9 @@ char TextView::getCharFromKind(Kind kind) {
 		case PotionKind:
 			return Global::PotionSymbol;
 
+		case HumanKind:
+			return Global::HumanSymbol;
+
 		case ShadeKind:
 		case PlayerKind:
 			return Global::PlayerSymbol;

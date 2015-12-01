@@ -21,6 +21,8 @@ public:
 	const static char PotionSymbol = 'P';
 
 	const static char PlayerSymbol = '@';
+
+	const static char HumanSymbol = 'H';
 };
 
 #endif

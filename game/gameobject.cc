@@ -9,6 +9,10 @@ void GameObject::setController(Controller* controller) {
 	this->controller = controller;
 }
 
+void GameObject::setGame(Game* game) {
+	this->game = game;
+}
+
 void GameObject::setPosition(Vector vector) {
 	this->position = vector;
 }
