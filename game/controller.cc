@@ -10,7 +10,6 @@ Controller::Controller(istream& input, string _save)
 
 void Controller::passInformationText(
 		int atk, int def, int hp, int maxhp, Kind race, int level) const {
-	cout << this->view << " -- controller.cc" << endl;
 	this->view->setInformationText(
 			atk, def, hp, maxhp, race, level);
 }

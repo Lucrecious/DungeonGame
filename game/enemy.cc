@@ -20,18 +20,15 @@ Turn Enemy::getTurn() {
 	direction.x = 0;
 	direction.y = -1;
 
-	cout << "end of turn for the enemy -- enemy.cc" << endl;
+	cout << "Enemy ging to move -- enemy.cc" << endl;
 	
 	return Turn(Move, direction);
 }
 
 Player* Enemy::isPlayerAround() const{
-	cout << "game: " << this->game << " -- enemy.cc" << endl;
 	Player* player = this->game->getPlayer();
-	cout << "player: " << player << " -- enemy.cc" << endl;
 	Vector diff = player->getPosition() - this->getPosition();
 	int distance = diff.x*diff.x + diff.y*diff.y;
-	cout << "before distance check -- enemy.cc" << endl;
 	if (distance <= 2) {
 		return player;
 	}

@@ -14,6 +14,10 @@ LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		  this->effect = new NoEffect();
 }
 
+LivingEntity::~LivingEntity() {
+	delete this->effect;
+}
+
 int LivingEntity::getAtkStat() const {
 	return this->atkStat + this->effect->getAtkNet();
 }

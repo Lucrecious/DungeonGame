@@ -30,6 +30,7 @@ Game::~Game() {
 	if (this->livings) {
 		for (unsigned int i = 0; i < this->livings->size(); i++) {
 			delete this->livings->at(i);
+			(*this->livings)[i] = 0;
 		}
 	}
 	this->livings->clear();
@@ -89,7 +90,8 @@ GameObject* Game::addObject(Kind kind) {
 
 	if (gobj) {
 		gobj->setController(this->controller);
-		if (gobj->topKind == LivingKind || gobj->topKind == PlayerKind) {
+		gobj->setGame(this);
+		if (gobj->topKind == LivingKind || gobj->topKind == EnemyKind || gobj->topKind == PlayerKind) {
 			this->livings->push_back(static_cast<LivingEntity*>(gobj));
 		}
 		else {
@@ -128,6 +130,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj) {
 	Vector target = turn.target;
 	Vector pos = gobj->getPosition();
 	GameObject* tgobj = this->level->get(target + pos);				
+	
 
 	switch (turn.kind) {
 		case Move:

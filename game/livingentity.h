@@ -13,6 +13,7 @@ const int MAXKNOWNPOTS = 6;
 class LivingEntity : public GameObject {
 public:
 	LivingEntity(Kind, Kind, int, int, int);
+	~LivingEntity();
 
 	int getAtkStat() const;
 	int getDefStat() const;

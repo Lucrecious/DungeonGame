@@ -194,7 +194,7 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 	}
 
 	if (gobj) {
-		gobj->setPosition(i, j);
+		gobj->setPosition(j, i);
 		stack->push(gobj);
 	}
 }
