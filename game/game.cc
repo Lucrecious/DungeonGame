@@ -191,6 +191,18 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 			if (!this->level->isFree(pos + target, gobj)) {
 				break;
 			}
+			
+			if (gobj->topKind == PlayerKind) {
+				while (this->level->get(target + pos)
+					&& this->level->get(target + pos)->subKind == GoldKind) {
+					Gold* gold = static_cast<Gold*>(this->level->get(target + pos));
+					this->player->addGold(gold);
+					flavor << "You picked up " << gold->getName()
+						   << "(" << gold->value << ")" << endl;
+					this->level->remove(gold->getPosition());
+				}
+			}
+
 			this->level->move(pos, pos + target);
 			this->controller->notify(
 					pos,
@@ -199,6 +211,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					pos + target,
 					gobj->subKind);
 			
+			turnSucceeded = true;
 			break;
 			}
 		case Drink:
