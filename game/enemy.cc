@@ -20,8 +20,6 @@ Turn Enemy::getTurn() {
 	direction.x = 0;
 	direction.y = -1;
 
-	cout << "Enemy ging to move -- enemy.cc" << endl;
-	
 	return Turn(Move, direction);
 }
 
