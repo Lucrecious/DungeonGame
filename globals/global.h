@@ -25,6 +25,11 @@ public:
 	const static char WDPotionSymbol = '5';
 	const static char PotionSymbol = 'P';
 
+	const static char GoldNormalSymbol = '6';
+	const static char GoldSmallSymbol = '7';
+	const static char GoldMerchantSymbol = '8';
+	const static char GoldSymbol = 'G';
+
 	const static char PlayerSymbol = '@';
 
 	const static char HumanSymbol = 'H';

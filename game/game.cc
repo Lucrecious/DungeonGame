@@ -3,6 +3,7 @@
 #include "characters/shade.h"
 #include "characters/human.h"
 #include "statics/potion.h"
+#include "statics/gold.h"
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -76,6 +77,12 @@ GameObject* Game::addObject(Kind kind) {
 		case WAPotionKind:
 		case WDPotionKind:
 			gobj = new Potion(kind);
+			break;
+
+		case GoldSmallKind:
+		case GoldNormalKind:
+		case GoldMerchantKind:
+			gobj = new Gold(kind);
 			break;
 
 		case HumanKind:

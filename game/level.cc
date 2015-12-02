@@ -155,6 +155,17 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 				gobj = this->game->addObject(WDPotionKind);
 				break;
 
+			// Gold!
+			case Global::GoldSmallSymbol:
+				gobj = this->game->addObject(GoldSmallKind);
+				break;
+			case Global::GoldNormalSymbol:
+				gobj = this->game->addObject(GoldNormalKind);
+				break;
+			case Global::GoldMerchantSymbol:
+				gobj = this->game->addObject(GoldMerchantKind);
+				break;
+
 			case Global::HumanSymbol:
 				gobj = this->game->addObject(HumanKind);
 				break;
