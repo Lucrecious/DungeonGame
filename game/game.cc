@@ -144,6 +144,7 @@ void Game::passInformationText() const{
 			this->player->getDefStat(),
 			this->player->getHP(),
 			this->player->getMaxHP(),
+			this->player->getGold(),
 			this->player->subKind,
 			this->levelNumber);
 }

@@ -34,13 +34,14 @@ void TextView::display() const {
 }
 
 void TextView::setInformationText(
-		int atk, int def, int hp, int hpmax, Kind race, int level) {
+		int atk, int def, int hp, int hpmax, int gold, Kind race, int level) {
 	this->informationText.str(string());
 	this->informationText << "Atk: " << atk << setw(10);
 	this->informationText << "Def: " << def << setw(10);
 	this->informationText << "HP: " << hp << "/" << hpmax
-						  << setw(59);
-	this->informationText << level << endl;
+						  << setw(10);
+	this->informationText << "Gold: " << gold << setw(30);
+	this->informationText << "Floor: " << level << endl;
 	this->informationText << "Race: " << "BOOM";;
 }
 
