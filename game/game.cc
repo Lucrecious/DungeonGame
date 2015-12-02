@@ -386,6 +386,15 @@ bool Game::goToNextLevel() const {
 	return p.x == s.x && p.y == s.y;
 }
 
+int Game::getLevelNumber() const {
+	return this->levelNumber;
+}
+
+int Game::getCurrentScore() const {
+	// Need a slightly different implementation for Shade
+	return this->getPlayer()->getGold();
+}
+
 
 
 

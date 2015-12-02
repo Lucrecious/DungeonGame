@@ -20,6 +20,9 @@ public:
 			int atk, int def, int hp, int maxhp, int gold, Kind race, int level) const;
 	void passFlavorText(std::string) const;
 	void main();
+
+	void printWinDialogue(const int score) const;
+	void printLoseDialogue() const;
 private:
 	void nextLevel();
 	Kind getRaceFromString(std::string);
