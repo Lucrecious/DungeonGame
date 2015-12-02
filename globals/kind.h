@@ -21,7 +21,7 @@ enum Kind {
 	GoldNormalKind = 22,
 	GoldMerchantKind = 23,
 	GoldDragonKind = 24,
-	StairKind = 30,
+	StairsKind = 30,
 	VWallKind = 31,
 	HWallKind = 32,
 	FloorKind = 33,

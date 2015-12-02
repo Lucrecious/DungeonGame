@@ -34,6 +34,9 @@ public:
 	void passFlavorText(std::string) const;
 
 	void printNearByPotionsIfAny(LivingEntity*, std::ostream&);
+
+	bool goToNextLevel() const;
+	
 private:
 	bool doTurn(Turn, LivingEntity*, std::ostream&, GameObject*&);
 	void clearNonPlayerObjects();

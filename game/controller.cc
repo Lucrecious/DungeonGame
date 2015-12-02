@@ -131,6 +131,11 @@ void Controller::main() {
 		//   commandBuffer.
 
 		this->game->update();
+
+		if (this->game->goToNextLevel()) {
+			this->nextLevel();
+		}
+
 		this->view->display();
 	}
 

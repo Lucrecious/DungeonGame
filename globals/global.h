@@ -16,6 +16,7 @@ public:
 	const static char FloorSymbol = '.';
 	const static char DoorSymbol = '+';
 	const static char PassageSymbol = '#';
+	const static char StairsSymbol = '\\';
 
 	const static char RHPotionSymbol = '0';
 	const static char BAPotionSymbol = '1';

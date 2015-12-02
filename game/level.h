@@ -31,8 +31,10 @@ public:
 	GameObject* get(Vector) const;
 	void remove(Vector);
 	Kind getKindAt(Vector) const;
+	GameObject* getStairs() const;
 
 private:
+	GameObject* stairs;
 	Stack<GameObject*>* tiles[Global::levelHeight][Global::levelWidth];
 	// true for empty level, false otherwise
 	void load(std::istream&, bool);

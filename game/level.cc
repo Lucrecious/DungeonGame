@@ -90,6 +90,12 @@ bool Level::isFree(Vector v, GameObject* incoming) const {
 		return true;
 	}
 
+	if (gobj->subKind == StairsKind &&
+		incoming->topKind == PlayerKind) {
+		Vector diff = gobj->getPosition() - incoming->getPosition();
+		return diff.x == 1 && diff.y == 0;
+	}
+
 	return false;
 }
 
@@ -170,6 +176,11 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 				gobj = this->game->addObject(HumanKind);
 				break;
 
+			case Global::StairsSymbol:
+				gobj = this->game->addObject(StairsKind);
+				this->stairs = gobj;
+				break;
+
 			// Player!
 			case Global::PlayerSymbol:
 				this->spawn.x = j;
@@ -245,7 +256,9 @@ void Level::place(GameObject* gobj, Vector pos) {
 	gobj->setPosition(pos);
 }
 
-
+GameObject* Level::getStairs() const {
+	return this->stairs;
+}
 
 
 

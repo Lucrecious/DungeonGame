@@ -67,6 +67,7 @@ GameObject* Game::addObject(Kind kind) {
 		case FloorKind:
 		case DoorKind:
 		case PassageKind:
+		case StairsKind:
 			gobj = new StaticEntity(kind);
 			break;
 
@@ -370,5 +371,16 @@ void Game::setPlayer(Kind kind) {
 Player* Game::getPlayer() const {
 	return this->player;
 }
+
+bool Game::goToNextLevel() const {
+	GameObject* stairs = this->level->getStairs();
+
+	Vector p = this->getPlayer()->getPosition();
+	Vector s = stairs->getPosition();
+	
+	return p.x == s.x && p.y == s.y;
+}
+
+
 
 

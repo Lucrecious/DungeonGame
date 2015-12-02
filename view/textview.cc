@@ -65,6 +65,8 @@ char TextView::getCharFromKind(Kind kind) {
 			return Global::PassageSymbol;
 		case DoorKind:
 			return Global::DoorSymbol;
+		case StairsKind:
+			return Global::StairsSymbol;
 		
 		case PotionKind:
 			return Global::PotionSymbol;
