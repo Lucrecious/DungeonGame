@@ -16,12 +16,17 @@ enum Kind {
 	PHPotionKind = 15,
 	WAPotionKind = 16,
 	WDPotionKind = 17,
-	StairKind = 18,
-	VWallKind = 19,
-	HWallKind = 20,
-	FloorKind = 21,
-	PassageKind = 22,
-	DoorKind = 23
+	GoldKind = 20,
+	GoldSmallKind = 21,
+	GoldNormalKind = 22,
+	GoldMerchantKind = 23,
+	GoldDragonKind = 24,
+	StairKind = 30,
+	VWallKind = 31,
+	HWallKind = 32,
+	FloorKind = 33,
+	PassageKind = 34,
+	DoorKind = 35
 };
 
 

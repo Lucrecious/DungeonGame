@@ -6,6 +6,11 @@ public:
 	const static int levelHeight = 25;
 	const static int levelWidth = 79;
 
+	const static int SmallGold = 1;
+	const static int NormalGold = 2;
+	const static int MerchantGold = 4;
+	const static int DragonGold = 6;
+
 	const static char VWallSymbol = '|';
 	const static char HWallSymbol = '-';
 	const static char FloorSymbol = '.';
