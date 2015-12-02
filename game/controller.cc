@@ -132,6 +132,25 @@ void Controller::main() {
 
 		this->game->update();
 
+		if (this->game->isPlayerDead()) {
+			begun = false;
+			prompt = preGamePrompt;
+			cout << "You're dead." << endl;
+			cout << "Your friends are dead." <<endl;
+			cout << "Your family's dead." << endl;
+			cout << "Your f**king pets are being skinned alive." << endl;
+			cout << "Your mom's a f**king whore." << endl;
+			cout << "You suck at life." << endl;
+			cout << "The whole world hate's you." << endl;
+			cout << "You're going to hell." << endl;
+			cout << "Live with it." << endl << endl;
+			cout << "Game Over" << endl;
+
+			this->kill();
+
+			continue;
+		}
+
 		if (this->game->goToNextLevel()) {
 			this->nextLevel();
 			this->game->passInformationText();

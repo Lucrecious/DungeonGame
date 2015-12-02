@@ -8,7 +8,6 @@ class Player : public LivingEntity {
 public:
 	Player(Kind, int, int, int);
 	Turn getTurn();
-	bool isDead() const { return false; } //TODO: later
 
 	void addGold(Gold* gold);
 	int getGold() const;

@@ -185,6 +185,10 @@ void Game::printNearByPotionsIfAny(LivingEntity* gobj, ostream& flavor) {
 	}
 }
 
+bool Game::isPlayerDead() const {
+	return this->getPlayer()->isDead();
+}
+
 bool Game::doTurn(Turn turn, LivingEntity* gobj,
 				  ostream& flavor, GameObject*& affected) {
 	Vector target = turn.target;

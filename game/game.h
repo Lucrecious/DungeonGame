@@ -36,6 +36,7 @@ public:
 	void printNearByPotionsIfAny(LivingEntity*, std::ostream&);
 
 	bool goToNextLevel() const;
+	bool isPlayerDead() const;
 	
 private:
 	bool doTurn(Turn, LivingEntity*, std::ostream&, GameObject*&);
