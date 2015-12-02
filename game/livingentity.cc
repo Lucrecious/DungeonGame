@@ -60,13 +60,13 @@ bool LivingEntity::receiveAttack(LivingEntity* entity, int dam) {
 }
 
 void LivingEntity::drink(Potion* potion) {
+	this->addNewKnownPotion(potion->potionKind);
 	switch(potion->potionKind) {
 		case BAPotionKind:
 		case BDPotionKind:
 		case WAPotionKind:
 		case WDPotionKind:
 			this->effect = potion->getEffect(this->effect);
-			this->addNewKnownPotion(potion->potionKind);
 			break;
 		
 		case RHPotionKind:
@@ -81,10 +81,8 @@ void LivingEntity::drink(Potion* potion) {
 }
 
 void LivingEntity::addNewKnownPotion(Kind kind) {
-	for (int i = 0; i < this->numKnownPotions; i++) {
-		if (kind == this->knownPotions[i]) {
-			return;
-		}
+	if (this->isPotionKnown(kind)) {
+		return;
 	}
 
 	this->knownPotions[this->numKnownPotions++] = kind;
@@ -104,6 +102,14 @@ bool LivingEntity::isDead() const {
 	return this->getHP() <= 0;
 }
 
+bool LivingEntity::isPotionKnown(Kind kind) {
+	for (int i = 0; i < this->numKnownPotions; i++) {
+		if (kind == this->knownPotions[i]) {
+			return true;
+		}
+	}
 
+	return false;
+}
 
 

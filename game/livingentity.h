@@ -46,6 +46,8 @@ public:
 
 	virtual bool isDead() const;
 
+	virtual bool isPotionKnown(Kind);
+
 protected:
 	Effect* effect;
 

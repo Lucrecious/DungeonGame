@@ -145,6 +145,37 @@ void Game::passFlavorText(string text) const{
 }
 
 
+void Game::printNearByPotionsIfAny(LivingEntity* gobj, ostream& flavor) {
+	if (gobj->topKind == PlayerKind) {
+		int potionsNearBy = 0;
+		string potions = "";
+
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				if (i == 0 && j == 0) {
+					continue;
+				}
+				Vector p;
+				p.x = i;
+				p.y = j;
+				GameObject* item = this->level->get(gobj->getPosition() + p);
+
+				if (item && item->subKind == PotionKind) {
+					Potion* potionObj = static_cast<Potion*>(item);
+					potions += (potionsNearBy == 0 ? "" : ", ")
+						+ (gobj->isPotionKnown(potionObj->potionKind) ? item->getName()
+															  : "Unknown Potion");
+					potionsNearBy++;
+				}
+			}
+		}
+
+		if (potionsNearBy > 0) {
+			flavor << "There are " << potionsNearBy << " potions around you: " << potions << endl;
+		}
+	}
+}
+
 bool Game::doTurn(Turn turn, LivingEntity* gobj,
 				  ostream& flavor, GameObject*& affected) {
 	Vector target = turn.target;
@@ -152,11 +183,13 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 	GameObject* tgobj = this->level->get(target + pos);
 	affected = tgobj;
 
+	bool turnSucceeded = false;
+
 	switch (turn.kind) {
 		case Move:
 			{
 			if (!this->level->isFree(pos + target, gobj)) {
-				return false;
+				break;
 			}
 			this->level->move(pos, pos + target);
 			this->controller->notify(
@@ -165,10 +198,12 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 			this->controller->notify(
 					pos + target,
 					gobj->subKind);
+			
 			break;
 			}
 		case Drink:
 			{
+				bool drank = false;
 				if (tgobj && tgobj->subKind == PotionKind) {
 					gobj->drink(static_cast<Potion*>(tgobj));
 					this->level->remove(target + pos);
@@ -177,25 +212,21 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 							this->level->getKindAt(target+pos));
 					flavor << "You have drank a " 
 						<< tgobj->getName() << endl;
-					break;
+					drank = true;
 				}
 
-				if (gobj->topKind == PlayerKind) {
+				if (!drank && gobj->topKind == PlayerKind) {
 					flavor << "You can't drink that." << endl;
 				}
 
-				return false;
+				turnSucceeded = drank;
+				break;
 			}
 		case Attack:
 			{
-				if (tgobj) {
-					cout << "Attempting to attack: " << tgobj->getName() << " -- game.cc" << endl;
-				}
 				if (tgobj && 
 				   (tgobj->topKind == EnemyKind ||
 					tgobj->topKind == PlayerKind)) {
-
-					cout << "KIND ATTACKING: " << gobj->topKind << " -- game.cc"  << endl;
 
 					LivingEntity* living =
 						static_cast<LivingEntity*>(tgobj);
@@ -221,7 +252,6 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 						   << endl;
 
 					if (living->isDead()) {
-
 						this->level->remove(living->getPosition());
 						this->controller->notify(
 								living->getPosition(),
@@ -229,7 +259,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 						flavor << "The " << living->getName() << " has been slain!" << endl;
 					}
 
-					return hits;;
+					turnSucceeded = hits;;
 
 				}
 
@@ -237,13 +267,18 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					flavor << "You can't attack that." << endl;
 				}
 
-				return false;
+				turnSucceeded = false;
+				break;
 			}
 		default:
-			return false;
+			turnSucceeded = false;
+			break;
 	}
 
-	return true;
+
+	this->printNearByPotionsIfAny(gobj, flavor);
+
+	return turnSucceeded;
 }
 
 void Game::clearNonPlayerObjects() {
