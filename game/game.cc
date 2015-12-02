@@ -286,7 +286,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					}
 
 					turnSucceeded = hits;;
-
+					break;
 				}
 
 				if (gobj->topKind == PlayerKind) {
