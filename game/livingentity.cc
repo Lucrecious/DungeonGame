@@ -47,14 +47,16 @@ int LivingEntity::getHP() const{
 }
 
 int LivingEntity::getAttackDamage(LivingEntity* entity) const{
-	int damage = ceil((100 / (100 + entity->getDefStat()))) *
+	int damage = ceil((100 / (100 + (double)entity->getDefStat()))) *
 		this->getAtkStat();
 
 	return damage;
 }
 
-void LivingEntity::receiveAttack(LivingEntity* entity, int dam) {
+bool LivingEntity::receiveAttack(LivingEntity* entity, int dam) {
 	this->setHP(this->getHP() - dam);
+	
+	return true;
 }
 
 void LivingEntity::drink(Potion* potion) {
@@ -97,5 +99,11 @@ void LivingEntity::move(Vector movement) {
 
 void LivingEntity::turnSucceeded(Turn, bool) {
 }
+
+bool LivingEntity::isDead() const {
+	return this->getHP() <= 0;
+}
+
+
 
 

@@ -12,7 +12,7 @@ Turn Enemy::getTurn() {
 
 	if (gobj) {
 		return Turn(Attack,
-				this->getPosition() - gobj->getPosition());
+				 gobj->getPosition() - this->getPosition());
 	}
 
 	// make a random direction

@@ -18,6 +18,7 @@ public:
 	void notify(Vector, Kind) const;
 	void passInformationText(
 			int atk, int def, int hp, int maxhp, Kind race, int level) const;
+	void passFlavorText(std::string) const;
 	void main();
 private:
 	void nextLevel();

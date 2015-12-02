@@ -7,6 +7,7 @@ class Player : public LivingEntity {
 public:
 	Player(Kind, int, int, int);
 	Turn getTurn();
+	bool isDead() const { return false; } //TODO: later
 };
 
 

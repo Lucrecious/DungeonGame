@@ -31,8 +31,9 @@ public:
 	Player* getPlayer() const;
 
 	void passInformationText() const;
+	void passFlavorText(std::string) const;
 private:
-	bool doTurn(Turn, LivingEntity*);
+	bool doTurn(Turn, LivingEntity*, std::ostream&, GameObject*&);
 	void clearNonPlayerObjects();
 	void notifyWholeLevel();
 	Controller* controller;

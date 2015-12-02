@@ -1,4 +1,6 @@
 #include "gameobject.h"
+#include <string>
+using namespace std;
 
 GameObject::GameObject(Kind top, Kind sub) : topKind(top), subKind(sub), ghost(false) {
 	this->position.x = 0;
@@ -24,6 +26,14 @@ void GameObject::setPosition(int x, int y) {
 
 Vector GameObject::getPosition() const{
 	return this->position;
+}
+
+void GameObject::setName(string name) {
+	this->name = name;
+}
+
+string GameObject::getName() const{
+	return this->name;
 }
 
 bool GameObject::less_than

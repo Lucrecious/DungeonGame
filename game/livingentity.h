@@ -33,7 +33,7 @@ public:
 
 	// receive an attack from the given living entity
 	//   with the damage given
-	virtual void receiveAttack(LivingEntity*, int);
+	virtual bool receiveAttack(LivingEntity*, int);
 
 	// we drink the potion given, this method also
 	//   kills the given potion object
@@ -43,6 +43,8 @@ public:
 	virtual void move(Vector);
 
 	virtual void turnSucceeded(Turn, bool);
+
+	virtual bool isDead() const;
 
 protected:
 	Effect* effect;

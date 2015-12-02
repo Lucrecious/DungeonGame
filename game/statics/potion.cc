@@ -6,6 +6,30 @@
 
 Potion::Potion(Kind pKind)
 	  : StaticEntity(PotionKind), potionKind(pKind) {
+
+	switch(this->potionKind) {
+		case BAPotionKind:
+			this->setName("Attack Boosting Potion");
+			break;
+		case WAPotionKind:
+			this->setName("Attack Wounding Potion");
+			break;
+		case BDPotionKind:
+			this->setName("Defence Boosting Potion");
+			break;
+		case WDPotionKind:
+			this->setName("Defence Wounding Potion");
+			break;
+		case RHPotionKind:
+			this->setName("Health Restoring Potion");
+			break;
+		case PHPotionKind:
+			this->setName("Poison Potion");
+			break;
+		default:
+			this->setName("Unknown Potion");
+			break;
+	}
 }
 
 Effect* Potion::getEffect(Effect* effect) const {

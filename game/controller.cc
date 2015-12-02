@@ -14,6 +14,15 @@ void Controller::passInformationText(
 			atk, def, hp, maxhp, race, level);
 }
 
+void Controller::passFlavorText(string text) const{
+	string t = "Nothing special this turn.\n";
+	if (text != "") {
+		t = text;
+	}
+
+	this->view->setFlavorText(t);
+}
+
 Vector Controller::getDirection(string sdir) const {
 	char first_dir = sdir[0];
 	char sec_dir = sdir[1];

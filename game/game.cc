@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
+#include <sstream>
 using namespace std;
 
 Game::Game() : controller(0), levelNumber(0), level(0),
@@ -109,10 +110,16 @@ void Game::update() {
 		 this->livings->end(),
 		 GameObject::less_than);
 
+	ostringstream flavor("");
+
 	for (int i = 0; i < (int)this->livings->size(); i++) {
 		LivingEntity* gobj = this->livings->at(i);
+		if (gobj->isDead()) {
+			continue;
+		}
 		Turn turn = gobj->getTurn();
-		if (this->doTurn(turn, gobj)) {
+		GameObject* affectedgobj = 0;
+		if (this->doTurn(turn, gobj, flavor, affectedgobj)) {
 			gobj->turnSucceeded(turn, true);
 		}
 		else {
@@ -120,6 +127,7 @@ void Game::update() {
 		}
 	}
 	this->passInformationText();
+	this->passFlavorText(flavor.str());
 }
 
 void Game::passInformationText() const{
@@ -132,11 +140,17 @@ void Game::passInformationText() const{
 			this->levelNumber);
 }
 
-bool Game::doTurn(Turn turn, LivingEntity* gobj) {
+void Game::passFlavorText(string text) const{
+	this->controller->passFlavorText(text);
+}
+
+
+bool Game::doTurn(Turn turn, LivingEntity* gobj,
+				  ostream& flavor, GameObject*& affected) {
 	Vector target = turn.target;
 	Vector pos = gobj->getPosition();
-	GameObject* tgobj = this->level->get(target + pos);				
-	
+	GameObject* tgobj = this->level->get(target + pos);
+	affected = tgobj;
 
 	switch (turn.kind) {
 		case Move:
@@ -161,7 +175,66 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj) {
 					this->controller->notify(
 							target + pos,
 							this->level->getKindAt(target+pos));
+					flavor << "You have drank a " 
+						<< tgobj->getName() << endl;
 					break;
+				}
+
+				if (gobj->topKind == PlayerKind) {
+					flavor << "You can't drink that." << endl;
+				}
+
+				return false;
+			}
+		case Attack:
+			{
+				if (tgobj) {
+					cout << "Attempting to attack: " << tgobj->getName() << " -- game.cc" << endl;
+				}
+				if (tgobj && 
+				   (tgobj->topKind == EnemyKind ||
+					tgobj->topKind == PlayerKind)) {
+
+					cout << "KIND ATTACKING: " << gobj->topKind << " -- game.cc"  << endl;
+
+					LivingEntity* living =
+						static_cast<LivingEntity*>(tgobj);
+
+					int damage = gobj->getAttackDamage(gobj);
+
+					if (gobj->topKind == EnemyKind) {
+						flavor << gobj->getName()
+							<< " attacks you";
+					}
+					else {
+						flavor << "You attack the "
+							<< living->getName();
+					}
+					
+					flavor << " for " << damage << " damage!";
+
+					bool hits = living->receiveAttack(
+							gobj, damage);
+
+					flavor << (hits ? " And it hits!" :
+									  " And it misses...")
+						   << endl;
+
+					if (living->isDead()) {
+
+						this->level->remove(living->getPosition());
+						this->controller->notify(
+								living->getPosition(),
+								this->level->getKindAt(living->getPosition()));
+						flavor << "The " << living->getName() << " has been slain!" << endl;
+					}
+
+					return hits;;
+
+				}
+
+				if (gobj->topKind == PlayerKind) {
+					flavor << "You can't attack that." << endl;
 				}
 
 				return false;
