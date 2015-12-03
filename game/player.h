@@ -10,6 +10,7 @@ public:
 	Turn getTurn();
 
 	void addGold(Gold* gold);
+	void addGold(int gold);
 	int getGold() const;
 
 	bool receiveAttack(LivingEntity*, int);

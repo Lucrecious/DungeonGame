@@ -53,6 +53,8 @@ public:
 	// drop whatever needs to be dropped
 	virtual void drop();
 
+	virtual int slainGold() const;
+
 protected:
 	Effect* effect;
 

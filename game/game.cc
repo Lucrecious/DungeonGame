@@ -303,6 +303,13 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					if (living->isDead()) {
 						this->level->remove(living->getPosition());
 						living->drop();
+						if (gobj->topKind == PlayerKind) {
+							if (living->subKind != HumanKind) {// && living->subKind != MerchantKind
+								int goldToGive = living->slainGold();
+								this->getPlayer()->addGold(goldToGive);
+								flavor << "You just received " << goldToGive << " gold from " << living->getName() << endl;
+							}
+						}
 						this->controller->notify(
 								living->getPosition(),
 								this->level->getKindAt(living->getPosition()));

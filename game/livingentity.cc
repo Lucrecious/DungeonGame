@@ -1,6 +1,7 @@
 #include "livingentity.h"
 #include <math.h>
 #include "statics/noeffect.h"
+#include "../globals/global.h"
 
 LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		int atk = 0, int def = 0, int hp = 0)
@@ -117,6 +118,15 @@ void LivingEntity::resetEffect() {
 }
 
 void LivingEntity::drop() {
+}
+
+int LivingEntity::slainGold() const {
+	if (Global::hitChance(0.5)) {
+		return Global::NormalGold;
+	}
+	else {
+		return Global::SmallGold;
+	}
 }
 
 

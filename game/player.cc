@@ -15,6 +15,10 @@ void Player::addGold(Gold* gold) {
 	this->goldValue += gold->value;
 }
 
+void Player::addGold(int gold) {
+	this->goldValue += gold;
+}
+
 int Player::getGold() const {
 	return this->goldValue;
 }
