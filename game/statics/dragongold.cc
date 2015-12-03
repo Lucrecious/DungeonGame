@@ -4,7 +4,8 @@
 using namespace std;
 
 DragonGold::DragonGold() : Gold(GoldDragonKind), dragon(0) {
-	GameObject::ghost = false;
+	//GameObject::ghost = false;
+	GameObject::ghost = true;
 }
 
 GameObject* DragonGold::findDragon(Vector& freeSpace) {

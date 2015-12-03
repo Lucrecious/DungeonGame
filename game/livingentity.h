@@ -50,6 +50,9 @@ public:
 
 	void resetEffect();
 
+	// drop whatever needs to be dropped
+	virtual void drop();
+
 protected:
 	Effect* effect;
 

@@ -218,6 +218,12 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 				while (this->level->get(target + pos)
 					&& this->level->get(target + pos)->subKind == GoldKind) {
 					Gold* gold = static_cast<Gold*>(this->level->get(target + pos));
+					if (gold->goldKind == GoldDragonKind) {
+						DragonGold* dgold = static_cast<DragonGold*>(gold);
+						if (!dgold->dragon->isDead()) {
+							break;
+						}
+					}
 					this->player->addGold(gold);
 					flavor << "You picked up " << gold->getName()
 						   << "(" << gold->value << ")" << endl;
@@ -292,6 +298,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 
 					if (living->isDead()) {
 						this->level->remove(living->getPosition());
+						living->drop();
 						this->controller->notify(
 								living->getPosition(),
 								this->level->getKindAt(living->getPosition()));

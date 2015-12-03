@@ -27,7 +27,6 @@ int LivingEntity::getDefStat() const {
 }
 
 int LivingEntity::getMaxHP() const {
-	// TODO: I don't think anything affects this...
 	return this->maxHP;
 }
 
@@ -115,6 +114,9 @@ bool LivingEntity::isPotionKnown(Kind kind) {
 void LivingEntity::resetEffect() {
 	delete this->effect;
 	this->effect = new NoEffect();
+}
+
+void LivingEntity::drop() {
 }
 
 

@@ -6,7 +6,7 @@
 class Human : public Enemy {
 public:
 	Human();
-	// TODO: Fucking drops...
+	void drop();
 };
 
 #endif
