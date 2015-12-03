@@ -6,8 +6,6 @@
 class Dwarf : public Enemy {
 public:
 	Dwarf();
-	//ReceiveAttack overload 
-	//Vampire allergies?
 };
 
 #endif

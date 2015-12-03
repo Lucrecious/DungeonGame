@@ -2,6 +2,7 @@
 #include <vector>
 #include "characters/shade.h"
 #include "characters/human.h"
+#include "characters/dwarf.h"
 #include "characters/dragon.h"
 #include "statics/dragongold.h"
 #include "statics/potion.h"
@@ -93,6 +94,9 @@ GameObject* Game::addObject(Kind kind) {
 
 		case HumanKind:
 			gobj = new Human();
+			break;
+		case DwarfKind:
+			gobj = new Dwarf();
 			break;
 
 		case DragonKind:

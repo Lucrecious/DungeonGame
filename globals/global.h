@@ -38,6 +38,7 @@ public:
 
 	const static char HumanSymbol = 'H';
 	const static char DragonSymbol = 'D';
+	const static char DwarfSymbol = 'W';
 
 	static bool hitChance(double);
 	static double drand(double, double);
