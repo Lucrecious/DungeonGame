@@ -6,7 +6,7 @@
 class Orc : public Enemy {
 public:
 	Orc();
-	//Attack overload 1.5 dmg to goblins?
+	int getAttackDamage(LivingEntity*) const;
 };
 
 #endif

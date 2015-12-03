@@ -1,13 +1,18 @@
 #include "orc.h"
+#include "../../globals/kind.h"
+#include <iostream>
+using namespace std;
 
 Orc::Orc() : Enemy(OrcKind, 30, 25, 180) {
 	this->setName("Orc");
 }
 
-/* TODO 	
+int Orc::getAttackDamage(LivingEntity* le) const {
+	double factor = 1;
+	cout << ShadeKind << " " << le->subKind << " --orc.cc" << endl;
+	if (le->subKind == GoblinKind) {
+		factor = 1.5;
+	}
 
-When attacking goblins, orcs get a 50%
-dmg increase
-
-*/
-
+	return Enemy::getAttackDamage(le) * factor;
+}

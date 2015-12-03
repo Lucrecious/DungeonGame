@@ -5,6 +5,7 @@
 #include "characters/dwarf.h"
 #include "characters/dragon.h"
 #include "characters/elf.h"
+#include "characters/orc.h"
 #include "statics/dragongold.h"
 #include "statics/potion.h"
 #include "statics/gold.h"
@@ -102,11 +103,15 @@ GameObject* Game::addObject(Kind kind) {
 		case ElfKind:
 			gobj = new Elf();
 			break;
+		case OrcKind:
+			gobj = new Orc();
+			break;
 
 		case DragonKind:
 			gobj = new Dragon();
 			break;
 
+		case GoblinKind:
 		case ShadeKind:
 			gobj =  new Shade();
 			break;
@@ -287,7 +292,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					LivingEntity* living =
 						static_cast<LivingEntity*>(tgobj);
 
-					int damage = gobj->getAttackDamage(gobj);
+					int damage = gobj->getAttackDamage(living);
 
 					if (gobj->topKind == EnemyKind) {
 						string attack_prompt = " attacks you";
