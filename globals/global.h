@@ -1,6 +1,8 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#include <stdlib.h>
+
 class Global {
 public:
 	const static int levelHeight = 25;
@@ -36,6 +38,9 @@ public:
 
 	const static char HumanSymbol = 'H';
 	const static char DragonSymbol = 'D';
+
+	static bool hitChance(double);
+	static double drand(double, double);
 };
 
 #endif

@@ -12,6 +12,8 @@ public:
 	void addGold(Gold* gold);
 	int getGold() const;
 
+	bool receiveAttack(LivingEntity*, int);
+
 private:
 	int goldValue;
 };
