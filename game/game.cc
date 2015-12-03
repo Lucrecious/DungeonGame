@@ -415,7 +415,13 @@ int Game::getLevelNumber() const {
 
 int Game::getCurrentScore() const {
 	// Need a slightly different implementation for Shade
+	if (this->getPlayer()->subKind == ShadeKind){
+		return this->getPlayer()->getGold()*1.5;
+
+	} else {
+
 	return this->getPlayer()->getGold();
+	}
 }
 
 Level* Game::getLevel() const {
