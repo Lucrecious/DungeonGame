@@ -95,7 +95,7 @@ void LivingEntity::move(Vector movement) {
 	this->setPosition(newPosition);
 }
 
-void LivingEntity::turnSucceeded(Turn, bool) {
+void LivingEntity::turnSucceeded(Turn, bool, GameObject*) {
 }
 
 bool LivingEntity::isDead() const {

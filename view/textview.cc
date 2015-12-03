@@ -92,6 +92,7 @@ char TextView::getCharFromKind(Kind kind) {
 			return Global::DragonSymbol;
 
 		case ShadeKind:
+		case GoblinKind:
 		case PlayerKind:
 			return Global::PlayerSymbol;
 		default:

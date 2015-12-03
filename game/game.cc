@@ -8,6 +8,7 @@
 #include "characters/orc.h"
 #include "characters/merchant.h"
 #include "characters/halfling.h"
+#include "characters/goblin.h"
 #include "statics/dragongold.h"
 #include "statics/potion.h"
 #include "statics/gold.h"
@@ -120,6 +121,8 @@ GameObject* Game::addObject(Kind kind) {
 			break;
 
 		case GoblinKind:
+			gobj = new Goblin();
+			break;
 		case ShadeKind:
 			gobj =  new Shade();
 			break;
@@ -165,10 +168,10 @@ void Game::update() {
 			doneTurn = this->doTurn(turn, gobj, flavor, affectedgobj) && doneTurn;
 		}
 		if (doneTurn) {
-			gobj->turnSucceeded(turn, true);
+			gobj->turnSucceeded(turn, true, affectedgobj);
 		}
 		else {
-			gobj->turnSucceeded(turn, false);
+			gobj->turnSucceeded(turn, false, affectedgobj);
 		}
 	}
 	this->passInformationText();

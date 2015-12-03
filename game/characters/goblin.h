@@ -6,7 +6,7 @@
 class Goblin : public Player {
 public:
 	Goblin();
-	//TODO void isTurnSucceed(bool);
+	void turnSucceeded(Turn, bool, GameObject*);
 
 };
 

@@ -97,7 +97,8 @@ void Controller::main() {
 
 
 		if (!begun) {
-			if (this->commandBuffer == "s") {
+			if (this->commandBuffer == "s" ||
+				this->commandBuffer == "g") {
 				this->kill();
 				begun = true;
 				Kind kind = this->getRaceFromString(this->commandBuffer);
@@ -209,6 +210,9 @@ void Controller::kill() {
 Kind Controller::getRaceFromString(string s) {
 	if (s == "s") {
 		return ShadeKind;
+	}
+	else if (s == "g") {
+		return GoblinKind;
 	}
 	else {
 		return NoneKind;
