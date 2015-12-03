@@ -7,6 +7,7 @@
 #include "characters/elf.h"
 #include "characters/orc.h"
 #include "characters/merchant.h"
+#include "characters/halfling.h"
 #include "statics/dragongold.h"
 #include "statics/potion.h"
 #include "statics/gold.h"
@@ -109,6 +110,9 @@ GameObject* Game::addObject(Kind kind) {
 			break;
 		case MerchantKind:
 			gobj = new Merchant();
+			break;
+		case HalflingKind:
+			gobj = new Halfling();
 			break;
 
 		case DragonKind:
