@@ -10,6 +10,7 @@
 #include "characters/halfling.h"
 #include "characters/goblin.h"
 #include "characters/troll.h"
+#include "characters/vampire.h"
 #include "statics/dragongold.h"
 #include "statics/potion.h"
 #include "statics/gold.h"
@@ -126,6 +127,9 @@ GameObject* Game::addObject(Kind kind) {
 			break;
 		case TrollKind:
 			gobj = new Troll();
+			break;
+		case VampireKind:
+			gobj = new Vampire();
 			break;
 		case ShadeKind:
 			gobj =  new Shade();

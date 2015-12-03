@@ -38,7 +38,7 @@ void TextView::setInformationText(
 	this->informationText.str(string());
 	this->informationText << "Atk: " << atk << setw(10);
 	this->informationText << "Def: " << def << setw(10);
-	this->informationText << "HP: " << hp << "/" << hpmax
+	this->informationText << "HP: " << hp << "/" << (race == "Vampire" ? 0 : hpmax)
 						  << setw(10);
 	this->informationText << "Gold: " << gold << setw(30);
 	this->informationText << "Floor: " << level << endl;
@@ -94,6 +94,7 @@ char TextView::getCharFromKind(Kind kind) {
 		case ShadeKind:
 		case GoblinKind:
 		case TrollKind:
+		case VampireKind:
 		case PlayerKind:
 			return Global::PlayerSymbol;
 		default:

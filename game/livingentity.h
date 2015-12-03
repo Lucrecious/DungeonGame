@@ -57,6 +57,7 @@ public:
 
 protected:
 	Effect* effect;
+	int currentHP;
 
 private:
 	Kind knownPotions[MAXKNOWNPOTS];
@@ -66,7 +67,6 @@ private:
 	const int atkStat;
 	const int defStat;
 	const int maxHP;
-	int currentHP;
 };
 
 

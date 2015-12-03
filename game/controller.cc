@@ -74,7 +74,7 @@ void Controller::main() {
 	bool begun = false;
 	
 	string preGamePrompt =
-		"Select a race <s, g, t>, quit(q) or restart(r)";
+		"Select a race <s, g, t, v>, quit(q) or restart(r)";
 	string inGamePrompt =
 		"What do you want to do?";
 
@@ -99,7 +99,8 @@ void Controller::main() {
 		if (!begun) {
 			if (this->commandBuffer == "s" ||
 				this->commandBuffer == "g" ||
-				this->commandBuffer == "t") {
+				this->commandBuffer == "t" ||
+				this->commandBuffer == "v") {
 				this->kill();
 				begun = true;
 				Kind kind = this->getRaceFromString(this->commandBuffer);
@@ -171,14 +172,14 @@ void Controller::printWinDialogue(const int score) const {
 
 void Controller::printLoseDialogue() const {
 	cout << "You're dead." << endl;
-	cout << "Your friends are dead." <<endl;
+	/*cout << "Your friends are dead." <<endl;
 	cout << "Your family's dead." << endl;
 	cout << "Your f**king pets are being skinned alive." << endl;
 	cout << "Your mom's a f**king whore." << endl;
 	cout << "You suck at life." << endl;
 	cout << "The whole world hate's you." << endl;
 	cout << "You're going to hell." << endl;
-	cout << "Live with it." << endl << endl;
+	cout << "Live with it." << endl << endl;*/
 	cout << "Game Over" << endl;
 }
 
@@ -216,6 +217,9 @@ Kind Controller::getRaceFromString(string s) {
 		return GoblinKind;
 	}else if (s == "t") {
 		return TrollKind;
+	}
+	else if (s == "v") {
+		return VampireKind;
 	}
 	else {
 		return NoneKind;

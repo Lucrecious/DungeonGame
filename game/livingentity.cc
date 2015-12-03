@@ -5,9 +5,9 @@
 
 LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		int atk = 0, int def = 0, int hp = 0)
-	: GameObject(topKind, subKind), effect(0),
+	: GameObject(topKind, subKind), effect(0), currentHP(hp), 
 	  numKnownPotions(0), atkStat(atk), defStat(def),
-	  maxHP(hp), currentHP(hp) {
+	  maxHP(hp){
 		  for (int i = 0; i < MAXKNOWNPOTS; i++) {
 			  this->knownPotions[i] = NoneKind;
 		  }
