@@ -2,11 +2,12 @@
 #define GOBLIN_H
 
 #include "../player.h"
+#include <iostream>
 
 class Goblin : public Player {
 public:
 	Goblin();
-	void turnSucceeded(Turn, bool, GameObject*);
+	void turnSucceeded(Turn, bool, GameObject*, std::ostream&);
 
 };
 

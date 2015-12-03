@@ -2,6 +2,7 @@
 #include <math.h>
 #include "statics/noeffect.h"
 #include "../globals/global.h"
+using namespace std;
 
 LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		int atk = 0, int def = 0, int hp = 0)
@@ -20,11 +21,13 @@ LivingEntity::~LivingEntity() {
 }
 
 int LivingEntity::getAtkStat() const {
-	return this->atkStat + this->effect->getAtkNet();
+	int newStat = this->defStat + this->effect->getAtkNet();
+	return newStat < 0 ? 0 : newStat;
 }
 
 int LivingEntity::getDefStat() const {
-	return this->defStat + this->effect->getDefNet();
+	int newStat = this->defStat + this->effect->getDefNet();
+	return newStat < 0 ? 0 : newStat;
 }
 
 int LivingEntity::getMaxHP() const {
@@ -95,7 +98,7 @@ void LivingEntity::move(Vector movement) {
 	this->setPosition(newPosition);
 }
 
-void LivingEntity::turnSucceeded(Turn, bool, GameObject*) {
+void LivingEntity::turnSucceeded(Turn, bool, GameObject*, ostream&) {
 }
 
 bool LivingEntity::isDead() const {

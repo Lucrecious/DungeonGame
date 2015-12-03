@@ -175,12 +175,7 @@ void Game::update() {
 			affectedgobj->subKind != DrowKind) {
 			doneTurn = this->doTurn(turn, gobj, flavor, affectedgobj) && doneTurn;
 		}
-		if (doneTurn) {
-			gobj->turnSucceeded(turn, true, affectedgobj);
-		}
-		else {
-			gobj->turnSucceeded(turn, false, affectedgobj);
-		}
+		gobj->turnSucceeded(turn, doneTurn, affectedgobj, flavor);
 	}
 	this->passInformationText();
 	this->passFlavorText(flavor.str());

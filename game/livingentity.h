@@ -6,6 +6,7 @@
 #include "turn.h"
 #include "statics/effect.h"
 #include "statics/potion.h"
+#include <iostream>
 
 
 const int MAXKNOWNPOTS = 6;
@@ -15,8 +16,8 @@ public:
 	LivingEntity(Kind, Kind, int, int, int);
 	~LivingEntity();
 
-	int getAtkStat() const;
-	int getDefStat() const;
+	virtual int getAtkStat() const;
+	virtual int getDefStat() const;
 	int getMaxHP() const;
 	virtual void setHP(int); // virtual for vampire, no hp cap
 	int getHP() const;
@@ -42,7 +43,7 @@ public:
 	// move us by the given vector
 	virtual void move(Vector);
 
-	virtual void turnSucceeded(Turn, bool, GameObject*);
+	virtual void turnSucceeded(Turn, bool, GameObject*, std::ostream& flavor);
 
 	virtual bool isDead() const;
 
