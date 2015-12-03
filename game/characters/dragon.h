@@ -3,10 +3,15 @@
 
 #include "../enemy.h"
 
+class DragonGold;
+
 class Dragon : public Enemy {
 public:
 	Dragon();
-	//Attack overload (from 2 spaces away)?
+	Turn getTurn();
+	void pair(DragonGold*);
+	DragonGold* gold;
+	void turnSucceeded(Turn, bool);
 };
 
 #endif

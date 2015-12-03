@@ -39,6 +39,7 @@ public:
 	bool isPlayerDead() const;
 	int getLevelNumber() const;
 	int getCurrentScore() const;
+	Level* getLevel() const;
 	
 private:
 	bool doTurn(Turn, LivingEntity*, std::ostream&, GameObject*&);

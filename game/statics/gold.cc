@@ -17,6 +17,9 @@ Gold::Gold(Kind kind)
 		case GoldMerchantKind:
 			this->setName("Merchant Gold Pile");
 			break;
+		case GoldDragonKind:
+			this->setName("Dragon's Hoard");
+			break;
 		default:
 			break;
 	}
@@ -30,6 +33,8 @@ const int Gold::getValueFrom(Kind k) const {
 			return Global::NormalGold;
 		case GoldMerchantKind:
 			return Global::MerchantGold;
+		case GoldDragonKind:
+			return Global::DragonGold;
 		default:
 			return 0;
 	}

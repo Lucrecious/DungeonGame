@@ -395,6 +395,9 @@ int Game::getCurrentScore() const {
 	return this->getPlayer()->getGold();
 }
 
+Level* Game::getLevel() const {
+	return this->level;
+}
 
 
 

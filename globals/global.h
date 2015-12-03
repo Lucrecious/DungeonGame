@@ -34,6 +34,7 @@ public:
 	const static char PlayerSymbol = '@';
 
 	const static char HumanSymbol = 'H';
+	const static char DragonSymbol = 'D';
 };
 
 #endif
