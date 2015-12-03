@@ -59,15 +59,15 @@ public:
 protected:
 	Effect* effect;
 	int currentHP;
+	const int atkStat;
+	const int defStat;
+	const int maxHP;
 
 private:
 	Kind knownPotions[MAXKNOWNPOTS];
 	int numKnownPotions;
 	void addNewKnownPotion(Kind);
 	
-	const int atkStat;
-	const int defStat;
-	const int maxHP;
 };
 
 

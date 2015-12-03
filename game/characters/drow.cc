@@ -5,9 +5,11 @@ Drow::Drow() : Player(DrowKind, 25, 15, 150) {
 }
 
 int Drow::getAtkStat() const {
-	return this->atkStat + this->effect->getAtkNet() * 1.5;
+	int newStat = this->atkStat + this->effect->getAtkNet() * 1.5;
+	return newStat < 0 ? 0 : newStat;
 }
 
 int Drow::getDefStat() const {
-	return this->defStat + this->effect->getDefNet() * 1.5;
+	int newStat = this->defStat + this->effect->getDefNet() * 1.5;
+	return newStat < 0 ? 0 : newStat;
 }
