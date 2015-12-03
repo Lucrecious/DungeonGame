@@ -112,4 +112,9 @@ bool LivingEntity::isPotionKnown(Kind kind) {
 	return false;
 }
 
+void LivingEntity::resetEffect() {
+	delete this->effect;
+	this->effect = new NoEffect();
+}
+
 

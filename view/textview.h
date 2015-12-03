@@ -18,7 +18,7 @@ public:
 	void display() const;
 	void notify(Vector, Kind);
 	void setInformationText(
-			int atk, int def, int hp, int hpmax, int gold, Kind race, int level);
+			int atk, int def, int hp, int hpmax, int gold, std::string race, int level);
 	void setFlavorText(std::string);
 private:
 	std::ostringstream informationText;

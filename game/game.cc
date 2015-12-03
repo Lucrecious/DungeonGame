@@ -154,7 +154,7 @@ void Game::passInformationText() const{
 			this->player->getHP(),
 			this->player->getMaxHP(),
 			this->player->getGold(),
-			this->player->subKind,
+			this->player->getName(),
 			this->levelNumber);
 }
 
@@ -269,8 +269,12 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					int damage = gobj->getAttackDamage(gobj);
 
 					if (gobj->topKind == EnemyKind) {
+						string attack_prompt = " attacks you";
+						if (gobj->subKind == DragonKind) {
+							attack_prompt = " uses fire breath on you";
+						}
 						flavor << gobj->getName()
-							<< " attacks you";
+							<< attack_prompt;
 					}
 					else {
 						flavor << "You attack the "
@@ -369,6 +373,8 @@ void Game::buildLevel(istream& in) {
 	this->level->place(
 			this->player,
 			this->level->getPlayerSpawn());
+
+	this->player->resetEffect();
 
 	for (int i = 0; i < (int)this->statics->size(); i++) {
 		if (this->statics->at(i)->subKind == GoldKind) {

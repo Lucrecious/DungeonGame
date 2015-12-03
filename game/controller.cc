@@ -9,7 +9,7 @@ Controller::Controller(istream& input, string _save)
 
 
 void Controller::passInformationText(
-		int atk, int def, int hp, int maxhp, int gold, Kind race, int level) const {
+		int atk, int def, int hp, int maxhp, int gold, string race, int level) const {
 	this->view->setInformationText(
 			atk, def, hp, maxhp, gold, race, level);
 }

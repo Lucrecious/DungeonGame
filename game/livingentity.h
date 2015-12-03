@@ -48,6 +48,8 @@ public:
 
 	virtual bool isPotionKnown(Kind);
 
+	void resetEffect();
+
 protected:
 	Effect* effect;
 

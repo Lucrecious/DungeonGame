@@ -34,7 +34,7 @@ void TextView::display() const {
 }
 
 void TextView::setInformationText(
-		int atk, int def, int hp, int hpmax, int gold, Kind race, int level) {
+		int atk, int def, int hp, int hpmax, int gold, string race, int level) {
 	this->informationText.str(string());
 	this->informationText << "Atk: " << atk << setw(10);
 	this->informationText << "Def: " << def << setw(10);
@@ -42,7 +42,7 @@ void TextView::setInformationText(
 						  << setw(10);
 	this->informationText << "Gold: " << gold << setw(30);
 	this->informationText << "Floor: " << level << endl;
-	this->informationText << "Race: " << "BOOM";;
+	this->informationText << "Race: " << race;
 }
 
 void TextView::setFlavorText(string text) {
