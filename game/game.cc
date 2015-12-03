@@ -144,7 +144,14 @@ void Game::update() {
 		}
 		Turn turn = gobj->getTurn();
 		GameObject* affectedgobj = 0;
-		if (this->doTurn(turn, gobj, flavor, affectedgobj)) {
+		bool doneTurn = this->doTurn(turn, gobj, flavor, affectedgobj); 
+
+		if (gobj->subKind == ElfKind && turn.kind == Attack &&
+			affectedgobj && affectedgobj->topKind == PlayerKind &&
+			affectedgobj->subKind != DrowKind) {
+			doneTurn = this->doTurn(turn, gobj, flavor, affectedgobj) && doneTurn;
+		}
+		if (doneTurn) {
 			gobj->turnSucceeded(turn, true);
 		}
 		else {
