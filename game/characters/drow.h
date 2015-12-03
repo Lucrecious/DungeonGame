@@ -6,7 +6,7 @@
 class Drow : public Player {
 public:
 	Drow();
-	//TODO void drink(Potion *);
+	void drink(Potion *);
 };
 
 #endif
