@@ -1,6 +1,7 @@
 #include "enemy.h"
 #include "math.h"
 #include <iostream>
+#include "../globals/global.h"
 using namespace std;
 
 Enemy::Enemy(Kind kind, int atk, int def, int hp)
@@ -15,12 +16,16 @@ Turn Enemy::getTurn() {
 				 gobj->getPosition() - this->getPosition());
 	}
 
-	// make a random direction
-	Vector direction;
-	direction.x = 0;
-	direction.y = -1;
+	Vector v;
+	v.x = 0;
+	v.y = 0;
 
-	return Turn(Move, direction);
+	while (v.x == 0 && v.y == 0) {
+		v.x = Global::irand(-1, 1);
+		v.y = Global::irand(-1, 1);
+	}
+
+	return Turn(Move, v);
 }
 
 Player* Enemy::isPlayerAround() const{

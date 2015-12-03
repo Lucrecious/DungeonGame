@@ -41,6 +41,7 @@ public:
 
 	static bool hitChance(double);
 	static double drand(double, double);
+	static int irand(int, int);
 };
 
 #endif
