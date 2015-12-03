@@ -15,7 +15,6 @@ enum Kind {
 	ElfKind,
 	OrcKind,
 	MerchantKind,
-	HalflingKind,
 	StaticKind,
 	PotionKind,
 	RHPotionKind,

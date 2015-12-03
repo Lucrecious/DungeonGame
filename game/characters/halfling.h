@@ -6,7 +6,8 @@
 class Halfling : public Enemy {
 public:
 	Halfling();
-	bool receiveAttack(LivingEntity*, int);
+	//recieve attack overload?
+	//chance for player to miss?
 };
 
 #endif
