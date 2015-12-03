@@ -6,7 +6,11 @@
 class Merchant : public Enemy {
 public:
 	Merchant();
-	bool isHostile();
+	bool receiveAttack(LivingEntity*, int);
+	Turn getTurn();
+	void drop();
 };
 
 #endif
+
+

@@ -6,6 +6,7 @@
 #include "characters/dragon.h"
 #include "characters/elf.h"
 #include "characters/orc.h"
+#include "characters/merchant.h"
 #include "statics/dragongold.h"
 #include "statics/potion.h"
 #include "statics/gold.h"
@@ -16,7 +17,7 @@
 using namespace std;
 
 Game::Game() : controller(0), levelNumber(0), level(0),
-			   player(0){
+			   player(0), merchantsAttack(false) {
 	this->statics = new vector<StaticEntity*>();
 	this->livings = new vector<LivingEntity*>();
 }
@@ -105,6 +106,9 @@ GameObject* Game::addObject(Kind kind) {
 			break;
 		case OrcKind:
 			gobj = new Orc();
+			break;
+		case MerchantKind:
+			gobj = new Merchant();
 			break;
 
 		case DragonKind:
@@ -320,7 +324,9 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 						this->level->remove(living->getPosition());
 						living->drop();
 						if (gobj->topKind == PlayerKind) {
-							if (living->subKind != HumanKind) {// && living->subKind != MerchantKind
+							if (living->subKind != HumanKind &&
+								living->subKind != MerchantKind &&
+								living->subKind != DragonKind) {
 								int goldToGive = living->slainGold();
 								this->getPlayer()->addGold(goldToGive);
 								flavor << "You just received " << goldToGive << " gold from " << living->getName() << endl;
@@ -464,5 +470,12 @@ Level* Game::getLevel() const {
 	return this->level;
 }
 
+bool Game::merchantsHostile() const {
+	return this->merchantsAttack;
+}
+
+void Game::makeMerchantsHostile() {
+	this->merchantsAttack = true;
+}
 
 

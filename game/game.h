@@ -40,6 +40,9 @@ public:
 	int getLevelNumber() const;
 	int getCurrentScore() const;
 	Level* getLevel() const;
+
+	bool merchantsHostile() const;
+	void makeMerchantsHostile();
 	
 private:
 	bool doTurn(Turn, LivingEntity*, std::ostream&, GameObject*&);
@@ -51,6 +54,7 @@ private:
 	int levelNumber;
 	Level* level;
 	Player* player;
+	bool merchantsAttack;
 };
 
 

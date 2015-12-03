@@ -41,6 +41,7 @@ public:
 	const static char DwarfSymbol = 'W';
 	const static char ElfSymbol = 'E';
 	const static char OrcSymbol = 'O';
+	const static char MerchantSymbol = 'M';
 
 	static bool hitChance(double);
 	static double drand(double, double);

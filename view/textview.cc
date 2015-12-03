@@ -80,6 +80,8 @@ char TextView::getCharFromKind(Kind kind) {
 			return Global::ElfSymbol;
 		case OrcKind:
 			return Global::OrcSymbol;
+		case MerchantKind:
+			return Global::MerchantSymbol;
 
 		case GoldKind:
 			return Global::GoldSymbol;
