@@ -2,6 +2,8 @@
 #include <vector>
 #include "characters/shade.h"
 #include "characters/human.h"
+#include "characters/dragon.h"
+#include "statics/dragongold.h"
 #include "statics/potion.h"
 #include "statics/gold.h"
 #include <fstream>
@@ -85,9 +87,16 @@ GameObject* Game::addObject(Kind kind) {
 		case GoldMerchantKind:
 			gobj = new Gold(kind);
 			break;
+		case GoldDragonKind:
+			gobj = new DragonGold();
+			break;
 
 		case HumanKind:
 			gobj = new Human();
+			break;
+
+		case DragonKind:
+			gobj = new Dragon();
 			break;
 
 		case ShadeKind:
@@ -118,6 +127,10 @@ void Game::update() {
 		 this->livings->end(),
 		 GameObject::less_than);
 
+	for (int i = 0; i < (int) this->livings->size(); i++) {
+		cout << "Kind: " << this->livings->at(i)->topKind << " -- game.cc" << endl;
+	}
+	cout << endl;
 	ostringstream flavor("");
 
 	for (int i = 0; i < (int)this->livings->size(); i++) {
@@ -360,6 +373,16 @@ void Game::buildLevel(istream& in) {
 	this->level->place(
 			this->player,
 			this->level->getPlayerSpawn());
+
+	for (int i = 0; i < (int)this->statics->size(); i++) {
+		if (this->statics->at(i)->subKind == GoldKind) {
+			Gold* gold = static_cast<Gold*>(this->statics->at(i));
+			if (gold->goldKind == GoldDragonKind) {
+				DragonGold* dgold = static_cast<DragonGold*>(this->statics->at(i));
+				dgold->pair();
+			}
+		}
+	}
 
 	this->notifyWholeLevel();
 }

@@ -11,6 +11,7 @@ public:
 	Dragon* dragon;
 	void pair();
 	void unghost();
+	GameObject* findDragon(Vector&);
 };
 
 #endif

@@ -1,18 +1,13 @@
 #include "dragongold.h"
 #include "../characters/dragon.h"
+#include <iostream>
+using namespace std;
 
 DragonGold::DragonGold() : Gold(GoldDragonKind), dragon(0) {
 	GameObject::ghost = false;
 }
 
-void DragonGold::pair() {
-	
-	if (this->dragon) {
-		return;
-	}
-
-	Vector freeSpace;
-
+GameObject* DragonGold::findDragon(Vector& freeSpace) {
 	GameObject* gobj = 0;
 
 	for (int i = -1; i <= 1; i++) {
@@ -20,28 +15,41 @@ void DragonGold::pair() {
 			if (i == 0 && j == 0) {
 				continue;
 			}
+
 			Vector v;
 			v.x = i;
 			v.y = j;
-			gobj = this->game->getLevel()->get(v);
+			gobj = this->game->getLevel()->get(this->getPosition() + v);
 			if (gobj && gobj->subKind == DragonKind) {
-				break;
+				return gobj;
 			}
 			else if (gobj && gobj->subKind == FloorKind) {
-				freeSpace = gobj->getPosition();
+				freeSpace.x = gobj->getPosition().x;
+				freeSpace.y = gobj->getPosition().y;
 			}
-
-			gobj = 0;
 		}
 	}
+
+	return 0;
+}
+
+void DragonGold::pair() {
+	if (this->dragon) {
+		return;
+	}
+
+	Vector freeSpace;
+
+	GameObject* gobj = this->findDragon(freeSpace);
 	
 	if (!gobj) {
+		cout << "adding another dragon for some reason --dragongold.cc" << endl;
 		gobj = this->game->addObject(DragonKind);
+		this->game->getLevel()->place(gobj, freeSpace);
 	}
 
 	this->dragon = static_cast<Dragon*>(gobj);
 	this->dragon->pair(this);
-	this->game->getLevel()->place(this->dragon, freeSpace);
 
 }
 

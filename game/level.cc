@@ -1,6 +1,9 @@
 #include "level.h"
 #include <iostream>
 #include "gameobject.h"
+#include "statics/dragongold.h"
+#include "characters/dragon.h"
+
 using namespace std;
 
 Level::Level(Game* g) : game(g) {
@@ -89,6 +92,17 @@ bool Level::isFree(Vector v, GameObject* incoming) const {
 		 incoming->topKind == PlayerKind)) {
 		return true;
 	}
+	
+	if (incoming->topKind == PlayerKind &&
+		gobj->subKind == GoldKind) {
+		Gold* gold = static_cast<Gold*>(gobj);
+		if (gold->goldKind == GoldDragonKind) {
+			DragonGold* dgold = static_cast<DragonGold*>(gold);
+			if (dgold->dragon->isDead()){
+				return true;
+			}
+		}
+	}
 
 	if (gobj->subKind == StairsKind &&
 		incoming->topKind == PlayerKind) {
@@ -171,9 +185,15 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 			case Global::GoldMerchantSymbol:
 				gobj = this->game->addObject(GoldMerchantKind);
 				break;
+			case Global::GoldDragonSymbol:
+				gobj = this->game->addObject(GoldDragonKind);
+				break;
 
 			case Global::HumanSymbol:
 				gobj = this->game->addObject(HumanKind);
+				break;
+			case Global::DragonSymbol:
+				gobj = this->game->addObject(DragonKind);
 				break;
 
 			case Global::StairsSymbol:
@@ -217,6 +237,9 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 
 	if (gobj) {
 		gobj->setPosition(j, i);
+		if (gobj->subKind == GoldKind) {
+			cout << "gold position: " << gobj->getPosition().x << endl;
+		}
 		stack->push(gobj);
 	}
 }

@@ -42,6 +42,10 @@ bool GameObject::less_than
 		return true;
 	}
 
+	if (gobj2->topKind == PlayerKind) {
+		return false;
+	}
+
 	Vector mine = gobj1->getPosition();
 	int d1 = mine.y * Global::levelWidth + mine.x;
 

@@ -29,6 +29,7 @@ public:
 	const static char GoldNormalSymbol = '6';
 	const static char GoldSmallSymbol = '7';
 	const static char GoldMerchantSymbol = '8';
+	const static char GoldDragonSymbol = '9';
 	const static char GoldSymbol = 'G';
 
 	const static char PlayerSymbol = '@';

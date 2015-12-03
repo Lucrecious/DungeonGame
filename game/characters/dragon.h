@@ -10,8 +10,7 @@ public:
 	Dragon();
 	Turn getTurn();
 	void pair(DragonGold*);
-	DragonGold* gold;
-	void turnSucceeded(Turn, bool);
+	DragonGold* dgold;
 };
 
 #endif

@@ -1,19 +1,25 @@
 #include "dragon.h"
 #include "../statics/dragongold.h"
+#include <iostream>
+using namespace std;
 
-Dragon::Dragon() : Enemy(DragonKind, 20, 20, 150) {
+Dragon::Dragon() : Enemy(DragonKind, 20, 20, 150), dgold(0) {
 	this->setName("Dragon");
 }
 
 void Dragon::pair(DragonGold* gold) {
-	this->gold = gold;
+	if (this->dgold) {
+		return;
+	}
+
+	this->dgold = gold;
 }
 
 Turn Dragon::getTurn() {
 	Vector ppos = this->game->getPlayer()->getPosition();
 
-	Vector diffDragon = this->getPosition() - ppos;
-	Vector diffGold = this->gold->getPosition() - ppos;
+	Vector diffDragon = ppos - this->getPosition();
+	Vector diffGold = this->dgold->getPosition() - ppos;
 
 	int distDragon = diffDragon.x * diffDragon.x +
 					 diffDragon.y * diffDragon.y;
@@ -28,10 +34,4 @@ Turn Dragon::getTurn() {
 	v.x = 0;
 	v.y = 0;
 	return Turn(Move, v);
-}
-
-void Dragon::turnSucceeded(Turn, bool) {
-	if (this->isDead()) {
-		this->gold->unghost();
-	}
 }

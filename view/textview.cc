@@ -78,6 +78,9 @@ char TextView::getCharFromKind(Kind kind) {
 		case GoldKind:
 			return Global::GoldSymbol;
 
+		case DragonKind:
+			return Global::DragonSymbol;
+
 		case ShadeKind:
 		case PlayerKind:
 			return Global::PlayerSymbol;
