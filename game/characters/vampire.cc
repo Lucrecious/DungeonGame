@@ -11,11 +11,19 @@ attacking a dwarf, which results in -5 hp instead
 void Vampire::void isTurnSucceed(bool){
 
 }
+
 */
 
-void Vampire::setHP(int hp) {
-	this->currentHP = hp;
-	if (hp < 0) {
-		this->currentHP = 0;
-	}
+/* TODO 
+
+Vampire have no maximum hp: We could make the setHP function
+virtual and overload it for the vampire, so that the regular
+function will take halt at max hp, but the overloaded function
+for the vampire class won't
+
+void LivingEntity::setHP(int hp){
+	
 }
+
+*/
+

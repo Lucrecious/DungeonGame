@@ -7,7 +7,6 @@ class Vampire : public Player {
 public:
 	Vampire();
 	//TODO void isTurnSucceed(bool);
-	void setHP(int);
 
 };
 
