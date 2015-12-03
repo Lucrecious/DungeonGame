@@ -127,10 +127,6 @@ void Game::update() {
 		 this->livings->end(),
 		 GameObject::less_than);
 
-	for (int i = 0; i < (int) this->livings->size(); i++) {
-		cout << "Kind: " << this->livings->at(i)->topKind << " -- game.cc" << endl;
-	}
-	cout << endl;
 	ostringstream flavor("");
 
 	for (int i = 0; i < (int)this->livings->size(); i++) {

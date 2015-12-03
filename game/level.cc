@@ -237,9 +237,6 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 
 	if (gobj) {
 		gobj->setPosition(j, i);
-		if (gobj->subKind == GoldKind) {
-			cout << "gold position: " << gobj->getPosition().x << endl;
-		}
 		stack->push(gobj);
 	}
 }
