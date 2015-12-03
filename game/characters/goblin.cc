@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Goblin::Goblin() : Player(GoblinKind, 200, 20, 110) {
+Goblin::Goblin() : Player(GoblinKind, 15, 20, 110) {
 	this->setName("Goblin");
 }
 

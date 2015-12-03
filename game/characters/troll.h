@@ -6,9 +6,7 @@
 class Troll : public Player {
 public:
 	Troll();
-	//TODO void isTurnSucceed(bool);
-
-	
+	void turnSucceeded(Turn, bool, GameObject*);
 };
 
 #endif

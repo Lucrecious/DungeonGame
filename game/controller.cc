@@ -74,7 +74,7 @@ void Controller::main() {
 	bool begun = false;
 	
 	string preGamePrompt =
-		"Select a race <s>, quit(q) or restart(r)";
+		"Select a race <s, g, t>, quit(q) or restart(r)";
 	string inGamePrompt =
 		"What do you want to do?";
 
@@ -98,7 +98,8 @@ void Controller::main() {
 
 		if (!begun) {
 			if (this->commandBuffer == "s" ||
-				this->commandBuffer == "g") {
+				this->commandBuffer == "g" ||
+				this->commandBuffer == "t") {
 				this->kill();
 				begun = true;
 				Kind kind = this->getRaceFromString(this->commandBuffer);
@@ -213,6 +214,8 @@ Kind Controller::getRaceFromString(string s) {
 	}
 	else if (s == "g") {
 		return GoblinKind;
+	}else if (s == "t") {
+		return TrollKind;
 	}
 	else {
 		return NoneKind;
