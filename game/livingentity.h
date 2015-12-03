@@ -15,8 +15,8 @@ public:
 	LivingEntity(Kind, Kind, int, int, int);
 	~LivingEntity();
 
-	int getAtkStat() const;
-	int getDefStat() const;
+	virtual int getAtkStat() const;
+	virtual int getDefStat() const;
 	int getMaxHP() const;
 	virtual void setHP(int); // virtual for vampire, no hp cap
 	int getHP() const;

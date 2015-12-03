@@ -93,6 +93,7 @@ char TextView::getCharFromKind(Kind kind) {
 
 		case ShadeKind:
 		case GoblinKind:
+		case DrowKind:
 		case TrollKind:
 		case VampireKind:
 		case PlayerKind:
