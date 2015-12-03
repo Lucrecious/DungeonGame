@@ -10,6 +10,7 @@ enum Kind {
 	HumanKind = 5,
 	DragonKind = 6,
 	DwarfKind = 7,
+	ElfKind = 8,
 	StaticKind = 10,
 	PotionKind = 11,
 	RHPotionKind = 12,

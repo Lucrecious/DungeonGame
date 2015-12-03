@@ -195,6 +195,9 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 			case Global::DwarfSymbol:
 				gobj = this->game->addObject(DwarfKind);
 				break;
+			case Global::ElfSymbol:
+				gobj = this->game->addObject(ElfKind);
+				break;
 			case Global::DragonSymbol:
 				gobj = this->game->addObject(DragonKind);
 				break;

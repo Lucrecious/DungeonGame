@@ -76,6 +76,8 @@ char TextView::getCharFromKind(Kind kind) {
 			return Global::HumanSymbol;
 		case DwarfKind:
 			return Global::DwarfSymbol;
+		case ElfKind:
+			return Global::ElfSymbol;
 
 		case GoldKind:
 			return Global::GoldSymbol;

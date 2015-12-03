@@ -4,6 +4,7 @@
 #include "characters/human.h"
 #include "characters/dwarf.h"
 #include "characters/dragon.h"
+#include "characters/elf.h"
 #include "statics/dragongold.h"
 #include "statics/potion.h"
 #include "statics/gold.h"
@@ -97,6 +98,9 @@ GameObject* Game::addObject(Kind kind) {
 			break;
 		case DwarfKind:
 			gobj = new Dwarf();
+			break;
+		case ElfKind:
+			gobj = new Elf();
 			break;
 
 		case DragonKind:
