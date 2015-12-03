@@ -74,7 +74,7 @@ void Controller::main() {
 	bool begun = false;
 	
 	string preGamePrompt =
-		"Select a race <s, g, t, v>, quit(q) or restart(r)";
+		"Select a race <s, g, t, v, d>, quit(q) or restart(r)";
 	string inGamePrompt =
 		"What do you want to do?";
 
@@ -100,6 +100,7 @@ void Controller::main() {
 			if (this->commandBuffer == "s" ||
 				this->commandBuffer == "g" ||
 				this->commandBuffer == "t" ||
+				this->commandBuffer == "d" ||
 				this->commandBuffer == "v") {
 				this->kill();
 				begun = true;
@@ -215,11 +216,15 @@ Kind Controller::getRaceFromString(string s) {
 	}
 	else if (s == "g") {
 		return GoblinKind;
-	}else if (s == "t") {
+	}
+	else if (s == "t") {
 		return TrollKind;
 	}
 	else if (s == "v") {
 		return VampireKind;
+	}
+	else if (s == "d") {
+		return DrowKind;
 	}
 	else {
 		return NoneKind;
