@@ -47,7 +47,34 @@ void TextView::setInformationText(
 
 void TextView::setFlavorText(string text) {
 	this->flavorText.str(string());
-	this->flavorText << text;
+
+	istringstream paragraph(text);
+
+	string word;
+	int lines = 0;
+	int lineChars = 0;
+	while (true) {
+		paragraph >> word;
+		if (paragraph.eof() || lines > 2) {
+			break;
+		}
+		
+		if (lineChars + word.size() < Global::levelWidth * 3 / 4) {
+			this->flavorText << word << " ";
+			lineChars += word.size();
+		}
+		else {
+			lines++;
+			lineChars = 0;
+			this->flavorText << endl << word;
+			lineChars += word.size();
+		}
+	}
+
+	while (lines < 2) {
+		lines++;
+		this->flavorText << endl;
+	}
 }
 
 void TextView::notify(Vector v, Kind k) {

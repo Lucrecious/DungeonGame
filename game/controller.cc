@@ -122,6 +122,7 @@ void Controller::main() {
 				// Inits the first level
 				this->nextLevel();
 				this->game->passInformationText();
+				this->game->passFlavorText("");
 				prompt = inGamePrompt;
 				this->view->display();
 			}

@@ -44,7 +44,6 @@ void DragonGold::pair() {
 	GameObject* gobj = this->findDragon(freeSpace);
 	
 	if (!gobj) {
-		cout << "adding another dragon for some reason --dragongold.cc" << endl;
 		gobj = this->game->addObject(DragonKind);
 		this->game->getLevel()->place(gobj, freeSpace);
 	}
