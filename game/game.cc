@@ -227,7 +227,7 @@ void Game::printNearByPotionsIfAny(LivingEntity* gobj, ostream& flavor) {
 		}
 
 		if (potionsNearBy > 0) {
-			flavor << "There are " << potionsNearBy << " potions around you: " << potions << endl;
+			flavor << "There are " << potionsNearBy << " potions around you: " << potions << ". ";
 		}
 	}
 }
@@ -264,7 +264,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					}
 					this->player->addGold(gold);
 					flavor << "You picked up " << gold->getName()
-						   << "(" << gold->value << ")" << endl;
+						   << " (" << gold->value << "). ";
 					this->level->remove(gold->getPosition());
 				}
 			}
@@ -289,13 +289,13 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					this->controller->notify(
 							target + pos,
 							this->level->getKindAt(target+pos));
-					flavor << "You have drank a " 
-						<< tgobj->getName() << endl;
+					flavor << " You have drank a " 
+						<< tgobj->getName() << ". ";
 					drank = true;
 				}
 
 				if (!drank && gobj->topKind == PlayerKind) {
-					flavor << "You can't drink that." << endl;
+					flavor << " You can't drink that. ";
 				}
 
 				turnSucceeded = drank;
@@ -313,25 +313,25 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					int damage = gobj->getAttackDamage(living);
 
 					if (gobj->topKind == EnemyKind) {
-						string attack_prompt = " attacks you";
+						string attack_prompt = " attacks you ";
 						if (gobj->subKind == DragonKind) {
-							attack_prompt = " uses fire breath on you";
+							attack_prompt = " uses fire breath on you ";
 						}
 						flavor << gobj->getName()
 							<< attack_prompt;
 					}
 					else {
-						flavor << "You attack the "
+						flavor << " You attack the "
 							<< living->getName();
 					}
 					
-					flavor << " for " << damage << " damage!";
+					flavor << " for " << " " << damage << "    damage ";
 
 					bool hits = living->receiveAttack(
 							gobj, damage);
 
-					flavor << (hits ? " And it hits!" :
-									  " And it misses...")
+					flavor << (hits ? " and it hits! " :
+									  " and it misses! ")
 						   << endl;
 
 					if (living->isDead()) {
@@ -343,13 +343,13 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 								living->subKind != DragonKind) {
 								int goldToGive = living->slainGold();
 								this->getPlayer()->addGold(goldToGive);
-								flavor << "You just received " << goldToGive << " gold from " << living->getName() << endl;
+								flavor << " You just received " << goldToGive << " gold from " << living->getName() << ". ";
 							}
 						}
 						this->controller->notify(
 								living->getPosition(),
 								this->level->getKindAt(living->getPosition()));
-						flavor << "The " << living->getName() << " has been slain!" << endl;
+						flavor << " The " << living->getName() << " has been slain! ";
 					}
 
 					turnSucceeded = hits;;
@@ -357,7 +357,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 				}
 
 				if (gobj->topKind == PlayerKind) {
-					flavor << "You can't attack that." << endl;
+					flavor << " You can't attack that. ";
 				}
 
 				turnSucceeded = false;

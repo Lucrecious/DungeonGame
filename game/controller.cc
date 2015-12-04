@@ -174,14 +174,14 @@ void Controller::printWinDialogue(const int score) const {
 
 void Controller::printLoseDialogue() const {
 	cout << "You're dead." << endl;
-	/*cout << "Your friends are dead." <<endl;
+	cout << "Your friends are dead." <<endl;
 	cout << "Your family's dead." << endl;
 	cout << "Your f**king pets are being skinned alive." << endl;
 	cout << "Your mom's a f**king whore." << endl;
 	cout << "You suck at life." << endl;
 	cout << "The whole world hate's you." << endl;
 	cout << "You're going to hell." << endl;
-	cout << "Live with it." << endl << endl;*/
+	cout << "Live with it." << endl << endl;
 	cout << "Game Over" << endl;
 }
 

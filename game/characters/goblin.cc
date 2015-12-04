@@ -12,7 +12,7 @@ void Goblin::turnSucceeded(Turn turn, bool s,
 		if (gobj && gobj->topKind == EnemyKind) {
 			LivingEntity* le = static_cast<LivingEntity*>(gobj);
 			if (le->isDead()) {
-				flavor << "You stole 5 gold from the corpse of the " << le->getName() << "." << endl;
+				flavor << " You stole 5 gold from the corpse of the " << le->getName() << ". ";
 				this->addGold(5);
 			}
 		}

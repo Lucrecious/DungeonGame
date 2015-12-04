@@ -9,11 +9,11 @@ void Vampire::turnSucceeded(Turn turn, bool s, GameObject* gobj, ostream& flavor
 	if (turn.kind == Attack && s) {
 		if (gobj && gobj->subKind == DwarfKind) {
 			this->setHP(this->getHP() - 5);
-			flavor << "You're alergic to Dwarfs, you lose 5 HP." <<endl;
+			flavor << " You're alergic to Dwarfs, you lose 5 HP. ";
 		}
 		else {
 			this->setHP(this->getHP() + 5);
-			flavor << "You gained 5 HP from sucking blood." << endl;
+			flavor << " You gained 5 HP from sucking blood. ";
 		}
 	}
 }

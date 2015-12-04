@@ -66,7 +66,7 @@ void TextView::setFlavorText(string text) {
 		else {
 			lines++;
 			lineChars = 0;
-			this->flavorText << endl << word;
+			this->flavorText << endl << word << " ";
 			lineChars += word.size();
 		}
 	}
