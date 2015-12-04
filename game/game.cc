@@ -332,7 +332,9 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 
 					flavor << (hits ? " and it hits! " :
 									  " and it misses! ")
-						   << endl;
+						   << " ";
+
+					flavor << living->getName() << " has " << living->getHP() << " HP left. ";
 
 					if (living->isDead()) {
 						this->level->remove(living->getPosition());

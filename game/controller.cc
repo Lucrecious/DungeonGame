@@ -74,7 +74,7 @@ void Controller::main() {
 	bool begun = false;
 	
 	string preGamePrompt =
-		"Select a race <s, g, t, v, d>, quit(q) or restart(r)";
+		"Select a race <(s)hade, (g)oblin, (t)roll, (v)ampire, (d)row>, quit(q) or restart(r)";
 	string inGamePrompt =
 		"What do you want to do?";
 
