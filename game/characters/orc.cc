@@ -9,7 +9,6 @@ Orc::Orc() : Enemy(OrcKind, 30, 25, 180) {
 
 int Orc::getAttackDamage(LivingEntity* le) const {
 	double factor = 1;
-	cout << ShadeKind << " " << le->subKind << " --orc.cc" << endl;
 	if (le->subKind == GoblinKind) {
 		factor = 1.5;
 	}
