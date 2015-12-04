@@ -2,6 +2,7 @@
 #include "tests/testingharness.h"
 #include "game/controller.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <stdlib.h>
 #include <time.h>
@@ -21,6 +22,18 @@ int main(int argc, char** argv) {
 	delete potionEffects;
 	delete stacks;
 	// End tests
+
+	ifstream splash("assets/splash.txt");
+	string line;
+	while (true) {
+		getline(splash, line);
+		if (splash.eof()) {
+			break;
+		}
+		cout << line << endl;
+	}
+	splash.close();
+
 
 	string filepath = "";
 	if (argc >= 2) {
