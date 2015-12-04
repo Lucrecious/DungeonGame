@@ -26,6 +26,7 @@ public:
 	GameObject* addObject(Kind);
 	void update();
 	void buildLevel(std::istream&);
+	void buildRandomLevel();
 	void setController(Controller*);
 	void setPlayer(Kind);
 	Player* getPlayer() const;
@@ -55,6 +56,9 @@ private:
 	Level* level;
 	Player* player;
 	bool merchantsAttack;
+
+	void preInitLevel();
+	void postInitLevel();
 };
 
 

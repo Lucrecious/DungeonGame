@@ -2,11 +2,16 @@
 #define GLOBALS_H
 
 #include <stdlib.h>
-
+#include <vector>
+#include "kind.h"
 class Global {
 public:
 	const static int levelHeight = 25;
 	const static int levelWidth = 79;
+	const static int maxChambers = 5;
+	const static int maxPotions = 10;
+	const static int maxGolds = 10;
+	const static int maxEnemies = 20;
 
 	const static int SmallGold = 1;
 	const static int NormalGold = 2;
@@ -44,9 +49,18 @@ public:
 	const static char MerchantSymbol = 'M';
 	const static char HalflingSymbol = 'L';
 
+	const static char Chamber1Symbol = '0';
+	const static char Chamber2Symbol = '1';
+	const static char Chamber3Symbol = '2';
+	const static char Chamber4Symbol = '3';
+	const static char Chamber5Symbol = '4';
+
 	static bool hitChance(double);
 	static double drand(double, double);
 	static int irand(int, int);
+
+	static std::vector<Kind> constructProbabilityDist(Kind*, int*, int length);
+	static Kind getRandomKindFrom(std::vector<Kind>);
 };
 
 #endif

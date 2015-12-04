@@ -6,6 +6,7 @@
 #include "../globals/kind.h"
 #include "../utils/vector.h"
 #include <fstream>
+#include <vector>
 
 class Game;
 class GameObject;
@@ -20,6 +21,9 @@ public:
 
 	// Loads the items onto an empty level
 	void load(std::istream&);
+
+	// Makes a randomly generated level
+	void randomize();
 
 	Game* game;
 
@@ -41,6 +45,12 @@ private:
 	Vector spawn;
 	void charToObject(int, int, char, bool);
 	Stack<GameObject*>* getStackAt(Vector) const;
+
+	void addKindInRandomLocation(Kind);
+	Vector getRandomFloorLocation(int chamber) const;
+	int getRandomChamber() const;
+
+	std::vector<Vector> chambers[Global::maxChambers];
 };
 
 #endif

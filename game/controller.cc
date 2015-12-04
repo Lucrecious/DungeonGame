@@ -189,9 +189,7 @@ void Controller::nextLevel() {
 		this->game->buildLevel(this->loader);
 	}
 	else {
-		// here we need the buildLevel that
-		//   randomizes
-		// this->game->buildLevel();
+		this->game->buildRandomLevel();
 	}
 }
 

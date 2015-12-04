@@ -410,20 +410,28 @@ void Game::notifyWholeLevel() {
 	}
 }
 
-void Game::buildLevel(istream& in) {
+void Game::buildRandomLevel() {
+	this->preInitLevel();
+
+	this->level->randomize();
+
+	this->postInitLevel();
+}
+
+void Game::preInitLevel() {
 	this->levelNumber++;
 	this->clearNonPlayerObjects();
 	delete this->level;
 	this->level = 0;
 
 	this->level = new Level(this);
-
 	ifstream empty("./assets/layout1.txt");
 	this->level->init(empty);
 	empty.close();
 
-	this->level->load(in);
+}
 
+void Game::postInitLevel() {
 	this->level->place(
 			this->player,
 			this->level->getPlayerSpawn());
@@ -441,6 +449,16 @@ void Game::buildLevel(istream& in) {
 	}
 
 	this->notifyWholeLevel();
+}
+
+void Game::buildLevel(istream& in) {
+
+	this->preInitLevel();
+
+	this->level->load(in);
+
+	this->postInitLevel();
+
 }
 
 void Game::setController(Controller* controller) {

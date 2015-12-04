@@ -3,7 +3,7 @@
 #include "gameobject.h"
 #include "statics/dragongold.h"
 #include "characters/dragon.h"
-
+#include <sstream>
 using namespace std;
 
 Level::Level(Game* g) : game(g) {
@@ -69,6 +69,79 @@ void Level::load(istream& in, bool empty) {
 	}
 }
 
+void Level::randomize() {
+	// Get a random spawn for the player
+	int playerChamber = this->getRandomChamber();
+	this->spawn = this->getRandomFloorLocation(playerChamber);
+
+	// Get a random spawn for the stairs
+	int stairsChamber = playerChamber;
+	while (stairsChamber == playerChamber) {
+		stairsChamber = this->getRandomChamber();
+	}
+
+	this->stairs = this->game->addObject(StairsKind);
+	this->place(stairs, this->getRandomFloorLocation(stairsChamber));
+
+	// Potions...
+	Kind potions[6] = { RHPotionKind, PHPotionKind,
+						BAPotionKind, WAPotionKind,
+						BDPotionKind, WDPotionKind};
+	int potionProbs[6] = { 1, 1, 1, 1, 1, 1 };
+	vector<Kind> potionDist = Global::constructProbabilityDist(potions, potionProbs, 6);
+
+	for (int i = 0; i < Global::maxPotions; i++) {
+		Kind kind = Global::getRandomKindFrom(potionDist);
+		this->addKindInRandomLocation(kind);
+	}
+
+	// Gold
+	Kind golds[3] = { GoldSmallKind, GoldNormalKind, GoldDragonKind };
+	int goldProbs[3] = { 2, 5, 1 };
+	vector<Kind> goldDist = Global::constructProbabilityDist(golds, goldProbs, 3);
+
+	for (int i = 0; i < Global::maxGolds; i++) {
+		Kind kind = Global::getRandomKindFrom(goldDist);
+		this->addKindInRandomLocation(kind);
+	}
+
+	// Enemy
+	Kind enemies[6] = { HumanKind, DwarfKind, HalflingKind, ElfKind, OrcKind, MerchantKind };
+	int enemyProbs[6] = { 4, 3, 5, 2, 2, 2 };
+	vector<Kind> enemyDist = Global::constructProbabilityDist(enemies, enemyProbs, 6);
+
+	for (int i = 0; i < Global::maxEnemies; i++) {
+		Kind kind = Global::getRandomKindFrom(enemyDist);
+		this->addKindInRandomLocation(kind);
+	}
+}
+
+Vector Level::getRandomFloorLocation(int chamber) const {
+	GameObject* posObj = 0;
+	
+	// pick a position with a floor tile
+	while (!posObj ||  posObj->subKind != FloorKind) {
+		int randomLoc = Global::irand(0, this->chambers[chamber].size() - 1);
+		posObj = this->get(this->chambers[chamber].at(randomLoc));
+	}
+
+	return posObj->getPosition();
+}
+
+int Level::getRandomChamber() const {
+	// pick a random chamber
+	int chamber = Global::irand(0, Global::maxChambers - 1);
+
+	return chamber;
+}
+
+void Level::addKindInRandomLocation(Kind kind) {
+	int chamber = this->getRandomChamber();
+	Vector placement = this->getRandomFloorLocation(chamber);
+
+	GameObject* gobj = this->game->addObject(kind);
+	this->place(gobj, placement);
+}
 
 void Level::load(istream& in) {
 	this->load(in, false);
@@ -235,9 +308,23 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 			case Global::HWallSymbol:
 				gobj = this->game->addObject(HWallKind);
 				break;
-			case Global::FloorSymbol:
-				gobj = this->game->addObject(FloorKind);
-				break;
+			case Global::Chamber1Symbol:
+			case Global::Chamber2Symbol:
+			case Global::Chamber3Symbol:
+			case Global::Chamber4Symbol:
+			case Global::Chamber5Symbol:
+				{
+					gobj = this->game->addObject(FloorKind);
+					int num;
+					stringstream convert;
+					convert << c;
+					convert >> num;
+					Vector v;
+					v.x = j;
+					v.y = i;
+					this->chambers[num].push_back(v);
+					break;
+				}
 			case Global::PassageSymbol:
 				gobj = this->game->addObject(PassageKind);
 				break;
