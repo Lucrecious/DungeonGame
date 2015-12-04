@@ -179,8 +179,7 @@ bool Level::isFree(Vector v, GameObject* incoming) const {
 
 	if (gobj->subKind == StairsKind &&
 		incoming->topKind == PlayerKind) {
-		Vector diff = gobj->getPosition() - incoming->getPosition();
-		return diff.x == 1 && diff.y == 0;
+		return true; 
 	}
 
 	return false;
