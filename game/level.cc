@@ -31,9 +31,11 @@ Stack<GameObject*>* Level::getStackAt(Vector target) const {
 
 Kind Level::getKindAt(Vector target) const {
 	Stack<GameObject*>* stack = this->getStackAt(target);
-	if (stack) {
+	if (stack && stack->peek()) {
 		return stack->peek()->subKind;
 	}
+
+	// If there is nothing there we return the NoneKind
 	return NoneKind;
 }
 
@@ -218,6 +220,8 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 	
 	GameObject* gobj = NULL;
 
+	// We add things differently whether we are adding things
+	//   from a template or the actual level file
 	if (!empty) {
 		switch(c) {
 			case Global::VWallSymbol:
@@ -307,6 +311,9 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 			case Global::HWallSymbol:
 				gobj = this->game->addObject(HWallKind);
 				break;
+
+			// Easy way to get the chambers without technically
+			//   harding the object
 			case Global::Chamber1Symbol:
 			case Global::Chamber2Symbol:
 			case Global::Chamber3Symbol:
