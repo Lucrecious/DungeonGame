@@ -27,6 +27,7 @@ Game::Game() : controller(0), levelNumber(0), level(0),
 	this->livings = new vector<LivingEntity*>();
 }
 
+// Kills all the allocated memory in game that game owns
 Game::~Game() {
 	delete this->level;
 
@@ -72,6 +73,7 @@ LivingEntity* Game::getLivingAt(int i) const {
 GameObject* Game::addObject(Kind kind) {
 	GameObject* gobj = 0;
 
+	// Adds an object given a kind at O(1)
 	switch (kind) {
 		case VWallKind:
 		case HWallKind:
@@ -143,6 +145,7 @@ GameObject* Game::addObject(Kind kind) {
 			break;
 	}
 
+	// if an object has been made we need to add it and initialize it
 	if (gobj) {
 		gobj->setController(this->controller);
 		gobj->setGame(this);
@@ -158,33 +161,46 @@ GameObject* Game::addObject(Kind kind) {
 }
 
 void Game::update() {
-
+	
+	// We need to make sure the player goes first and that the enemies are updated
+	//   row by row isntead of time of creation
 	sort(this->livings->begin(),
 		 this->livings->end(),
 		 GameObject::less_than);
 
 	ostringstream flavor("");
 
+	// Iterate through all livings to get their turn
 	for (int i = 0; i < (int)this->livings->size(); i++) {
 		LivingEntity* gobj = this->livings->at(i);
+
+		// If a living is dead, then it does not get a turn
 		if (gobj->isDead()) {
 			continue;
 		}
 		Turn turn = gobj->getTurn();
-		GameObject* affectedgobj = 0;
+		GameObject* affectedgobj = 0; // the object that's affected by the turn
 		bool doneTurn = this->doTurn(turn, gobj, flavor, affectedgobj); 
 
+		// Elfs attack twice except on Drows
 		if (gobj->subKind == ElfKind && turn.kind == Attack &&
 			affectedgobj && affectedgobj->topKind == PlayerKind &&
 			affectedgobj->subKind != DrowKind) {
 			doneTurn = this->doTurn(turn, gobj, flavor, affectedgobj) && doneTurn;
 		}
+
+		// Tells the entity whether or not the turn succeeded
 		gobj->turnSucceeded(turn, doneTurn, affectedgobj, flavor);
 	}
+
+	// Give all the information need to the display
 	this->passInformationText();
+
+	// Give all the flavor the display
 	this->passFlavorText(flavor.str());
 }
 
+// Just calls the controller passInformation with the stuff it needs
 void Game::passInformationText() const{
 	this->controller->passInformationText(
 			this->player->getAtkStat(),
@@ -196,6 +212,7 @@ void Game::passInformationText() const{
 			this->levelNumber);
 }
 
+// Calls the controller passFlavor to give the display what it needs
 void Game::passFlavorText(string text) const{
 	this->controller->passFlavorText(text);
 }
@@ -206,8 +223,10 @@ void Game::printNearByPotionsIfAny(LivingEntity* gobj, ostream& flavor) {
 		int potionsNearBy = 0;
 		string potions = "";
 
+		// Checks a 1 lock radius
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
+				// We don't need to check the position we're on
 				if (i == 0 && j == 0) {
 					continue;
 				}
@@ -216,9 +235,11 @@ void Game::printNearByPotionsIfAny(LivingEntity* gobj, ostream& flavor) {
 				p.y = j;
 				GameObject* item = this->level->get(gobj->getPosition() + p);
 
+				// We add a potion to display
 				if (item && item->subKind == PotionKind) {
 					Potion* potionObj = static_cast<Potion*>(item);
 					potions += (potionsNearBy == 0 ? "" : ", ")
+						// We check if the potion is known
 						+ (gobj->isPotionKnown(potionObj->potionKind) ? item->getName()
 															  : "Unknown Potion");
 					potionsNearBy++;
@@ -226,8 +247,11 @@ void Game::printNearByPotionsIfAny(LivingEntity* gobj, ostream& flavor) {
 			}
 		}
 
+		// Give the flavor stream the potions
 		if (potionsNearBy > 0) {
-			flavor << "There are " << potionsNearBy << " potions around you: " << potions << ". ";
+			flavor << "There " << (potionsNearBy == 1 ? " is " : " are ")
+				   << potionsNearBy << (potionsNearBy == 1 ? " potion " : " potons ") << " around you: "
+				   << potions << ". ";
 		}
 	}
 }
@@ -245,42 +269,58 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 
 	bool turnSucceeded = false;
 
+	// During different moves the Turn is different for every living entity
 	switch (turn.kind) {
 		case Move:
 			{
-			if (!this->level->isFree(pos + target, gobj)) {
+				// We can only move to a free position
+				if (!this->level->isFree(pos + target, gobj)) {
+					break;
+				}
+
+
+				// Different types of movement options if the thing moving
+				//   is the player
+				if (gobj->topKind == PlayerKind) {
+					// This is to pick up all the gold that's going to be under the player
+					while (this->level->get(target + pos)
+						&& this->level->get(target + pos)->subKind == GoldKind) {
+						Gold* gold = static_cast<Gold*>(this->level->get(target + pos));
+						// We can't pick up the dragon's gold yet..
+						if (gold->goldKind == GoldDragonKind) {
+							DragonGold* dgold = static_cast<DragonGold*>(gold);
+							if (!dgold->dragon->isDead()) {
+								break;
+							}
+						}
+
+						// If we pick it up, we give it the player
+						this->player->addGold(gold);
+						flavor << "You picked up " << gold->getName()
+							   << " (" << gold->value << "). ";
+
+						// We make sure to the remove the gold from the level
+						this->level->remove(gold->getPosition());
+					}
+				}
+
+				// moves the potions from pos to the target position
+				this->level->move(pos, pos + target);
+
+				// We make sure to notify the controller with the changes
+				//   to the state of the floor
+				this->controller->notify(
+						pos,
+						this->level->getKindAt(pos));
+				this->controller->notify(
+						pos + target,
+						gobj->subKind);
+				
+				turnSucceeded = true;
 				break;
 			}
-			
-			if (gobj->topKind == PlayerKind) {
-				while (this->level->get(target + pos)
-					&& this->level->get(target + pos)->subKind == GoldKind) {
-					Gold* gold = static_cast<Gold*>(this->level->get(target + pos));
-					if (gold->goldKind == GoldDragonKind) {
-						DragonGold* dgold = static_cast<DragonGold*>(gold);
-						if (!dgold->dragon->isDead()) {
-							break;
-						}
-					}
-					this->player->addGold(gold);
-					flavor << "You picked up " << gold->getName()
-						   << " (" << gold->value << "). ";
-					this->level->remove(gold->getPosition());
-				}
-			}
-
-			this->level->move(pos, pos + target);
-			this->controller->notify(
-					pos,
-					this->level->getKindAt(pos));
-			this->controller->notify(
-					pos + target,
-					gobj->subKind);
-			
-			turnSucceeded = true;
-			break;
-			}
 		case Drink:
+			// Drinking a potion is reserved for the player
 			{
 				bool drank = false;
 				if (tgobj && tgobj->subKind == PotionKind) {
@@ -295,7 +335,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 				}
 
 				if (!drank && gobj->topKind == PlayerKind) {
-					flavor << " You can't drink that. ";
+					flavor << " You can't drink weird things, man... ";
 				}
 
 				turnSucceeded = drank;
@@ -310,6 +350,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					LivingEntity* living =
 						static_cast<LivingEntity*>(tgobj);
 
+					// We nee to get the attack damage for the given living
 					int damage = gobj->getAttackDamage(living);
 
 					if (gobj->topKind == EnemyKind) {
@@ -327,15 +368,19 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 					
 					flavor << " for " << " " << damage << "    damage ";
 
+					// We need to git the object with the attack
 					bool hits = living->receiveAttack(
 							gobj, damage);
 
+					// Depending whether the attack hits or misses
 					flavor << (hits ? " and it hits! " :
 									  " and it misses! ")
 						   << " ";
 
+					// Print the remaining HP of the party being attacked
 					flavor << living->getName() << " has " << living->getHP() << " HP left. ";
 
+					// Handles the drops and removing the slain enemy
 					if (living->isDead()) {
 						this->level->remove(living->getPosition());
 						living->drop();
@@ -348,6 +393,9 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 								flavor << " You just received " << goldToGive << " gold from " << living->getName() << ". ";
 							}
 						}
+
+						// We need to notify the controller with the changes if something
+						//   died
 						this->controller->notify(
 								living->getPosition(),
 								this->level->getKindAt(living->getPosition()));
@@ -359,7 +407,7 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 				}
 
 				if (gobj->topKind == PlayerKind) {
-					flavor << " You can't attack that. ";
+					flavor << " You tried to attack... nothing? ";
 				}
 
 				turnSucceeded = false;
@@ -382,6 +430,7 @@ void Game::clearNonPlayerObjects() {
 	}
 
 	for (int i = 0; i < (int)this->livings->size(); i++) {
+		// Anything that is not a player we delete
 		if (this->livings->at(i) != this->player) {
 			delete this->livings->at(i);
 		}
@@ -392,6 +441,8 @@ void Game::clearNonPlayerObjects() {
 
 	this->statics = new vector<StaticEntity*>();
 	this->livings = new vector<LivingEntity*>();
+
+	// We add the player back in if it already exists
 	if (this->player) {
 		this->livings->push_back(this->player);
 	}
@@ -412,23 +463,22 @@ void Game::notifyWholeLevel() {
 	}
 }
 
+// Used to build a randomly generated level
 void Game::buildRandomLevel() {
 	this->preInitLevel();
-
 	this->level->randomize();
-
 	this->postInitLevel();
 }
 
 void Game::preInitLevel() {
-	this->levelNumber++;
+	this->levelNumber++; // increase the level number
 	this->clearNonPlayerObjects();
 	delete this->level;
 	this->level = 0;
 
 	this->level = new Level(this);
-	ifstream empty("./assets/layout1.txt");
-	this->level->init(empty);
+	ifstream empty("./assets/layout1.txt"); // init the level to the empty level
+	this->level->init(empty); // init the empty level
 	empty.close();
 
 }
@@ -438,8 +488,9 @@ void Game::postInitLevel() {
 			this->player,
 			this->level->getPlayerSpawn());
 
-	this->player->resetEffect();
+	this->player->resetEffect(); // we need to reset player effects
 
+	// We need to pair gold to dragons, or add them if they don't have a pair
 	for (int i = 0; i < (int)this->statics->size(); i++) {
 		if (this->statics->at(i)->subKind == GoldKind) {
 			Gold* gold = static_cast<Gold*>(this->statics->at(i));
@@ -450,17 +501,15 @@ void Game::postInitLevel() {
 		}
 	}
 
+	// We need to tell the View to remake the entire level
 	this->notifyWholeLevel();
 }
 
+// Bulds a level given a set stream
 void Game::buildLevel(istream& in) {
-
 	this->preInitLevel();
-
 	this->level->load(in);
-
 	this->postInitLevel();
-
 }
 
 void Game::setController(Controller* controller) {
@@ -476,6 +525,7 @@ Player* Game::getPlayer() const {
 	return this->player;
 }
 
+// Checks if we need to go to the next level
 bool Game::goToNextLevel() const {
 	GameObject* stairs = this->level->getStairs();
 
