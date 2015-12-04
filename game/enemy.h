@@ -9,6 +9,8 @@ public:
 	Enemy(Kind, int, int, int);
 	Turn getTurn();
 
+	// To check if the player is around to attack him!
+	//   Unless the entity is a merchant...
 	virtual Player* isPlayerAround() const;
 };
 
