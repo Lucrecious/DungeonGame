@@ -1,13 +1,28 @@
-CXX = g++
-CXXFLAGS = -g -Wall -MMD
-OBJECTS = main.o game/characters/drow.o game/characters/vampire.o game/characters/troll.o game/characters/goblin.o game/characters/halfling.o game/characters/merchant.o game/characters/orc.o game/characters/elf.o game/characters/dwarf.o globals/global.o view/textview.o game/statics/dragongold.o game/characters/dragon.o game/statics/gold.o game/characters/human.o game/enemy.o game/statics/effect.o game/statics/potion.o game/level.o game/statics/boostatk.o game/statics/boostdef.o game/statics/neteffect.o game/statics/noeffect.o game/statics/woundatk.o game/statics/wounddef.o game/characters/shade.o game/game.o game/gameobject.o game/livingentity.o game/turn.o game/player.o game/controller.o tests/playerinputtests.o tests/stacktests.o tests/potioneffecttests.o
-DEPENDS = ${OBJECTS:.o=.d}
-EXEC = cc3k
+CC = g++
 
-${EXEC} : ${OBJECTS}
-	${CXX} ${OBJECTS} -o ${EXEC}
+CFLAGS = -Wall -g
 
--include ${DEPENDS}
-.PHONY : clean
-clean :
-	rm -rf ${DEPENDS} ${OBJECTS} ${EXEC}
+INCLUDES = -I./include
+
+SRCS = $(wildcard src/*.cpp) $(wildcard src/Game/*.cpp) $(wildcard src/Game/Characters/*.cpp) $(wildcard src/Game/Statics/*.cpp) $(wildcard src/Global/*.cpp) $(wildcard src/View/*.cpp) $(wildcard src/Utils/*.cpp)
+
+OBJS = $(SRCS:.cpp=.o)
+
+MAIN = Dungeon
+
+.PHONY: depend clean
+
+all:	$(MAIN)
+	@echo ${MAIN} has been compiled
+
+$(MAIN): $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS)
+
+.cpp.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	$(RM) *.o *~ $(MAIN)
+
+depend: $(SRCS)
+	makedepend $(INCLUDES) $^
