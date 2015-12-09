@@ -38,8 +38,16 @@ void TextView::setInformationText(
 	this->informationText.str(string());
 	this->informationText << "Atk: " << atk << setw(10);
 	this->informationText << "Def: " << def << setw(10);
-	this->informationText << "HP: " << hp << "/" << (race == "Vampire" ? 0 : hpmax)
-						  << setw(10);
+	this->informationText << "HP: " << hp << "/";
+
+	if (race == "Vampire") {
+		this->informationText << "-";
+	}
+	else {
+		this->informationText << hpmax;
+	}
+
+	this->informationText << setw(10);
 	this->informationText << "Gold: " << gold << setw(30);
 	this->informationText << "Floor: " << level << endl;
 	this->informationText << "Race: " << race;
@@ -55,7 +63,7 @@ void TextView::setFlavorText(string text) {
 	int lineChars = 0;
 	while (true) {
 		paragraph >> word;
-		if (paragraph.eof() || lines > 2) {
+		if (paragraph.eof() || lines >= TextView::maxFlavorLines) {
 			break;
 		}
 		
@@ -71,7 +79,7 @@ void TextView::setFlavorText(string text) {
 		}
 	}
 
-	while (lines < 2) {
+	while (lines < TextView::maxFlavorLines) {
 		lines++;
 		this->flavorText << endl;
 	}

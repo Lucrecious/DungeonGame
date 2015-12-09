@@ -24,6 +24,8 @@ private:
 	std::ostringstream informationText;
 	std::ostringstream flavorText;
 	char getCharFromKind(Kind);
+
+	const static int maxFlavorLines = 5;
 };
 
 #endif
