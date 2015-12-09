@@ -74,7 +74,7 @@ void Controller::main() {
 	bool begun = false;
 	
 	string preGamePrompt =
-		"Select a race <(s)hade, (g)oblin, (t)roll, (v)ampire, (d)row>, quit(q) or restart(r)";
+		"Select a race [ /s/hade, /g/oblin, /t/roll, /v/ampire, /d/row ], /q/uit or /r/estart ";
 	string inGamePrompt =
 		"What do you want to do?";
 
@@ -119,7 +119,6 @@ void Controller::main() {
 					this->loader.open(this->save.c_str());
 				}
 
-				// Inits the first level
 				this->nextLevel();
 				this->game->passInformationText();
 				this->game->passFlavorText("");
@@ -129,12 +128,6 @@ void Controller::main() {
 			continue;
 		}
 		
-		// the command buffer is avaliable to the player from
-		//   get input... So if none of the above commands
-		//   are valid, the getInput command gets called
-		//   and uses the already stored command in
-		//   commandBuffer.
-
 		this->game->update();
 
 		if (this->game->isPlayerDead()) {
