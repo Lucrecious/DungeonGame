@@ -37,7 +37,4 @@ private:
 	std::string name;
 };
 
-struct gameobject_less_than {
-};
-
 #endif

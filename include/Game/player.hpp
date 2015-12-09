@@ -9,12 +9,10 @@ public:
 	Player(Kind, int, int, int);
 	Turn getTurn();
 
-	// only the player to get gold
 	void addGold(Gold* gold);
 	void addGold(int gold);
 	int getGold() const;
 
-	// The player can dodge attacks!
 	bool receiveAttack(LivingEntity*, int);
 
 private:

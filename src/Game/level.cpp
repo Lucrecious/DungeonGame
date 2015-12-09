@@ -35,36 +35,23 @@ Kind Level::getKindAt(Vector target) const {
 		return stack->peek()->subKind;
 	}
 
-	// If there is nothing there we return the NoneKind
 	return NoneKind;
 }
 
-// This is to load the items and such into the level.
 void Level::load(istream& in, bool empty) {
 	string line;
 	
-	// We only need to get 25 lines from the stream
-	//   so a "for" is suitable
 	for (int i = 0; i < Global::levelHeight; i++) {
 		getline(in, line);
 
-		// If the file for some reason runs out early, before we hit the
-		//   end, it's better to die silently than at a segmentation fault
 		if (in.eof()) {
 			cerr << "Level is too short" << endl;
 			break;
 		}
 		
-		// We need 79 columns from the line, the
-		//   rest is too wide. Also, we need to make sure
-		//   we don't get a segmentation fault if the
-		//   sting is too short. This "for" stops when either the line is too short
-		//   or the line too long.
 		for (int j = 0;
 				i < Global::levelWidth && j < (int)line.size();
 				j++) {
-			// We run the given function on this position and
-			//   character.
 			this->charToObject(i, j, line[j], empty);
 
 		}
@@ -72,11 +59,9 @@ void Level::load(istream& in, bool empty) {
 }
 
 void Level::randomize() {
-	// Get a random spawn for the player
 	int playerChamber = this->getRandomChamber();
 	this->spawn = this->getRandomFloorLocation(playerChamber);
 
-	// Get a random spawn for the stairs
 	int stairsChamber = playerChamber;
 	while (stairsChamber == playerChamber) {
 		stairsChamber = this->getRandomChamber();
@@ -85,7 +70,6 @@ void Level::randomize() {
 	this->stairs = this->game->addObject(StairsKind);
 	this->place(stairs, this->getRandomFloorLocation(stairsChamber));
 
-	// Potions...
 	Kind potions[6] = { RHPotionKind, PHPotionKind,
 						BAPotionKind, WAPotionKind,
 						BDPotionKind, WDPotionKind};
@@ -97,7 +81,6 @@ void Level::randomize() {
 		this->addKindInRandomLocation(kind);
 	}
 
-	// Gold
 	Kind golds[3] = { GoldSmallKind, GoldNormalKind, GoldDragonKind };
 	int goldProbs[3] = { 2, 5, 1 };
 	vector<Kind> goldDist = Global::constructProbabilityDist(golds, goldProbs, 3);
@@ -107,7 +90,6 @@ void Level::randomize() {
 		this->addKindInRandomLocation(kind);
 	}
 
-	// Enemy
 	Kind enemies[6] = { HumanKind, DwarfKind, HalflingKind, ElfKind, OrcKind, MerchantKind };
 	int enemyProbs[6] = { 4, 3, 5, 2, 2, 2 };
 	vector<Kind> enemyDist = Global::constructProbabilityDist(enemies, enemyProbs, 6);
@@ -121,7 +103,6 @@ void Level::randomize() {
 Vector Level::getRandomFloorLocation(int chamber) const {
 	GameObject* posObj = 0;
 	
-	// pick a position with a floor tile
 	while (!posObj ||  posObj->subKind != FloorKind) {
 		int randomLoc = Global::irand(0, this->chambers[chamber].size() - 1);
 		posObj = this->get(this->chambers[chamber].at(randomLoc));
@@ -131,7 +112,6 @@ Vector Level::getRandomFloorLocation(int chamber) const {
 }
 
 int Level::getRandomChamber() const {
-	// pick a random chamber
 	int chamber = Global::irand(0, Global::maxChambers - 1);
 
 	return chamber;
@@ -149,8 +129,6 @@ void Level::load(istream& in) {
 	this->load(in, false);
 }
 
-// This is strictly to only load empty floors, hence the different name from load.
-//   these two functions do the exact the same, but on completely different streams.
 void Level::init(istream& in) {
 	this->load(in, true);
 }
@@ -220,8 +198,6 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 	
 	GameObject* gobj = NULL;
 
-	// We add things differently whether we are adding things
-	//   from a template or the actual level file
 	if (!empty) {
 		switch(c) {
 			case Global::VWallSymbol:
@@ -292,7 +268,6 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 				this->stairs = gobj;
 				break;
 
-			// Player!
 			case Global::PlayerSymbol:
 				this->spawn.x = j;
 				this->spawn.y = i;
@@ -312,8 +287,6 @@ void Level::charToObject(int i, int j, char c, bool empty) {
 				gobj = this->game->addObject(HWallKind);
 				break;
 
-			// Easy way to get the chambers without technically
-			//   harding the object
 			case Global::Chamber1Symbol:
 			case Global::Chamber2Symbol:
 			case Global::Chamber3Symbol:
@@ -368,11 +341,6 @@ void Level::move(Vector from, Vector to) {
 	}
 }
 
-// Assumes the given GameObject is not already on the level...
-//   this is only meant to be used on the player, it's a very
-//   risky function, later I might add a level field to the
-//   game objects just to guard this function, it could
-//   screw us if you use it accidently somewhere wrong
 void Level::place(GameObject* gobj, Vector pos) {
 	Stack<GameObject*>* toStack = this->tiles[pos.y][pos.x];
 	if (!toStack) {
@@ -387,10 +355,3 @@ void Level::place(GameObject* gobj, Vector pos) {
 GameObject* Level::getStairs() const {
 	return this->stairs;
 }
-
-
-
-
-
-
-

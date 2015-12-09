@@ -55,8 +55,4 @@ bool GameObject::less_than
 	return d1 < d2;
 }
 
-
-
-
-
 GameObject::~GameObject() { }
