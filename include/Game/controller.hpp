@@ -10,7 +10,7 @@
 
 class Controller : public Notification {
 public:
-	Controller(std::istream&, std::string save);
+	Controller(std::istream&);
 	Game* game;
 	View* view;
 
@@ -35,11 +35,8 @@ private:
 
 	std::string commandBuffer;
 	std::istream& in;
-	std::ifstream loader;
 
 	Vector getDirection(std::string) const;
-
-	std::string save;
 
 	void kill();
 };

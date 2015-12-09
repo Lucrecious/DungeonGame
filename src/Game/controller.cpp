@@ -4,8 +4,8 @@
 #include <string>
 using namespace std;
 
-Controller::Controller(istream& input, string _save)
-	 : game(0), view(0), in(input), save(_save) { } 
+Controller::Controller(istream& input)
+	 : game(0), view(0), in(input) { } 
 
 
 void Controller::passInformationText(
@@ -105,9 +105,8 @@ void Controller::main() {
 				this->kill();
 				begun = true;
 				Kind kind = this->getRaceFromString(this->commandBuffer);
-				bool randomized = this->save == ""; 
 
-				this->game = new Game(/*randomized*/);
+				this->game = new Game();
 				this->game->setController(this);
 				this->game->setPlayer(kind);
 
@@ -115,11 +114,7 @@ void Controller::main() {
 						Global::levelWidth,
 						Global::levelHeight);
 
-				if (!randomized) {
-					this->loader.open(this->save.c_str());
-				}
-
-				this->nextLevel();
+				this->game->buildRandomLevel();
 				this->game->passInformationText();
 				this->game->passFlavorText("");
 				prompt = inGamePrompt;
@@ -150,7 +145,8 @@ void Controller::main() {
 				this->kill();
 				continue;
 			}
-			this->nextLevel();
+
+			this->game->buildRandomLevel();
 			this->game->passInformationText();
 		}
 
@@ -170,14 +166,6 @@ void Controller::printLoseDialogue() const {
 	cout << "Game Over" << endl;
 }
 
-void Controller::nextLevel() {
-	if (this->loader.is_open()) {
-		this->game->buildLevel(this->loader);
-	}
-	else {
-		this->game->buildRandomLevel();
-	}
-}
 
 void Controller::kill() {
 	delete this->game;
@@ -185,13 +173,6 @@ void Controller::kill() {
 
 	delete this->view;
 	this->view = NULL;
-
-	
-	if (loader.is_open()) {
-		loader.close();
-	}
-	loader.clear();
-	
 }
 
 Kind Controller::getRaceFromString(string s) {

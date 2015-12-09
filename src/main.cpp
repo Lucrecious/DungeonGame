@@ -21,16 +21,10 @@ int main(int argc, char** argv) {
 	splash.close();
 
 	cout << endl << endl;
-
-
-	string filepath = "";
-	if (argc >= 2) {
-		filepath = string(argv[1]);
-	}
 	
-	if (argc >= 3) {
+	if (argc >= 2) {
 		int seed = 0;
-		string sseed = string(argv[2]);
+		string sseed = string(argv[1]);
 		for (int i = 0; i < (int)sseed.size(); i++) {
 			seed += (int)sseed[i];
 		}
@@ -41,7 +35,7 @@ int main(int argc, char** argv) {
 		srand(time(NULL));
 	}
 	
-	Controller cont(std::cin, filepath);
+	Controller cont(std::cin);
 	cont.main();
 
 }
