@@ -53,22 +53,6 @@ Game::~Game() {
 
 }
 
-int Game::getStaticAmount() const {
-	return this->statics->size();
-}
-
-int Game::getLivingAmount() const {
-	return this->livings->size();
-}
-
-StaticEntity* Game::getStaticAt(int i) const {
-	return this->statics->at(i);
-}
-
-LivingEntity* Game::getLivingAt(int i) const {
-	return this->livings->at(i);
-}
-
 GameObject* Game::addObject(Kind kind) {
 	GameObject* gobj = 0;
 

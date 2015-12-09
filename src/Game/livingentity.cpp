@@ -91,13 +91,6 @@ void LivingEntity::addNewKnownPotion(Kind kind) {
 	this->knownPotions[this->numKnownPotions++] = kind;
 }
 
-void LivingEntity::move(Vector movement) {
-	Vector newPosition = this->getPosition();
-	newPosition.x += movement.x;
-	newPosition.y += movement.y;
-	this->setPosition(newPosition);
-}
-
 void LivingEntity::turnSucceeded(Turn, bool, GameObject*, ostream&) {
 }
 

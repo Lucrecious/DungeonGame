@@ -9,6 +9,12 @@ public:
 	Drow();
 	int getAtkStat() const;
 	int getDefStat() const;
+
+	void drink(Potion*);
+
+private:
+	const static double scale = 2;
+	const static int heal = 25;
 };
 
 #endif
