@@ -4,11 +4,13 @@
 #include <Global/global.hpp>
 using namespace std;
 
+const int LivingEntity::DefaultHeals;
+
 LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		int atk = 0, int def = 0, int hp = 0)
 	: GameObject(topKind, subKind), effect(0), currentHP(hp), 
 	  atkStat(atk), defStat(def), maxHP(hp),
-	  numKnownPotions(0){
+	  numKnownPotions(0), maxHeals(LivingEntity::DefaultHeals), usedHeals(0), healAmount(hp/2) {
 		  for (int i = 0; i < MAXKNOWNPOTS; i++) {
 			  this->knownPotions[i] = NoneKind;
 		  }
@@ -123,6 +125,14 @@ int LivingEntity::slainGold() const {
 	else {
 		return Global::SmallGold;
 	}
+}
+
+bool LivingEntity::canUseHeal() const {
+	return this->usedHeals < this->maxHeals;
+}
+
+void LivingEntity::useHeal() {
+	this->setHP(this->getHP() + this->healAmount);
 }
 
 

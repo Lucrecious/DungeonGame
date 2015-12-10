@@ -13,6 +13,8 @@ const int MAXKNOWNPOTS = 6;
  
 class LivingEntity : public GameObject {
 public:
+	const static int DefaultHeals = 3;
+
 	LivingEntity(Kind, Kind, int, int, int);
 	~LivingEntity();
 
@@ -39,6 +41,9 @@ public:
 	virtual void drop();
 	virtual int slainGold() const;
 
+	virtual bool canUseHeal() const;
+	virtual void useHeal();
+
 protected:
 	Effect* effect;
 	int currentHP;
@@ -50,6 +55,10 @@ private:
 	Kind knownPotions[MAXKNOWNPOTS];
 	int numKnownPotions;
 	void addNewKnownPotion(Kind);
+
+	int maxHeals;
+	int usedHeals;
+	int healAmount;
 	
 };
 
