@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include <vector>
 #include <Global/kind.hpp>
+#include <Global/information.hpp>
+
+class Game;
+class Player;
+
 class Global {
 public:
 	const static int levelHeight = 25;
@@ -61,6 +66,8 @@ public:
 
 	static std::vector<Kind> constructProbabilityDist(Kind*, int*, int length);
 	static Kind getRandomKindFrom(std::vector<Kind>);
+
+	static Information makeInfoFromPlayer(Player*, Game*);
 };
 
 #endif

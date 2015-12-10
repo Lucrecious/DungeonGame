@@ -1,6 +1,8 @@
 #include <Game/player.hpp>
 #include <iostream>
 #include <Global/global.hpp>
+#include <Game/controller.hpp>
+#include <Game/game.hpp>
 using namespace std;
 
 Player::Player(Kind subKind, int atk = 0, int def = 0, int hp = 1)

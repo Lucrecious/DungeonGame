@@ -1,5 +1,6 @@
 #include <Game/gameobject.hpp>
 #include <string>
+#include <Game/controller.hpp>
 using namespace std;
 
 GameObject::GameObject(Kind top, Kind sub) : topKind(top), subKind(sub), ghost(false) {

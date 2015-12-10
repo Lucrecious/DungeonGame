@@ -1,5 +1,6 @@
 #include <Game/controller.hpp>
 #include <Global/global.hpp>
+#include <Global/information.hpp>
 #include <fstream>
 #include <string>
 using namespace std;
@@ -8,10 +9,9 @@ Controller::Controller(istream& input)
 	 : game(0), view(0), in(input) { } 
 
 
-void Controller::passInformationText(
-		int atk, int def, int hp, int maxhp, int gold, string race, int level) const {
-	this->view->setInformationText(
-			atk, def, hp, maxhp, gold, race, level);
+void Controller::passInformation() const {
+	Information info = Global::makeInfoFromPlayer(this->game->getPlayer(), this->game);
+	this->view->setInformationText(info);
 }
 
 void Controller::passFlavorText(string text) const{
@@ -115,7 +115,7 @@ void Controller::main() {
 						Global::levelHeight);
 
 				this->game->buildRandomLevel();
-				this->game->passInformationText();
+				this->passInformation();
 				this->game->passFlavorText("");
 				prompt = inGamePrompt;
 				this->view->display();
@@ -147,7 +147,7 @@ void Controller::main() {
 			}
 
 			this->game->buildRandomLevel();
-			this->game->passInformationText();
+			this->passInformation();
 		}
 
 		this->view->display();

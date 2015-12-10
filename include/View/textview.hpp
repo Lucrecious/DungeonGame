@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <map>
+#include <Global/information.hpp>
 
 
 class TextView : public View {
@@ -18,8 +19,7 @@ public:
 	char** floor;
 	void display() const;
 	void notify(Vector, Kind);
-	void setInformationText(
-			int atk, int def, int hp, int hpmax, int gold, std::string race, int level);
+	void setInformationText(Information);
 	void setFlavorText(std::string);
 	
 	static std::map<Kind,char> kindChar;

@@ -10,7 +10,7 @@ LivingEntity::LivingEntity(Kind topKind, Kind subKind,
 		int atk = 0, int def = 0, int hp = 0)
 	: GameObject(topKind, subKind), effect(0), currentHP(hp), 
 	  atkStat(atk), defStat(def), maxHP(hp),
-	  numKnownPotions(0), maxHeals(LivingEntity::DefaultHeals), usedHeals(0), healAmount(hp/2) {
+	  numKnownPotions(0), healsLeft(LivingEntity::DefaultHeals), healAmount(hp/2) {
 		  for (int i = 0; i < MAXKNOWNPOTS; i++) {
 			  this->knownPotions[i] = NoneKind;
 		  }
@@ -127,12 +127,10 @@ int LivingEntity::slainGold() const {
 	}
 }
 
-bool LivingEntity::canUseHeal() const {
-	return this->usedHeals < this->maxHeals;
+int LivingEntity::getHealsLeft() const {
+	return this->healsLeft;
 }
 
 void LivingEntity::useHeal() {
 	this->setHP(this->getHP() + this->healAmount);
 }
-
-

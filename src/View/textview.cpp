@@ -35,24 +35,23 @@ void TextView::display() const {
 	cout << this->flavorText.str() << endl;
 }
 
-void TextView::setInformationText(
-		int atk, int def, int hp, int hpmax, int gold, string race, int level) {
+void TextView::setInformationText(Information i){
 	this->informationText.str(string());
-	this->informationText << "Atk: " << atk << setw(10);
-	this->informationText << "Def: " << def << setw(10);
-	this->informationText << "HP: " << hp << "/";
+	this->informationText << "Atk: " << i.atkStat << setw(10);
+	this->informationText << "Def: " << i.defStat << setw(10);
+	this->informationText << "HP: " << i.currentHP << "/";
 
-	if (race == "Vampire") {
+	if (i.name == "Vampire") {
 		this->informationText << "-";
 	}
 	else {
-		this->informationText << hpmax;
+		this->informationText << i.maxHP;
 	}
 
 	this->informationText << setw(10);
-	this->informationText << "Gold: " << gold << setw(30);
-	this->informationText << "Floor: " << level << endl;
-	this->informationText << "Race: " << race;
+	this->informationText << "Gold: " << i.gold << setw(30);
+	this->informationText << "Floor: " << i.level << endl;
+	this->informationText << "Race: " << i.name;
 }
 
 void TextView::setFlavorText(string text) {

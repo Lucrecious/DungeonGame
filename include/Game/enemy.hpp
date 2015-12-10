@@ -2,7 +2,8 @@
 #define ENEMY_H
 
 #include <Game/livingentity.hpp>
-#include <Game/player.hpp>
+
+class Player;
 
 class Enemy : public LivingEntity {
 public:

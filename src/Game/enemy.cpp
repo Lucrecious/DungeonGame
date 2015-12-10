@@ -2,6 +2,8 @@
 #include "math.h"
 #include <iostream>
 #include <Global/global.hpp>
+#include <Game/game.hpp>
+#include <Game/player.hpp>
 using namespace std;
 
 Enemy::Enemy(Kind kind, int atk, int def, int hp)

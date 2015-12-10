@@ -32,7 +32,6 @@ public:
 	void setPlayer(Kind);
 	Player* getPlayer() const;
 
-	void passInformationText() const;
 	void passFlavorText(std::string) const;
 	void printNearByPotionsIfAny(LivingEntity*, std::ostream&) const;
 
@@ -45,7 +44,6 @@ public:
 
 	bool merchantsHostile() const;
 	void makeMerchantsHostile();
-	
 private:
 	bool doTurn(Turn, LivingEntity*, std::ostream&, GameObject*&);
 	void clearNonPlayerObjects();

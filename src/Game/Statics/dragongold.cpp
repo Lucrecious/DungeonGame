@@ -1,5 +1,6 @@
 #include <Game/Statics/dragongold.hpp>
 #include <Game/Characters/dragon.hpp>
+#include <Game/game.hpp>
 #include <iostream>
 using namespace std;
 

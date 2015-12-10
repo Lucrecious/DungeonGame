@@ -4,10 +4,10 @@
 
 #include <Utils/vector.hpp>
 #include <Global/kind.hpp>
-#include <Game/controller.hpp>
 #include <string>
 
 class Game;
+class Controller;
 
 class GameObject {
 public:

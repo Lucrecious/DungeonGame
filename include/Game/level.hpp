@@ -2,11 +2,11 @@
 #define LEVEL_H
 
 #include <Utils/stack.hpp>
-#include <Global/global.hpp>
 #include <Global/kind.hpp>
 #include <Utils/vector.hpp>
 #include <fstream>
 #include <vector>
+#include <Global/global.hpp>
 
 class Game;
 class GameObject;

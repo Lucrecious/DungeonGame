@@ -1,5 +1,6 @@
 #include <Game/Characters/merchant.hpp>
 #include <Global/global.hpp>
+#include <Game/game.hpp>
 
 Merchant::Merchant() : Enemy(MerchantKind, 70, 5, 30) {
 	this->setName("Merchant");

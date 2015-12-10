@@ -1,6 +1,8 @@
 #include <Game/Characters/dragon.hpp>
 #include <Game/Statics/dragongold.hpp>
 #include <iostream>
+#include <Game/game.hpp>
+#include <Game/player.hpp>
 using namespace std;
 
 Dragon::Dragon() : Enemy(DragonKind, 20, 20, 150), dgold(0) {

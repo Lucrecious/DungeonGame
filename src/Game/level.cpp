@@ -1,4 +1,5 @@
 #include <Game/level.hpp>
+#include <Game/game.hpp>
 #include <iostream>
 #include <Game/gameobject.hpp>
 #include <Game/Statics/dragongold.hpp>

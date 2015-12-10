@@ -41,8 +41,8 @@ public:
 	virtual void drop();
 	virtual int slainGold() const;
 
-	virtual bool canUseHeal() const;
-	virtual void useHeal();
+	int getHealsLeft() const;
+	void useHeal();
 
 protected:
 	Effect* effect;
@@ -57,7 +57,7 @@ private:
 	void addNewKnownPotion(Kind);
 
 	int maxHeals;
-	int usedHeals;
+	int healsLeft;
 	int healAmount;
 	
 };

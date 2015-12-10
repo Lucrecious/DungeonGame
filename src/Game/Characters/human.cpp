@@ -1,5 +1,6 @@
 #include <Game/Characters/human.hpp>
 #include <Game/Statics/gold.hpp>
+#include <Game/game.hpp>
 
 Human::Human() : Enemy(HumanKind, 20, 20, 140) {
 	this->setName("Human");

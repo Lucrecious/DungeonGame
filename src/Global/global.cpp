@@ -1,4 +1,6 @@
 #include <Global/global.hpp>
+#include <Game/game.hpp>
+#include <Game/player.hpp>
 using namespace std;
 
 double Global::drand(double lower, double upper) {
@@ -31,6 +33,22 @@ vector<Kind> Global::constructProbabilityDist(Kind* kinds, int* probs, int lengt
 	}
 
 	return probDist;
+}
+
+Information Global::makeInfoFromPlayer(Player* p, Game* g) {
+	Information info = {
+		p->getAtkStat(),
+		p->getDefStat(),
+		p->getHP(),
+		p->getMaxHP(),
+		p->getGold(),
+		p->getName(),
+		p->subKind,
+		p->getHealsLeft(),
+		g->getLevelNumber()
+	};
+
+	return info;	
 }
 
 

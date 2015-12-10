@@ -7,6 +7,7 @@
 #include <View/textview.hpp>
 #include <Game/game.hpp>
 #include <Global/kind.hpp>
+#include <Global/information.hpp>
 
 class Controller : public Notification {
 public:
@@ -18,8 +19,7 @@ public:
 
 	void notify(Vector, Kind) const;
 
-	void passInformationText(
-			int atk, int def, int hp, int maxhp, int gold, std::string race, int level) const;
+	void passInformation() const;
 	void passFlavorText(std::string) const;
 
 	void main();

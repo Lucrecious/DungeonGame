@@ -1,4 +1,5 @@
 #include <Game/Game.hpp>
+#include <Game/controller.hpp>
 #include <vector>
 #include <Game/Characters/shade.hpp>
 #include <Game/Characters/human.hpp>
@@ -168,19 +169,8 @@ void Game::update() {
 		gobj->turnSucceeded(turn, doneTurn, affectedgobj, flavor);
 	}
 
-	this->passInformationText();
+	this->controller->passInformation();
 	this->passFlavorText(flavor.str());
-}
-
-void Game::passInformationText() const{
-	this->controller->passInformationText(
-			this->player->getAtkStat(),
-			this->player->getDefStat(),
-			this->player->getHP(),
-			this->player->getMaxHP(),
-			this->player->getGold(),
-			this->player->getName(),
-			this->levelNumber);
 }
 
 void Game::passFlavorText(string text) const{
@@ -348,6 +338,21 @@ bool Game::doTurn(Turn turn, LivingEntity* gobj,
 				turnSucceeded = false;
 				break;
 			}
+		case Heal:
+			{
+				string healText;
+				if (gobj->getHealsLeft() > 0) {
+					gobj->useHeal();
+					healText = " You used a heal. ";
+				}
+				else {
+					healText = " You don't have any heals left. ";
+				}
+
+				if (gobj->topKind == PlayerKind) {
+					flavor << healText;
+				}
+			}
 		default:
 			turnSucceeded = false;
 			break;
@@ -486,5 +491,3 @@ bool Game::merchantsHostile() const {
 void Game::makeMerchantsHostile() {
 	this->merchantsAttack = true;
 }
-
-
