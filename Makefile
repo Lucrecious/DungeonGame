@@ -1,6 +1,6 @@
 CC = g++
 
-CFLAGS = -Wall -g
+CFLAGS = -std=c++11 -Wall -g
 
 INCLUDES = -I./include
 

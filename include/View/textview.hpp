@@ -6,6 +6,7 @@
 #include <Global/kind.hpp>
 #include <iostream>
 #include <sstream>
+#include <map>
 
 
 class TextView : public View {
@@ -20,6 +21,9 @@ public:
 	void setInformationText(
 			int atk, int def, int hp, int hpmax, int gold, std::string race, int level);
 	void setFlavorText(std::string);
+	
+	static std::map<Kind,char> kindChar;
+
 private:
 	std::ostringstream informationText;
 	std::ostringstream flavorText;

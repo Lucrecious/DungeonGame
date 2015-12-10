@@ -13,7 +13,7 @@ public:
 	void drink(Potion*);
 
 private:
-	const static double scale = 2;
+	constexpr static double scale = 2;
 	const static int heal = 25;
 };
 

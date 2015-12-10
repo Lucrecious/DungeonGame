@@ -3,7 +3,9 @@
 #include <sstream>
 #include <iomanip>
 #include <Global/global.hpp>
+#include <map>
 using namespace std;
+
 
 TextView::TextView(int w, int h) : width(w), height(h) {
 	this->floor = new char*[h];
@@ -90,54 +92,35 @@ void TextView::notify(Vector v, Kind k) {
 }
 
 char TextView::getCharFromKind(Kind kind) {
-	switch(kind) {
-		case FloorKind:
-			return Global::FloorSymbol;
-		case VWallKind:
-			return Global::VWallSymbol;
-		case HWallKind:
-			return Global::HWallSymbol;
-		case PassageKind:
-			return Global::PassageSymbol;
-		case DoorKind:
-			return Global::DoorSymbol;
-		case StairsKind:
-			return Global::StairsSymbol;
-		
-		case PotionKind:
-			return Global::PotionSymbol;
-
-		case HumanKind:
-			return Global::HumanSymbol;
-		case DwarfKind:
-			return Global::DwarfSymbol;
-		case ElfKind:
-			return Global::ElfSymbol;
-		case OrcKind:
-			return Global::OrcSymbol;
-		case MerchantKind:
-			return Global::MerchantSymbol;
-		case HalflingKind:
-			return Global::HalflingSymbol;
-
-		case GoldKind:
-			return Global::GoldSymbol;
-
-		case DragonKind:
-			return Global::DragonSymbol;
-
-		case ShadeKind:
-		case GoblinKind:
-		case DrowKind:
-		case TrollKind:
-		case VampireKind:
-		case PlayerKind:
-			return Global::PlayerSymbol;
-		default:
-			return '?';
+	if (TextView::kindChar.find(kind) == TextView::kindChar.end()) {
+		return '?';
+	}
+	else {
+		return TextView::kindChar[kind];
 	}
 }
 
-
+map<Kind,char> TextView::kindChar = {
+	{ FloorKind, Global::FloorSymbol },
+	{ VWallKind, Global::VWallSymbol },
+	{ HWallKind, Global::HWallSymbol },
+	{ PassageKind, Global::PassageSymbol },
+	{ DoorKind, Global::DoorSymbol },
+	{ StairsKind, Global::StairsSymbol },
+	{ PotionKind, Global::PotionSymbol },
+	{ HumanKind, Global::HumanSymbol },
+	{ DwarfKind, Global::DwarfSymbol },
+	{ ElfKind, Global::ElfSymbol },
+	{ OrcKind, Global::OrcSymbol },
+	{ MerchantKind, Global::MerchantSymbol },
+	{ HalflingKind, Global::HalflingSymbol },
+	{ GoldKind, Global::GoldSymbol },
+	{ DragonKind, Global::DragonSymbol },
+	{ ShadeKind, Global::PlayerSymbol },
+	{ GoblinKind, Global::PlayerSymbol },
+	{ DrowKind, Global::PlayerSymbol },
+	{ TrollKind, Global::PlayerSymbol },
+	{ VampireKind, Global::PlayerSymbol }
+};
 
 
