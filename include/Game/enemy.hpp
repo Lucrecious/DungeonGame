@@ -9,7 +9,10 @@ class Enemy : public LivingEntity {
 public:
 	Enemy(Kind, int, int, int);
 	Turn getTurn();
+	virtual Player* isPlayerReachable() const;
 	virtual Player* isPlayerAround() const;
+private:
+	int getSquaredDistanceFromPlayer() const;
 };
 
 #endif
