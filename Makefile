@@ -8,6 +8,7 @@ SRCS = $(wildcard src/*.cpp) $(wildcard src/Game/*.cpp) $(wildcard src/Game/Char
 
 OBJS = $(SRCS:.cpp=.o)
 
+
 MAIN = Dungeon
 
 .PHONY: depend clean
