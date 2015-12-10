@@ -4,6 +4,7 @@
 #include <Global/global.hpp>
 #include <Game/game.hpp>
 #include <Game/player.hpp>
+#include <math.h>
 using namespace std;
 
 Enemy::Enemy(Kind kind, int atk, int def, int hp)
@@ -18,11 +19,12 @@ Turn Enemy::getTurn() {
 	Vector v = { 0, 0 };
 
 	if (this->isPlayerAround()) {
-		cout << "segmentation here? -- enemy.cc" << endl;
 		v = this->game->getPlayer()->getPosition() - this->getPosition();
 		int dist = v.x*v.x + v.y*v.y;
-		v.x = (v.x*v.x)/dist;
-		v.y = (v.y*v.y)/dist;
+		int signx = v.x > 0 ? 1 : -1;
+		int signy = v.y > 0 ? 1 : -1;
+		v.x = round(signx*(v.x*v.x)/(double)dist);
+		v.y = round(signy*(v.y*v.y)/(double)dist);
 	} else {
 		while (v.x == 0 && v.y == 0) {
 			v.x = Global::irand(-1, 1);
@@ -51,9 +53,7 @@ Player* Enemy::isPlayerAround() const {
 
 int Enemy::getSquaredDistanceFromPlayer() const {
 	Player* player = this->game->getPlayer();
-	cout << "in squared -- enemy.cc" << endl;
 	Vector diff = player->getPosition() - this->getPosition();
-	cout << "in squared (after) --enemy.cc" << endl;
 
 	return diff.x*diff.x + diff.y*diff.y;
 }
