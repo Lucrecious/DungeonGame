@@ -12,8 +12,8 @@ struct Information {
 	const int gold;
 	const std::string name;
 	const Kind kind;
+	const int healsLeft;
 	const int level;
-	const int Healsleft;
 };
 
 #endif

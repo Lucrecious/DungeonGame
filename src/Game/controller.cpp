@@ -51,6 +51,7 @@ Turn Controller::getInput() const {
 	string command = this->commandBuffer;
 
 	TurnKind kind = Move;
+	Vector vec = { 0, 0 };
 
 	if (command == "u") {
 		kind = Drink;
@@ -58,9 +59,13 @@ Turn Controller::getInput() const {
 	}else if (command == "a") {
 		kind = Attack;
 		this->in >> command;
+	}else if (command == "h") {
+		kind = Heal;
 	}
 	
-	Vector vec = this->getDirection(command);
+	if (kind != Heal) {
+		vec = this->getDirection(command);
+	}
 
 	return Turn(kind, vec);
 

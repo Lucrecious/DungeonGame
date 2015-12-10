@@ -133,4 +133,5 @@ int LivingEntity::getHealsLeft() const {
 
 void LivingEntity::useHeal() {
 	this->setHP(this->getHP() + this->healAmount);
+	this->healsLeft--;
 }

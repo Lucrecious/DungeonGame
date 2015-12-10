@@ -56,7 +56,6 @@ private:
 	int numKnownPotions;
 	void addNewKnownPotion(Kind);
 
-	int maxHeals;
 	int healsLeft;
 	int healAmount;
 	

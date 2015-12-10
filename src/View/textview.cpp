@@ -49,7 +49,8 @@ void TextView::setInformationText(Information i){
 	}
 
 	this->informationText << setw(10);
-	this->informationText << "Gold: " << i.gold << setw(30);
+	this->informationText << "Gold: " << i.gold << setw(15);
+	this->informationText << "Heals Left: " << i.healsLeft << setw(10);
 	this->informationText << "Floor: " << i.level << endl;
 	this->informationText << "Race: " << i.name;
 }
